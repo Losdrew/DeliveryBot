@@ -21,4 +21,8 @@
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DeliveryBot.Db\DeliveryBot.Db.csproj" />
+  </ItemGroup>
+
 </Project>
