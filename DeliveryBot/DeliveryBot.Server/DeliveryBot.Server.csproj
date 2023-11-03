@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DeliveryBot.Db\DeliveryBot.Db.csproj" />
+    <ProjectReference Include="..\DeliveryBot.Shared\DeliveryBot.Shared.csproj" />
   </ItemGroup>
 
 </Project>
