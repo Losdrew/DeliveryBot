@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34221.43
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeliveryBot.Server", "DeliveryBot.Server\DeliveryBot.Server.csproj", "{43E77B2E-3715-419C-96CD-54617BA0BACF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{43E77B2E-3715-419C-96CD-54617BA0BACF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43E77B2E-3715-419C-96CD-54617BA0BACF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43E77B2E-3715-419C-96CD-54617BA0BACF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43E77B2E-3715-419C-96CD-54617BA0BACF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A5E87B4A-504B-4B50-A356-E913A5DBF4DC}
+	EndGlobalSection
+EndGlobal
