@@ -1,18 +1,23 @@
+using System.Reflection;
 using DeliveryBot.Db;
+using DeliveryBot.Server.BuildInjections;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddDbSetup(builder.Configuration);
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSetSwagger();
+builder.Services.AddMediatR(configuration =>
+    configuration.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+builder.Services.AddLogging();
+builder.Services.AddServices();
+builder.Services.AddSetSecurity(builder.Configuration);
+builder.Services.AddCors();
+builder.Services.AddDbSetup(builder.Configuration);
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -20,7 +25,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors(CorsInjection.PolicyName);
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
