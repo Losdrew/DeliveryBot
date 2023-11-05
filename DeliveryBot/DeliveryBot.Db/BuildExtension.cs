@@ -13,7 +13,11 @@ public static class BuildExtension
         var configurationString = configuration.GetRequiredSection("ConnectionString").Value;
 
         services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseNpgsql(configurationString, b => b.MigrationsAssembly("DeliveryBot.Db")));
+            options.UseNpgsql(configurationString, builder =>
+            {
+                builder.MigrationsAssembly("DeliveryBot.Db");
+                builder.UseNetTopologySuite();
+            }));
 
         services.AddDefaultIdentity<IdentityUser>(options =>
             {
