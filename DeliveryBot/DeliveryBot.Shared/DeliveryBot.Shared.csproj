@@ -8,7 +8,10 @@
 
   <ItemGroup>
     <Folder Include="ServiceResponseHandling\" />
-    <Folder Include="ServiceErrors\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="11.8.0" />
   </ItemGroup>
 
 </Project>
