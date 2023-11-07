@@ -10,4 +10,18 @@ public class AccountError : ServiceError
         ErrorMessage = "Error when creating account",
         Code = 1
     };
+
+    public static AccountError LoginServiceError = new()
+    {
+        Header = "Login error",
+        ErrorMessage = "Error when performing login",
+        Code = 2
+    };
+
+    public static AccountError LoginValidationError = new()
+    {
+        Header = "Login error",
+        ErrorMessage = "Email or password is not valid",
+        Code = 3
+    };
 }
