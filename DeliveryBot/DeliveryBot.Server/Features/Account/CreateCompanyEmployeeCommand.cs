@@ -1,5 +1,7 @@
 ﻿using DeliveryBot.Db.DbContexts;
+using DeliveryBot.Db.Models;
 using DeliveryBot.Server.Features.Base;
+using DeliveryBot.Server.Models.Account;
 using DeliveryBot.Server.Services;
 using DeliveryBot.Shared.Dto.Account;
 using DeliveryBot.Shared.Helpers;
@@ -12,7 +14,7 @@ namespace DeliveryBot.Server.Features.Account;
 public class CreateCompanyEmployeeCommand : CreateCompanyEmployeeCommandDto, IRequest<ServiceResponse<SignUpResultDto>>
 {
     public class CreateCompanyEmployeeCommandHandler :
-        CompanyEmployeeSignUpHandler<CreateCompanyEmployeeCommand, ServiceResponse<SignUpResultDto>>
+        SignUpHandler<CreateCompanyEmployeeCommand, ServiceResponse<SignUpResultDto>>
     {
         public CreateCompanyEmployeeCommandHandler(IMediator mediator, ApplicationDbContext context, 
             ITokenGenerator tokenGenerator, ILogger<CreateCompanyEmployeeCommandHandler> logger)
@@ -37,6 +39,24 @@ public class CreateCompanyEmployeeCommand : CreateCompanyEmployeeCommandDto, IRe
         protected override string GetRole()
         {
             return Roles.CompanyEmployee;
+        }
+
+        protected override async Task<User> CreateUserAsync(CreateCompanyEmployeeCommand request,
+            ServiceResponse<CreateIdentityUserResult> createIdentityResponse)
+        {
+            var companyEmployee = new CompanyEmployee
+            {
+                Id = Guid.Parse(createIdentityResponse.Result.IdentityUser.Id),
+                Email = request.Email,
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                CompanyId = request.CompanyId
+            };
+
+            Context.CompanyEmployees.Add(companyEmployee);
+            await Context.SaveChangesAsync();
+
+            return companyEmployee;
         }
     }
 }

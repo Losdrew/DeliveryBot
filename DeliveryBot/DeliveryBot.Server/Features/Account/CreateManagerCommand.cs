@@ -1,5 +1,7 @@
 ﻿using DeliveryBot.Db.DbContexts;
+using DeliveryBot.Db.Models;
 using DeliveryBot.Server.Features.Base;
+using DeliveryBot.Server.Models.Account;
 using DeliveryBot.Server.Services;
 using DeliveryBot.Shared.Dto.Account;
 using DeliveryBot.Shared.Helpers;
@@ -12,7 +14,7 @@ namespace DeliveryBot.Server.Features.Account;
 public class CreateManagerCommand : CreateCompanyEmployeeCommandDto, IRequest<ServiceResponse<SignUpResultDto>>
 {
     public class CreateManagerCommandHandler : 
-        CompanyEmployeeSignUpHandler<CreateManagerCommand, ServiceResponse<SignUpResultDto>>
+        SignUpHandler<CreateManagerCommand, ServiceResponse<SignUpResultDto>>
     {
         public CreateManagerCommandHandler(IMediator mediator, ApplicationDbContext context,
             ITokenGenerator tokenGenerator, ILogger<CreateManagerCommandHandler> logger)
@@ -37,6 +39,24 @@ public class CreateManagerCommand : CreateCompanyEmployeeCommandDto, IRequest<Se
         protected override string GetRole()
         {
             return Roles.Manager;
+        }
+
+        protected override async Task<User> CreateUserAsync(CreateManagerCommand request,
+            ServiceResponse<CreateIdentityUserResult> createIdentityResponse)
+        {
+            var companyEmployee = new CompanyEmployee
+            {
+                Id = Guid.Parse(createIdentityResponse.Result.IdentityUser.Id),
+                Email = request.Email,
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                CompanyId = request.CompanyId
+            };
+
+            Context.CompanyEmployees.Add(companyEmployee);
+            await Context.SaveChangesAsync();
+
+            return companyEmployee;
         }
     }
 }

@@ -9,16 +9,16 @@ using MediatR;
 
 namespace DeliveryBot.Server.Features.Base;
 
-public abstract class CompanyEmployeeSignUpHandler<TCommand, TResponse> : BaseHandler<TCommand, TResponse>
-    where TCommand : CreateCompanyEmployeeCommandDto, IRequest<TResponse>
+public abstract class SignUpHandler<TCommand, TResponse> : BaseHandler<TCommand, TResponse>
+    where TCommand : CredentialsDto, IRequest<TResponse>
     where TResponse : ServiceResponse<SignUpResultDto>, new()
 {
     protected readonly IMediator Mediator;
     protected readonly ApplicationDbContext Context;
     protected readonly ITokenGenerator TokenGenerator;
 
-    protected CompanyEmployeeSignUpHandler(IMediator mediator, ApplicationDbContext context, ITokenGenerator tokenGenerator,
-        ILogger<CompanyEmployeeSignUpHandler<TCommand, TResponse>> logger)
+    protected SignUpHandler(IMediator mediator, ApplicationDbContext context, ITokenGenerator tokenGenerator,
+        ILogger<SignUpHandler<TCommand, TResponse>> logger)
         : base(logger)
     {
         Mediator = mediator;
@@ -39,12 +39,12 @@ public abstract class CompanyEmployeeSignUpHandler<TCommand, TResponse> : BaseHa
 
         if (createIdentityResponse.IsSuccess)
         {
-            var companyEmployee = await CreateCompanyEmployee(request, createIdentityResponse);
+            var user = await CreateUserAsync(request, createIdentityResponse);
             var token = await TokenGenerator.GenerateAsync(createIdentityResponse.Result.IdentityUser);
                 
             var result = new SignUpResultDto
             {
-                UserId = companyEmployee.Id,
+                UserId = user.Id,
                 Bearer = token
             };
 
@@ -55,22 +55,6 @@ public abstract class CompanyEmployeeSignUpHandler<TCommand, TResponse> : BaseHa
     }
 
     protected abstract string GetRole();
-
-    protected async Task<CompanyEmployee> CreateCompanyEmployee(TCommand request,
-        ServiceResponse<CreateIdentityUserResult> createIdentityResponse)
-    {
-        var companyEmployee = new CompanyEmployee
-        {
-            Id = Guid.Parse(createIdentityResponse.Result.IdentityUser.Id),
-            Email = request.Email,
-            FirstName = request.FirstName,
-            LastName = request.LastName,
-            CompanyId = request.CompanyId
-        };
-
-        Context.CompanyEmployees.Add(companyEmployee);
-        await Context.SaveChangesAsync();
-
-        return companyEmployee;
-    }
+    protected abstract Task<User> CreateUserAsync(TCommand request,
+        ServiceResponse<CreateIdentityUserResult> createIdentityResponse);
 }
