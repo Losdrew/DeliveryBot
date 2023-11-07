@@ -26,12 +26,12 @@ public class AccountController : BaseController
     /// <param name="request">The request to create a user account.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <remarks>
-    /// If the operation is successful, it will return a SignUpResultDto.
+    /// If the operation is successful, it will return an AuthResultDto.
     /// If there is a bad request, it will return an ErrorDto.
     /// </remarks>
     /// <returns>An IActionResult representing the result of the operation.</returns>
     [HttpPost("user/create")]
-    [ProducesResponseType(typeof(SignUpResultDto), 200)]
+    [ProducesResponseType(typeof(AuthResultDto), 200)]
     [ProducesResponseType(typeof(ErrorDto), 400)]
     public async Task<IActionResult> SignUpUser(CreateIdentityUserCommand request, CancellationToken cancellationToken)
     {
@@ -45,12 +45,12 @@ public class AccountController : BaseController
     /// <param name="request">The request to create a manager account.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <remarks>
-    /// If the operation is successful, it will return a SignUpResultDto.
+    /// If the operation is successful, it will return an AuthResultDto.
     /// If there is a bad request, it will return an ErrorDto.
     /// </remarks>
     /// <returns>An IActionResult representing the result of the operation.</returns>
     [HttpPost("manager/create")]
-    [ProducesResponseType(typeof(SignUpResultDto), 200)]
+    [ProducesResponseType(typeof(AuthResultDto), 200)]
     [ProducesResponseType(typeof(ErrorDto), 400)]
     public async Task<IActionResult> SignUpManager(CreateManagerCommand request, CancellationToken cancellationToken)
     {
@@ -64,12 +64,12 @@ public class AccountController : BaseController
     /// <param name="request">The request to create a company employee account.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <remarks>
-    /// If the operation is successful, it will return a SignUpResultDto.
+    /// If the operation is successful, it will return an AuthResultDto.
     /// If there is a bad request, it will return an ErrorDto.
     /// </remarks>
     /// <returns>An IActionResult representing the result of the operation.</returns>
     [HttpPost("company-employee/create")]
-    [ProducesResponseType(typeof(SignUpResultDto), 200)]
+    [ProducesResponseType(typeof(AuthResultDto), 200)]
     [ProducesResponseType(typeof(ErrorDto), 400)]
     public async Task<IActionResult> SignUpCompanyEmployee(CreateCompanyEmployeeCommand request, CancellationToken cancellationToken)
     {
@@ -83,12 +83,12 @@ public class AccountController : BaseController
     /// <param name="request">The request to create a customer account.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <remarks>
-    /// If the operation is successful, it will return a SignUpResultDto.
+    /// If the operation is successful, it will return an AuthResultDto.
     /// If there is a bad request, it will return an ErrorDto.
     /// </remarks>
     /// <returns>An IActionResult representing the result of the operation.</returns>
     [HttpPost("customer/create")]
-    [ProducesResponseType(typeof(SignUpResultDto), 200)]
+    [ProducesResponseType(typeof(AuthResultDto), 200)]
     [ProducesResponseType(typeof(ErrorDto), 400)]
     public async Task<IActionResult> SignUpCustomer(CreateCustomerCommand request, CancellationToken cancellationToken)
     {

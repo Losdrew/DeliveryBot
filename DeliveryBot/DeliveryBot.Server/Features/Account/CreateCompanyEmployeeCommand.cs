@@ -11,10 +11,10 @@ using MediatR;
 
 namespace DeliveryBot.Server.Features.Account;
 
-public class CreateCompanyEmployeeCommand : CreateCompanyEmployeeCommandDto, IRequest<ServiceResponse<SignUpResultDto>>
+public class CreateCompanyEmployeeCommand : CreateCompanyEmployeeCommandDto, IRequest<ServiceResponse<AuthResultDto>>
 {
     public class CreateCompanyEmployeeCommandHandler :
-        SignUpHandler<CreateCompanyEmployeeCommand, ServiceResponse<SignUpResultDto>>
+        SignUpHandler<CreateCompanyEmployeeCommand, ServiceResponse<AuthResultDto>>
     {
         public CreateCompanyEmployeeCommandHandler(IMediator mediator, ApplicationDbContext context, 
             ITokenGenerator tokenGenerator, ILogger<CreateCompanyEmployeeCommandHandler> logger)
@@ -22,7 +22,7 @@ public class CreateCompanyEmployeeCommand : CreateCompanyEmployeeCommandDto, IRe
         {
         }
 
-        public override async Task<ServiceResponse<SignUpResultDto>> Handle(CreateCompanyEmployeeCommand request, 
+        public override async Task<ServiceResponse<AuthResultDto>> Handle(CreateCompanyEmployeeCommand request, 
             CancellationToken cancellationToken)
         {
             try
@@ -32,7 +32,7 @@ public class CreateCompanyEmployeeCommand : CreateCompanyEmployeeCommandDto, IRe
             catch (Exception ex)
             {
                 Logger.LogCritical(ex, "Company employee creation error");
-                return ServiceResponseBuilder.Failure<SignUpResultDto>(AccountError.AccountCreateError);
+                return ServiceResponseBuilder.Failure<AuthResultDto>(AccountError.AccountCreateError);
             }
         }
 

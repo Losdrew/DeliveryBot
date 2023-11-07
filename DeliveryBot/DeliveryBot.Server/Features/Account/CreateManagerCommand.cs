@@ -11,10 +11,10 @@ using MediatR;
 
 namespace DeliveryBot.Server.Features.Account;
 
-public class CreateManagerCommand : CreateCompanyEmployeeCommandDto, IRequest<ServiceResponse<SignUpResultDto>>
+public class CreateManagerCommand : CreateCompanyEmployeeCommandDto, IRequest<ServiceResponse<AuthResultDto>>
 {
     public class CreateManagerCommandHandler : 
-        SignUpHandler<CreateManagerCommand, ServiceResponse<SignUpResultDto>>
+        SignUpHandler<CreateManagerCommand, ServiceResponse<AuthResultDto>>
     {
         public CreateManagerCommandHandler(IMediator mediator, ApplicationDbContext context,
             ITokenGenerator tokenGenerator, ILogger<CreateManagerCommandHandler> logger)
@@ -22,7 +22,7 @@ public class CreateManagerCommand : CreateCompanyEmployeeCommandDto, IRequest<Se
         {
         }
 
-        public override async Task<ServiceResponse<SignUpResultDto>> Handle(CreateManagerCommand request, 
+        public override async Task<ServiceResponse<AuthResultDto>> Handle(CreateManagerCommand request, 
             CancellationToken cancellationToken)
         {
             try
@@ -32,7 +32,7 @@ public class CreateManagerCommand : CreateCompanyEmployeeCommandDto, IRequest<Se
             catch (Exception ex)
             {
                 Logger.LogCritical(ex, "Manager creation error");
-                return ServiceResponseBuilder.Failure<SignUpResultDto>(AccountError.AccountCreateError);
+                return ServiceResponseBuilder.Failure<AuthResultDto>(AccountError.AccountCreateError);
             }
         }
 

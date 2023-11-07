@@ -11,7 +11,7 @@ namespace DeliveryBot.Server.Features.Base;
 
 public abstract class SignUpHandler<TCommand, TResponse> : BaseHandler<TCommand, TResponse>
     where TCommand : CredentialsDto, IRequest<TResponse>
-    where TResponse : ServiceResponse<SignUpResultDto>, new()
+    where TResponse : ServiceResponse<AuthResultDto>, new()
 {
     protected readonly IMediator Mediator;
     protected readonly ApplicationDbContext Context;
@@ -42,7 +42,7 @@ public abstract class SignUpHandler<TCommand, TResponse> : BaseHandler<TCommand,
             var user = await CreateUserAsync(request, createIdentityResponse);
             var token = await TokenGenerator.GenerateAsync(createIdentityResponse.Result.IdentityUser);
                 
-            var result = new SignUpResultDto
+            var result = new AuthResultDto
             {
                 UserId = user.Id,
                 Bearer = token
@@ -51,7 +51,7 @@ public abstract class SignUpHandler<TCommand, TResponse> : BaseHandler<TCommand,
             return (TResponse)ServiceResponseBuilder.Success(result);
         }
 
-        return (TResponse)createIdentityResponse.MapErrorResult<SignUpResultDto>();
+        return (TResponse)createIdentityResponse.MapErrorResult<AuthResultDto>();
     }
 
     protected abstract string GetRole();
