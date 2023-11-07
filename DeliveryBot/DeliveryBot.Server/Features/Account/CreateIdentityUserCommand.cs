@@ -1,4 +1,5 @@
-﻿using DeliveryBot.Server.Models.Account;
+﻿using DeliveryBot.Server.Features.Base;
+using DeliveryBot.Server.Models.Account;
 using DeliveryBot.Shared.Dto.Account;
 using DeliveryBot.Shared.Errors.Base;
 using DeliveryBot.Shared.ServiceErrors;
@@ -6,31 +7,27 @@ using DeliveryBot.Shared.ServiceResponseHandling;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
-namespace DeliveryBot.Server.Features;
+namespace DeliveryBot.Server.Features.Account;
 
 public class CreateIdentityUserCommand : CredentialsDto, IRequest<ServiceResponse<CreateIdentityUserResult>>
 {
     public string Role { get; set; }
 
-    public class CreateIdentityUserCommandHandler
-        : IRequestHandler<CreateIdentityUserCommand, ServiceResponse<CreateIdentityUserResult>>
+    public class CreateIdentityUserCommandHandler :
+        BaseHandler<CreateIdentityUserCommand, ServiceResponse<CreateIdentityUserResult>>
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly ILogger<CreateIdentityUserCommandHandler> _logger;
 
-        public CreateIdentityUserCommandHandler(
-            UserManager<IdentityUser> userManager,
-            RoleManager<IdentityRole> roleManager,
-            ILogger<CreateIdentityUserCommandHandler> logger)
+        public CreateIdentityUserCommandHandler(UserManager<IdentityUser> userManager,
+            RoleManager<IdentityRole> roleManager, ILogger<CreateIdentityUserCommandHandler> logger)
+            : base(logger)
         {
             _userManager = userManager;
             _roleManager = roleManager;
-            _logger = logger;
         }
 
-        public async Task<ServiceResponse<CreateIdentityUserResult>> Handle(CreateIdentityUserCommand request,
-            CancellationToken cancellationToken)
+        public override async Task<ServiceResponse<CreateIdentityUserResult>> Handle(CreateIdentityUserCommand request, CancellationToken cancellationToken)
         {
             try
             {
@@ -38,12 +35,12 @@ public class CreateIdentityUserCommand : CredentialsDto, IRequest<ServiceRespons
             }
             catch (Exception ex)
             {
-                _logger.LogCritical(ex, "User creation error");
-                return ServiceResponseBuilder.Failure<CreateIdentityUserResult>(AccountError.IdentityCreateError);
+                Logger.LogCritical(ex, "User creation error");
+                return ServiceResponseBuilder.Failure<CreateIdentityUserResult>(AccountError.AccountCreateError);
             }
         }
 
-        private async Task<ServiceResponse<CreateIdentityUserResult>> UnsafeHandleAsync(CreateIdentityUserCommand request,
+        protected override async Task<ServiceResponse<CreateIdentityUserResult>> UnsafeHandleAsync(CreateIdentityUserCommand request,
             CancellationToken cancellationToken)
         {
             var identityUser = new IdentityUser
