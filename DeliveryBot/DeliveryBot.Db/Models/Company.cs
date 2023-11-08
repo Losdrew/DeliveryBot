@@ -4,7 +4,6 @@ public class Company : Entity
 {
     public string? Name { get; set; }
     public string? Description { get; set; }
-    public string? LogoUrl { get; set; }
     public string? WebsiteUrl { get; set; }
 
     public ICollection<Address>? CompanyAddresses { get; set; }
