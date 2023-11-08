@@ -4,9 +4,9 @@ using DeliveryBot.Shared.Errors.Base;
 
 namespace DeliveryBot.Server.Mapper;
 
-public class DtoProfiles : Profile
+public class DtoProfile : Profile
 {
-    public DtoProfiles()
+    public DtoProfile()
     {
         CreateMap<ValidationError, ValidationErrorDto>();
         CreateMap<ServiceError, ServiceErrorDto>();
