@@ -4,8 +4,8 @@ using DeliveryBot.Server.Features.Base;
 using DeliveryBot.Server.Models.Account;
 using DeliveryBot.Server.Services;
 using DeliveryBot.Shared.Dto.Account;
+using DeliveryBot.Shared.Errors.ServiceErrors;
 using DeliveryBot.Shared.Helpers;
-using DeliveryBot.Shared.ServiceErrors;
 using DeliveryBot.Shared.ServiceResponseHandling;
 using MediatR;
 

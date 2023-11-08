@@ -2,7 +2,7 @@
 using DeliveryBot.Server.Models.Account;
 using DeliveryBot.Shared.Dto.Account;
 using DeliveryBot.Shared.Errors.Base;
-using DeliveryBot.Shared.ServiceErrors;
+using DeliveryBot.Shared.Errors.ServiceErrors;
 using DeliveryBot.Shared.ServiceResponseHandling;
 using MediatR;
 using Microsoft.AspNetCore.Identity;

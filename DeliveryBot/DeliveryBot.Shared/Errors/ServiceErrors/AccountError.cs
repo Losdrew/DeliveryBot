@@ -1,6 +1,6 @@
 ﻿using DeliveryBot.Shared.Errors.Base;
 
-namespace DeliveryBot.Shared.ServiceErrors;
+namespace DeliveryBot.Shared.Errors.ServiceErrors;
 
 public class AccountError : ServiceError
 {
