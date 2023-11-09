@@ -8,9 +8,9 @@ public class CompanyEmployeeValidator : AbstractValidator<CompanyEmployeeDto>
     public CompanyEmployeeValidator()
     {
         RuleFor(e => e.FirstName)
-            .NotNull();
+            .NotEmpty();
 
         RuleFor(e => e.LastName)
-            .NotNull();
+            .NotEmpty();
     }
 }

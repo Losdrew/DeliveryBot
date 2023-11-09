@@ -9,10 +9,10 @@ public class CreateCustomerCommandValidator : AbstractValidator<CreateCustomerCo
     public CreateCustomerCommandValidator()
     {
         RuleFor(c => c.FirstName)
-            .NotNull();
+            .NotEmpty();
 
         RuleFor(c => c.LastName)
-            .NotNull();
+            .NotEmpty();
 
         RuleFor(c => c.PhoneNumber)
             .Matches(new Regex(@"\+\d{12}$"))
