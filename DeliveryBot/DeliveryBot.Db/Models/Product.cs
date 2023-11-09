@@ -8,5 +8,8 @@ public class Product : Entity
     public decimal WeightG { get; set; }
     public decimal VolumeCm3 { get; set; }
 
+    public Guid? CompanyId { get; set; }
+    public Company? Company { get; set; }
+
     public ICollection<OrderProduct>? OrderProducts { get; set; }
 }

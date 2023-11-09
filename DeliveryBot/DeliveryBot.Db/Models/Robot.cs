@@ -11,4 +11,7 @@ public class Robot : Entity
     public bool HasCargo { get; set; }
     public decimal WeightCapacityG { get; set; }
     public decimal VolumeCapacityCm3 { get; set; }
+
+    public Guid? CompanyId { get; set; }
+    public Company? Company { get; set; }
 }
