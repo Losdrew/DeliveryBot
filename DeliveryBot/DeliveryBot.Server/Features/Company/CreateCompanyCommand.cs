@@ -14,20 +14,14 @@ namespace DeliveryBot.Server.Features.Company;
 public class CreateCompanyCommand : CompanyDto, IRequest<ServiceResponse<OwnCompanyInfoDto>>
 {
     public class CreateCompanyCommandHandler :
-        BaseHandler<CreateCompanyCommand, ServiceResponse<OwnCompanyInfoDto>>
+        ExtendedBaseHandler<CreateCompanyCommand, ServiceResponse<OwnCompanyInfoDto>>
     {
-        private readonly ApplicationDbContext _context;
-        private readonly IHttpContextAccessor _contextAccessor;
-        private readonly IMapper _mapper;
         private readonly IMediator _mediator;
 
         public CreateCompanyCommandHandler(ApplicationDbContext context, IHttpContextAccessor contextAccessor,
             IMapper mapper, ILogger<CreateCompanyCommandHandler> logger, IMediator mediator)
-            : base(logger)
+            : base(context, contextAccessor, mapper, logger)
         {
-            _context = context;
-            _contextAccessor = contextAccessor;
-            _mapper = mapper;
             _mediator = mediator;
         }
 
@@ -48,17 +42,17 @@ public class CreateCompanyCommand : CompanyDto, IRequest<ServiceResponse<OwnComp
         protected override async Task<ServiceResponse<OwnCompanyInfoDto>> UnsafeHandleAsync(CreateCompanyCommand request,
             CancellationToken cancellationToken)
         {
-            var isUserIdValid = _contextAccessor.TryGetUserId(out var userId);
-            var manager = await _context.FindAsync<CompanyEmployee>(userId);
+            var isUserIdValid = ContextAccessor.TryGetUserId(out var userId);
+            var manager = await Context.FindAsync<CompanyEmployee>(userId);
 
             if (!isUserIdValid || manager == null)
             {
                 return ServiceResponseBuilder.Failure<OwnCompanyInfoDto>(UserError.InvalidAuthorization);
             }
 
-            var newCompany = _mapper.Map<Db.Models.Company>(request);
-            _context.Add(newCompany);
-            await _context.SaveChangesAsync(cancellationToken);
+            var newCompany = Mapper.Map<Db.Models.Company>(request);
+            Context.Add(newCompany);
+            await Context.SaveChangesAsync(cancellationToken);
 
             if (request.CompanyEmployees != null)
             {
@@ -84,10 +78,10 @@ public class CreateCompanyCommand : CompanyDto, IRequest<ServiceResponse<OwnComp
             }
 
             manager.CompanyId = newCompany.Id;
-            _context.Update(manager);
-            await _context.SaveChangesAsync(cancellationToken);
+            Context.Update(manager);
+            await Context.SaveChangesAsync(cancellationToken);
 
-            var result = _mapper.Map<OwnCompanyInfoDto>(newCompany);
+            var result = Mapper.Map<OwnCompanyInfoDto>(newCompany);
             return ServiceResponseBuilder.Success(result);
         }
     }

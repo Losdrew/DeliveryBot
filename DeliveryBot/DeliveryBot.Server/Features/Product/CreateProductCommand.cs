@@ -14,19 +14,12 @@ namespace DeliveryBot.Server.Features.Product;
 public class CreateProductCommand : ProductDto, IRequest<ServiceResponse<CompanyProductInfoDto>>
 {
     public class CreateProductCommandHandler :
-        BaseHandler<CreateProductCommand, ServiceResponse<CompanyProductInfoDto>>
+        ExtendedBaseHandler<CreateProductCommand, ServiceResponse<CompanyProductInfoDto>>
     {
-        private readonly ApplicationDbContext _context;
-        private readonly IHttpContextAccessor _contextAccessor;
-        private readonly IMapper _mapper;
-
         public CreateProductCommandHandler(ApplicationDbContext context, IHttpContextAccessor contextAccessor,
             IMapper mapper, ILogger<CreateProductCommandHandler> logger, IMediator mediator)
-            : base(logger)
+            : base(context, contextAccessor, mapper, logger)
         {
-            _context = context;
-            _contextAccessor = contextAccessor;
-            _mapper = mapper;
         }
 
         public override async Task<ServiceResponse<CompanyProductInfoDto>> Handle(CreateProductCommand request,
@@ -46,21 +39,21 @@ public class CreateProductCommand : ProductDto, IRequest<ServiceResponse<Company
         protected override async Task<ServiceResponse<CompanyProductInfoDto>> UnsafeHandleAsync(CreateProductCommand request,
             CancellationToken cancellationToken)
         {
-            var isUserIdValid = _contextAccessor.TryGetUserId(out var userId);
-            var manager = await _context.FindAsync<CompanyEmployee>(userId);
+            var isUserIdValid = ContextAccessor.TryGetUserId(out var userId);
+            var manager = await Context.FindAsync<CompanyEmployee>(userId);
 
             if (!isUserIdValid || manager == null)
             {
                 return ServiceResponseBuilder.Failure<CompanyProductInfoDto>(UserError.InvalidAuthorization);
             }
 
-            var product = _mapper.Map<Db.Models.Product>(request);
+            var product = Mapper.Map<Db.Models.Product>(request);
             product.CompanyId = manager.CompanyId;
 
-            _context.Add(product);
-            await _context.SaveChangesAsync(cancellationToken);
+            Context.Add(product);
+            await Context.SaveChangesAsync(cancellationToken);
 
-            var result = _mapper.Map<CompanyProductInfoDto>(product);
+            var result = Mapper.Map<CompanyProductInfoDto>(product);
             return ServiceResponseBuilder.Success(result);
         }
     }
