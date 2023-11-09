@@ -10,4 +10,11 @@ public class UserError : ServiceError
         ErrorMessage = "Invalid authorization",
         Code = 1
     };
+
+    public static UserError UserNotFound = new()
+    {
+        Header = "User not found",
+        ErrorMessage = "User not found",
+        Code = 1
+    };
 }

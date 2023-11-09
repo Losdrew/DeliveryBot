@@ -10,4 +10,11 @@ public class ProductError : ServiceError
         ErrorMessage = "Error when creating product",
         Code = 1
     };
+
+    public static ProductError GetCompanyProductsError = new()
+    {
+        Header = "Get company products error",
+        ErrorMessage = "Error when getting company products",
+        Code = 2
+    };
 }
