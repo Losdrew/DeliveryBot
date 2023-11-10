@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
 using DeliveryBot.Server.Controllers.Base;
-using DeliveryBot.Server.Features.Account;
 using DeliveryBot.Server.Features.Company;
-using DeliveryBot.Shared.Dto.Account;
 using DeliveryBot.Shared.Dto.Company;
 using DeliveryBot.Shared.Dto.Error;
 using DeliveryBot.Shared.Helpers;
@@ -43,6 +41,24 @@ public class CompanyController : BaseController
     public async Task<IActionResult> CreateCompany(CreateCompanyCommand request, CancellationToken cancellationToken)
     {
         var result = await _mediator.Send(request, cancellationToken);
+        return ConvertFromServiceResponse(result);
+    }
+
+    /// <summary>
+    /// Get a list of companies.
+    /// </summary>
+    /// <remarks>
+    /// If the operation is successful, it will return an ICollection of CompanyPreviewDto.
+    /// If there is a bad request, it will return an ErrorDto.
+    /// </remarks>
+    /// <returns>An IActionResult representing the result of the operation.</returns>
+    [HttpGet("companies")]
+    [ProducesResponseType(typeof(CompanyPreviewDto), 200)]
+    [ProducesResponseType(typeof(ErrorDto), 400)]
+    public async Task<IActionResult> GetCompanies()
+    {
+        var query = new GetCompaniesQuery();
+        var result = await _mediator.Send(query);
         return ConvertFromServiceResponse(result);
     }
 }

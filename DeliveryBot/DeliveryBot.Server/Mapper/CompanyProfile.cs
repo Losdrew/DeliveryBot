@@ -15,6 +15,7 @@ public class CompanyProfile : Profile
             .ForMember(e => e.CompanyEmployees, opt => opt.Ignore());
         CreateMap<Company, OwnCompanyInfoDto>();
         CreateMap<OwnCompanyInfoDto, Company>();
+        CreateMap<Company, CompanyPreviewDto>();
 
         CreateMap<CompanyEmployee, CompanyEmployeeDto>();
         CreateMap<CompanyEmployeeDto, CompanyEmployee>();

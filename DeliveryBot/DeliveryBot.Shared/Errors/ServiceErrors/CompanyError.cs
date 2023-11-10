@@ -10,4 +10,11 @@ public class CompanyError : ServiceError
         ErrorMessage = "Error when creating company",
         Code = 1
     };
+
+    public static CompanyError GetCompaniesError = new()
+    {
+        Header = "Get companies error",
+        ErrorMessage = "Error when getting a list of companies",
+        Code = 2
+    };
 }
