@@ -11,7 +11,7 @@ using MediatR;
 
 namespace DeliveryBot.Server.Features.Company;
 
-public class CreateCompanyCommand : CompanyDto, IRequest<ServiceResponse<OwnCompanyInfoDto>>
+public class CreateCompanyCommand : CreateCompanyCommandDto, IRequest<ServiceResponse<OwnCompanyInfoDto>>
 {
     public class CreateCompanyCommandHandler :
         ExtendedBaseHandler<CreateCompanyCommand, ServiceResponse<OwnCompanyInfoDto>>

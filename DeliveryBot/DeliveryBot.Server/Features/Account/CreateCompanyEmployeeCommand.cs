@@ -11,7 +11,7 @@ using MediatR;
 
 namespace DeliveryBot.Server.Features.Account;
 
-public class CreateCompanyEmployeeCommand : CompanyEmployeeDto, IRequest<ServiceResponse<AuthResultDto>>
+public class CreateCompanyEmployeeCommand : CreateCompanyEmployeeCommandDto, IRequest<ServiceResponse<AuthResultDto>>
 {
     public class CreateCompanyEmployeeCommandHandler :
         SignUpHandler<CreateCompanyEmployeeCommand, ServiceResponse<AuthResultDto>>
