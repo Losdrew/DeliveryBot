@@ -10,4 +10,6 @@ public class Address : Entity
     public string? Region { get; set; }
     public string? Country { get; set; }
     public string? Postcode { get; set; }
+
+    public ICollection<Company>? Companies { get; set; }
 }
