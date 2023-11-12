@@ -31,4 +31,11 @@ public class CompanyError : ServiceError
         ErrorMessage = "Company not found",
         Code = 4
     };
+
+    public static CompanyError CompanyEditError = new()
+    {
+        Header = "Edit company error",
+        ErrorMessage = "Error when editing company",
+        Code = 5
+    };
 }

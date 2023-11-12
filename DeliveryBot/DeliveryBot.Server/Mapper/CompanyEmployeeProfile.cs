@@ -13,5 +13,7 @@ public class CompanyEmployeeProfile : Profile
         CreateMap<CompanyEmployeeAccountDto, CompanyEmployee>();
         CreateMap<CompanyEmployee, CompanyEmployeeDto>();
         CreateMap<CompanyEmployeeDto, CompanyEmployee>();
+        CreateMap<EditableCompanyEmployeeDto, CompanyEmployee>()
+            .ForAllMembers(opt => opt.Condition((src, dest, sourceMember) => sourceMember != null));
     }
 }

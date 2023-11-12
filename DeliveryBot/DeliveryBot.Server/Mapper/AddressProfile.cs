@@ -10,5 +10,8 @@ public class AddressProfile : Profile
     {
         CreateMap<Address, AddressDto>();
         CreateMap<AddressDto, Address>();
+        CreateMap<Address, EditableAddressDto>();
+        CreateMap<EditableAddressDto, Address>()
+            .ForAllMembers(opt => opt.Condition((src, dest, sourceMember) => sourceMember != null));
     }
 }
