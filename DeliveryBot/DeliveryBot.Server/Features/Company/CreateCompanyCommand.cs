@@ -52,11 +52,26 @@ public class CreateCompanyCommand : CreateCompanyCommandDto, IRequest<ServiceRes
 
             var newCompany = Mapper.Map<Db.Models.Company>(request);
             Context.Add(newCompany);
+            manager.CompanyId = newCompany.Id;
+
             await Context.SaveChangesAsync(cancellationToken);
 
+            var createCompanyEmployeesResponse = await CreateCompanyEmployees(request, newCompany.Id, cancellationToken);
+
+            if (!createCompanyEmployeesResponse.IsSuccess)
+            {
+                return createCompanyEmployeesResponse.MapErrorResult<OwnCompanyInfoDto>();
+            }
+
+            var result = Mapper.Map<OwnCompanyInfoDto>(newCompany);
+            return ServiceResponseBuilder.Success(result);
+        }
+
+        private async Task<ServiceResponse> CreateCompanyEmployees(CreateCompanyCommand request, Guid companyId,
+            CancellationToken cancellationToken)
+        {
             if (request.CompanyEmployees != null)
             {
-                // Create company employees as identity users
                 foreach (var companyEmployee in request.CompanyEmployees)
                 {
                     var createCompanyEmployeeCommand = new CreateCompanyEmployeeCommand
@@ -65,24 +80,18 @@ public class CreateCompanyCommand : CreateCompanyCommandDto, IRequest<ServiceRes
                         Password = companyEmployee.Password,
                         FirstName = companyEmployee.FirstName,
                         LastName = companyEmployee.LastName,
-                        CompanyId = newCompany.Id
+                        CompanyId = companyId
                     };
 
                     var createCompanyEmployeeResponse = await _mediator.Send(createCompanyEmployeeCommand, cancellationToken);
 
                     if (!createCompanyEmployeeResponse.IsSuccess)
                     {
-                        return createCompanyEmployeeResponse.MapErrorResult<OwnCompanyInfoDto>();
+                        return createCompanyEmployeeResponse.MapErrorResult();
                     }
                 }
             }
-
-            manager.CompanyId = newCompany.Id;
-            Context.Update(manager);
-            await Context.SaveChangesAsync(cancellationToken);
-
-            var result = Mapper.Map<OwnCompanyInfoDto>(newCompany);
-            return ServiceResponseBuilder.Success(result);
+            return ServiceResponseBuilder.Success();
         }
     }
 }
