@@ -45,6 +45,25 @@ public class CompanyController : BaseController
     }
 
     /// <summary>
+    /// Get user's company.
+    /// </summary>
+    /// <remarks>
+    /// If the operation is successful, it will return an OwnCompanyInfoDto.
+    /// If there is a bad request, it will return an ErrorDto.
+    /// </remarks>
+    /// <returns>An IActionResult representing the result of the operation.</returns>
+    [HttpGet("user-company")]
+    [Authorize(Roles = Roles.Manager)]
+    [ProducesResponseType(typeof(OwnCompanyInfoDto), 200)]
+    [ProducesResponseType(typeof(ErrorDto), 400)]
+    public async Task<IActionResult> GetOwnCompany()
+    {
+        var query = new GetOwnCompanyQuery();
+        var result = await _mediator.Send(query);
+        return ConvertFromServiceResponse(result);
+    }
+
+    /// <summary>
     /// Get a list of companies.
     /// </summary>
     /// <remarks>

@@ -15,6 +15,6 @@ public class UserError : ServiceError
     {
         Header = "User not found",
         ErrorMessage = "User not found",
-        Code = 1
+        Code = 2
     };
 }

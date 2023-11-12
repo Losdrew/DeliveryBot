@@ -17,4 +17,18 @@ public class CompanyError : ServiceError
         ErrorMessage = "Error when getting a list of companies",
         Code = 2
     };
+
+    public static CompanyError GetOwnCompanyError = new()
+    {
+        Header = "Get own company error",
+        ErrorMessage = "Error when getting user's company",
+        Code = 3
+    };
+
+    public static CompanyError CompanyNotFound = new()
+    {
+        Header = "Company not found",
+        ErrorMessage = "Company not found",
+        Code = 4
+    };
 }
