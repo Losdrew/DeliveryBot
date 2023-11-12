@@ -1,12 +1,11 @@
-﻿using System.Text.RegularExpressions;
-using DeliveryBot.Shared.Dto.Account;
+﻿using DeliveryBot.Shared.Dto.Account;
 using FluentValidation;
 
 namespace DeliveryBot.Shared.Validators.Account;
 
-public class CreateCustomerCommandValidator : AbstractValidator<CreateCustomerCommandDto>
+public class CreateCompanyEmployeeCommandValidator : AbstractValidator<CreateCompanyEmployeeCommandDto>
 { 
-    public CreateCustomerCommandValidator()
+    public CreateCompanyEmployeeCommandValidator()
     {
         RuleFor(c => c.Email)
             .NotEmpty()
@@ -21,9 +20,5 @@ public class CreateCustomerCommandValidator : AbstractValidator<CreateCustomerCo
 
         RuleFor(c => c.LastName)
             .NotEmpty();
-
-        RuleFor(c => c.PhoneNumber)
-            .Matches(new Regex(@"\+\d{12}$"))
-            .When(c => !string.IsNullOrEmpty(c.PhoneNumber));
     }
 }

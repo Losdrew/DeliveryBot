@@ -3,9 +3,9 @@ using FluentValidation;
 
 namespace DeliveryBot.Shared.Validators.Account
 {
-    public class CredentialsValidator : AbstractValidator<CredentialsDto>
+    public class CreateIdentityUserCommandValidator : AbstractValidator<CredentialsDto>
     {
-        public CredentialsValidator()
+        public CreateIdentityUserCommandValidator()
         {
             RuleFor(c => c.Email)
                 .NotEmpty()

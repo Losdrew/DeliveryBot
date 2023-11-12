@@ -3,9 +3,9 @@ using FluentValidation;
 
 namespace DeliveryBot.Shared.Validators.Product;
 
-public class ProductValidator : AbstractValidator<ProductDto>
+public class CreateProductCommandValidator : AbstractValidator<ProductDto>
 { 
-    public ProductValidator()
+    public CreateProductCommandValidator()
     {
         RuleFor(c => c.Name)
             .NotEmpty();

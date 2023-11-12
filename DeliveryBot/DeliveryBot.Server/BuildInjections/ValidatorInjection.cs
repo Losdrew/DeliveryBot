@@ -12,10 +12,10 @@ internal static class ValidatorInjection
 {
     internal static void AddValidators(this IServiceCollection services)
     {
-        services.AddTransient<IValidator<CreateIdentityUserCommand>, CredentialsValidator>();
-        services.AddTransient<IValidator<CreateCompanyEmployeeCommand>, CompanyEmployeeValidator>();
+        services.AddTransient<IValidator<CreateIdentityUserCommand>, CreateIdentityUserCommandValidator>();
+        services.AddTransient<IValidator<CreateCompanyEmployeeCommand>, CreateCompanyEmployeeCommandValidator>();
         services.AddTransient<IValidator<CreateCustomerCommand>, CreateCustomerCommandValidator>();
-        services.AddTransient<IValidator<CreateCompanyCommand>, CompanyValidator>();
-        services.AddTransient<IValidator<CreateProductCommand>, ProductValidator>();
+        services.AddTransient<IValidator<CreateCompanyCommand>, CreateCompanyCommandValidator>();
+        services.AddTransient<IValidator<CreateProductCommand>, CreateProductCommandValidator>();
     }
 }

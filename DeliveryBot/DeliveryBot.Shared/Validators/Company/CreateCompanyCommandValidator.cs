@@ -3,9 +3,9 @@ using FluentValidation;
 
 namespace DeliveryBot.Shared.Validators.Company;
 
-public class CompanyValidator : AbstractValidator<CompanyDto>
+public class CreateCompanyCommandValidator : AbstractValidator<CreateCompanyCommandDto>
 { 
-    public CompanyValidator()
+    public CreateCompanyCommandValidator()
     {
         RuleFor(c => c.Name)
             .NotEmpty();
