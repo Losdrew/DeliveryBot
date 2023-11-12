@@ -17,5 +17,6 @@ internal static class ValidatorInjection
         services.AddTransient<IValidator<CreateCustomerCommand>, CreateCustomerCommandValidator>();
         services.AddTransient<IValidator<CreateCompanyCommand>, CreateCompanyCommandValidator>();
         services.AddTransient<IValidator<CreateProductCommand>, CreateProductCommandValidator>();
+        services.AddTransient<IValidator<EditCompanyCommand>, EditCompanyCommandValidator>();
     }
 }

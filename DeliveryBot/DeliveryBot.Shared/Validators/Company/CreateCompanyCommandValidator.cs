@@ -1,4 +1,5 @@
 ﻿using DeliveryBot.Shared.Dto.Company;
+using DeliveryBot.Shared.Validators.Address;
 using FluentValidation;
 
 namespace DeliveryBot.Shared.Validators.Company;
@@ -12,5 +13,8 @@ public class CreateCompanyCommandValidator : AbstractValidator<CreateCompanyComm
 
         RuleFor(c => c.Description)
             .NotEmpty();
+
+        RuleForEach(c => c.CompanyAddresses)
+            .SetValidator(new AddressValidator());
     }
 }
