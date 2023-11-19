@@ -17,4 +17,11 @@ public class UserError : ServiceError
         ErrorMessage = "User not found",
         Code = 2
     };
+
+    public static UserError ForbiddenAccess = new()
+    {
+        Header = "Access forbidden",
+        ErrorMessage = "You don't belong to the requested Company",
+        Code = 3
+    };
 }

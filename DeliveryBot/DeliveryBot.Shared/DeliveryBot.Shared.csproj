@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Dto\Product\" />
     <Folder Include="ServiceResponseHandling\" />
   </ItemGroup>
 
