@@ -12,12 +12,9 @@ namespace DeliveryBot.Server.Controllers;
 [ApiController]
 public class AccountController : BaseController
 {
-    private readonly IMediator _mediator;
-
-    public AccountController(IMediator mediator, IMapper mapper)
-        : base(mapper)
+    public AccountController(IMapper mapper, IMediator mediator)
+        : base(mapper, mediator)
     {
-        _mediator = mediator;
     }
 
     /// <summary>
@@ -35,7 +32,7 @@ public class AccountController : BaseController
     [ProducesResponseType(typeof(ErrorDto), 400)]
     public async Task<IActionResult> SignUpUser(CreateIdentityUserCommand request, CancellationToken cancellationToken)
     {
-        var result = await _mediator.Send(request, cancellationToken);
+        var result = await Mediator.Send(request, cancellationToken);
         return ConvertFromServiceResponse(result);
     }
 
@@ -54,7 +51,7 @@ public class AccountController : BaseController
     [ProducesResponseType(typeof(ErrorDto), 400)]
     public async Task<IActionResult> SignUpManager(CreateManagerCommand request, CancellationToken cancellationToken)
     {
-        var result = await _mediator.Send(request, cancellationToken);
+        var result = await Mediator.Send(request, cancellationToken);
         return ConvertFromServiceResponse(result);
     }
 
@@ -73,7 +70,7 @@ public class AccountController : BaseController
     [ProducesResponseType(typeof(ErrorDto), 400)]
     public async Task<IActionResult> SignUpCompanyEmployee(CreateCompanyEmployeeCommand request, CancellationToken cancellationToken)
     {
-        var result = await _mediator.Send(request, cancellationToken);
+        var result = await Mediator.Send(request, cancellationToken);
         return ConvertFromServiceResponse(result);
     }
 
@@ -92,7 +89,7 @@ public class AccountController : BaseController
     [ProducesResponseType(typeof(ErrorDto), 400)]
     public async Task<IActionResult> SignUpCustomer(CreateCustomerCommand request, CancellationToken cancellationToken)
     {
-        var result = await _mediator.Send(request, cancellationToken);
+        var result = await Mediator.Send(request, cancellationToken);
         return ConvertFromServiceResponse(result);
     }
 
@@ -111,7 +108,7 @@ public class AccountController : BaseController
     [ProducesResponseType(typeof(ErrorDto), 400)]
     public async Task<IActionResult> SignIn(SignInCommand request, CancellationToken cancellationToken)
     {
-        var result = await _mediator.Send(request, cancellationToken);
+        var result = await Mediator.Send(request, cancellationToken);
         return ConvertFromServiceResponse(result);
     }
 }

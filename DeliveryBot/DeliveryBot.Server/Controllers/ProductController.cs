@@ -14,12 +14,9 @@ namespace DeliveryBot.Server.Controllers;
 [ApiController]
 public class ProductController : BaseController
 {
-    private readonly IMediator _mediator;
-
-    public ProductController(IMediator mediator, IMapper mapper)
-        : base(mapper)
+    public ProductController(IMapper mapper, IMediator mediator)
+        : base(mapper, mediator)
     {
-        _mediator = mediator;
     }
 
     /// <summary>
@@ -40,7 +37,7 @@ public class ProductController : BaseController
     [ProducesResponseType(typeof(string), 403)]
     public async Task<IActionResult> CreateProduct(CreateProductCommand request, CancellationToken cancellationToken)
     {
-        var result = await _mediator.Send(request, cancellationToken);
+        var result = await Mediator.Send(request, cancellationToken);
         return ConvertFromServiceResponse(result);
     }
 
@@ -62,7 +59,7 @@ public class ProductController : BaseController
         {
             CompanyId = companyId
         };
-        var result = await _mediator.Send(query);
+        var result = await Mediator.Send(query);
         return ConvertFromServiceResponse(result);
     }
 
@@ -84,7 +81,7 @@ public class ProductController : BaseController
     [ProducesResponseType(typeof(string), 403)]
     public async Task<IActionResult> EditProduct(EditProductCommand request, CancellationToken cancellationToken)
     {
-        var result = await _mediator.Send(request, cancellationToken);
+        var result = await Mediator.Send(request, cancellationToken);
         return ConvertFromServiceResponse(result);
     }
 
@@ -106,7 +103,7 @@ public class ProductController : BaseController
         {
             ProductId = productId
         };
-        var result = await _mediator.Send(command, cancellationToken);
+        var result = await Mediator.Send(command, cancellationToken);
         return ConvertFromServiceResponse(result);
     }
 }

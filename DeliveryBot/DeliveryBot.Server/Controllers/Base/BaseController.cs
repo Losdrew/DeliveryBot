@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DeliveryBot.Shared.Dto.Error;
 using DeliveryBot.Shared.ServiceResponseHandling;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DeliveryBot.Server.Controllers.Base;
@@ -8,10 +9,12 @@ namespace DeliveryBot.Server.Controllers.Base;
 public abstract class BaseController : ControllerBase
 {
     private readonly IMapper _mapper;
+    protected readonly IMediator Mediator;
 
-    protected BaseController(IMapper mapper)
+    protected BaseController(IMapper mapper, IMediator mediator)
     {
         _mapper = mapper;
+        Mediator = mediator;
     }
 
     protected IActionResult ConvertFromServiceResponse(ServiceResponse serviceResponse)

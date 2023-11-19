@@ -14,12 +14,9 @@ namespace DeliveryBot.Server.Controllers;
 [ApiController]
 public class CompanyController : BaseController
 {
-    private readonly IMediator _mediator;
-
-    public CompanyController(IMediator mediator, IMapper mapper)
-        : base(mapper)
+    public CompanyController(IMapper mapper, IMediator mediator)
+        : base(mapper, mediator)
     {
-        _mediator = mediator;
     }
 
     /// <summary>
@@ -40,7 +37,7 @@ public class CompanyController : BaseController
     [ProducesResponseType(typeof(string), 403)]
     public async Task<IActionResult> CreateCompany(CreateCompanyCommand request, CancellationToken cancellationToken)
     {
-        var result = await _mediator.Send(request, cancellationToken);
+        var result = await Mediator.Send(request, cancellationToken);
         return ConvertFromServiceResponse(result);
     }
 
@@ -62,7 +59,7 @@ public class CompanyController : BaseController
     [ProducesResponseType(typeof(string), 403)]
     public async Task<IActionResult> EditCompany(EditCompanyCommand request, CancellationToken cancellationToken)
     {
-        var result = await _mediator.Send(request, cancellationToken);
+        var result = await Mediator.Send(request, cancellationToken);
         return ConvertFromServiceResponse(result);
     }
 
@@ -81,7 +78,7 @@ public class CompanyController : BaseController
     public async Task<IActionResult> GetOwnCompany()
     {
         var query = new GetOwnCompanyQuery();
-        var result = await _mediator.Send(query);
+        var result = await Mediator.Send(query);
         return ConvertFromServiceResponse(result);
     }
 
@@ -99,7 +96,7 @@ public class CompanyController : BaseController
     public async Task<IActionResult> GetCompanies()
     {
         var query = new GetCompaniesQuery();
-        var result = await _mediator.Send(query);
+        var result = await Mediator.Send(query);
         return ConvertFromServiceResponse(result);
     }
 }
