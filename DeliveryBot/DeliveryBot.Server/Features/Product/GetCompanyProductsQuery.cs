@@ -8,11 +8,12 @@ using MediatR;
 
 namespace DeliveryBot.Server.Features.Product;
 
-public class GetCompanyProductsQuery : IRequest<ServiceResponse<ICollection<ProductDto>>>
+public class GetCompanyProductsQuery : IRequest<ServiceResponse<ICollection<CompanyProductInfoDto>>>
 {
     public Guid CompanyId { get; set; }
 
-    public class GetCompanyProductsQueryHandler : ExtendedBaseHandler<GetCompanyProductsQuery, ServiceResponse<ICollection<ProductDto>>>
+    public class GetCompanyProductsQueryHandler : ExtendedBaseHandler<GetCompanyProductsQuery,
+        ServiceResponse<ICollection<CompanyProductInfoDto>>>
     {
         public GetCompanyProductsQueryHandler(ApplicationDbContext context, IHttpContextAccessor contextAccessor,
             IMapper mapper,
@@ -21,7 +22,7 @@ public class GetCompanyProductsQuery : IRequest<ServiceResponse<ICollection<Prod
         {
         }
 
-        public override async Task<ServiceResponse<ICollection<ProductDto>>> Handle(GetCompanyProductsQuery request, 
+        public override async Task<ServiceResponse<ICollection<CompanyProductInfoDto>>> Handle(GetCompanyProductsQuery request, 
             CancellationToken cancellationToken)
         {
             try
@@ -31,15 +32,15 @@ public class GetCompanyProductsQuery : IRequest<ServiceResponse<ICollection<Prod
             catch (Exception ex)
             {
                 Logger.LogError(ex, "Get company products error");
-                return ServiceResponseBuilder.Failure<ICollection<ProductDto>>(ProductError.GetCompanyProductsError);
+                return ServiceResponseBuilder.Failure<ICollection<CompanyProductInfoDto>>(ProductError.GetCompanyProductsError);
             }
         }
 
-        protected override async Task<ServiceResponse<ICollection<ProductDto>>> UnsafeHandleAsync(GetCompanyProductsQuery request,
+        protected override async Task<ServiceResponse<ICollection<CompanyProductInfoDto>>> UnsafeHandleAsync(GetCompanyProductsQuery request,
             CancellationToken cancellationToken)
         {
             var products = Context.Products.Where(p => p.CompanyId == request.CompanyId);
-            var result = Mapper.Map<ICollection<ProductDto>>(products);
+            var result = Mapper.Map<ICollection<CompanyProductInfoDto>>(products);
             return ServiceResponseBuilder.Success(result);
         }
     }

@@ -49,14 +49,14 @@ public class ProductController : BaseController
     /// </summary>
     /// <param name="companyId"></param>
     /// <remarks>
-    /// If the operation is successful, it will return an ICollection of ProductDto.
+    /// If the operation is successful, it will return an ICollection of CompanyProductInfoDto.
     /// If there is a bad request, it will return an ErrorDto.
     /// </remarks>
     /// <returns>An IActionResult representing the result of the operation.</returns>
-    [HttpGet("company-products/{companyId}")]
+    [HttpGet("company-products")]
     [ProducesResponseType(typeof(CompanyProductInfoDto), 200)]
     [ProducesResponseType(typeof(ErrorDto), 400)]
-    public async Task<IActionResult> GetCompanyProducts([FromRoute] Guid companyId)
+    public async Task<IActionResult> GetCompanyProducts(Guid companyId)
     {
         var query = new GetCompanyProductsQuery
         {
