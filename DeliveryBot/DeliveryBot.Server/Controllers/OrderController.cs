@@ -40,4 +40,23 @@ public class OrderController : BaseController
         var result = await Mediator.Send(request, cancellationToken);
         return ConvertFromServiceResponse(result);
     }
+
+    /// <summary>
+    /// Get a list of pending orders.
+    /// </summary>
+    /// <remarks>
+    /// If the operation is successful, it will return an ICollection of OrderInfoDto.
+    /// If there is a bad request, it will return an ErrorDto.
+    /// </remarks>
+    /// <returns>An IActionResult representing the result of the operation.</returns>
+    [HttpGet("pending-orders")]
+    [Authorize(Roles = Roles.CompanyEmployee)]
+    [ProducesResponseType(typeof(OrderInfoDto), 200)]
+    [ProducesResponseType(typeof(ErrorDto), 400)]
+    public async Task<IActionResult> GetAllPendingOrders()
+    {
+        var query = new GetPendingOrdersQuery();
+        var result = await Mediator.Send(query);
+        return ConvertFromServiceResponse(result);
+    }
 }
