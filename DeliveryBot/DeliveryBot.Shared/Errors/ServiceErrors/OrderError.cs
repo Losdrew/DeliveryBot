@@ -18,6 +18,13 @@ public class OrderError : ServiceError
         Code = 2
     };
 
+    public static OrderError GetOwnOrdersError = new()
+    {
+        Header = "Get own orders error",
+        ErrorMessage = "Error when getting a list of user's orders",
+        Code = 3
+    };
+
     public static OrderError OrderNotFound = new()
     {
         Header = "Order not found",
