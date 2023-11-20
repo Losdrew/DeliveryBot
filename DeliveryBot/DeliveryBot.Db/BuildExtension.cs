@@ -1,8 +1,10 @@
 ﻿using DeliveryBot.Db.DbContexts;
+using DeliveryBot.Db.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Npgsql;
 
 namespace DeliveryBot.Db;
 
@@ -12,8 +14,12 @@ public static class BuildExtension
     {
         var configurationString = configuration.GetRequiredSection("ConnectionString").Value;
 
+        var dataSourceBuilder = new NpgsqlDataSourceBuilder(configurationString);
+        dataSourceBuilder.MapEnum<OrderStatuses>();
+        var dataSource = dataSourceBuilder.Build();
+
         services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseNpgsql(configurationString, builder =>
+            options.UseNpgsql(dataSource, builder =>
             {
                 builder.MigrationsAssembly("DeliveryBot.Db");
                 builder.UseNetTopologySuite();

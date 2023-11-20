@@ -35,6 +35,8 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
             .Property(delivery => delivery.ShippedDateTime)
             .HasColumnType("timestamp with time zone");
 
+        modelBuilder.HasPostgresEnum<OrderStatuses>();
+
         base.OnModelCreating(modelBuilder);
     }
 }
