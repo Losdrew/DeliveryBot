@@ -31,7 +31,7 @@ public class CreateOrderCommand : CreateOrderCommandDto, IRequest<ServiceRespons
             catch (Exception ex)
             {
                 Logger.LogCritical(ex, "Order creation error");
-                return ServiceResponseBuilder.Failure<OrderInfoDto>(CompanyError.CompanyCreateError);
+                return ServiceResponseBuilder.Failure<OrderInfoDto>(OrderError.OrderCreateError);
             }
         }
 
@@ -69,6 +69,8 @@ public class CreateOrderCommand : CreateOrderCommandDto, IRequest<ServiceRespons
             await Context.SaveChangesAsync(cancellationToken);
 
             var result = Mapper.Map<OrderInfoDto>(newOrder);
+            result.CustomerId = customer.Id;
+
             return ServiceResponseBuilder.Success(result);
         }
     }

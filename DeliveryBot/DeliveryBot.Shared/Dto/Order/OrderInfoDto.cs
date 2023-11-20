@@ -2,5 +2,6 @@
 
 public class OrderInfoDto : OrderDto
 {
-    public Guid Id { get; set; }    
+    public Guid Id { get; set; }
+    public Guid CustomerId { get; set; }
 }
