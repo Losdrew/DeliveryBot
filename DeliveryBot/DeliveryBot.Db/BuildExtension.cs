@@ -17,6 +17,7 @@ public static class BuildExtension
         var dataSourceBuilder = new NpgsqlDataSourceBuilder(configurationString);
         dataSourceBuilder.MapEnum<OrderStatus>();
         dataSourceBuilder.MapEnum<RobotStatus>();
+        dataSourceBuilder.UseNetTopologySuite();
         var dataSource = dataSourceBuilder.Build();
 
         services.AddDbContext<ApplicationDbContext>(options =>

@@ -38,6 +38,8 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
         modelBuilder.HasPostgresEnum<OrderStatus>();
         modelBuilder.HasPostgresEnum<RobotStatus>();
 
+        modelBuilder.HasPostgresExtension("postgis");
+
         base.OnModelCreating(modelBuilder);
     }
 }
