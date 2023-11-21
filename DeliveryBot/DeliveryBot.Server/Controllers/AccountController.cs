@@ -18,19 +18,19 @@ public class AccountController : BaseController
     }
 
     /// <summary>
-    /// Create a new user account.
+    /// Create a new administrator account.
     /// </summary>
-    /// <param name="request">The request to create a user account.</param>
+    /// <param name="request">The request to create an administrator account.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <remarks>
     /// If the operation is successful, it will return an AuthResultDto.
     /// If there is a bad request, it will return an ErrorDto.
     /// </remarks>
     /// <returns>An IActionResult representing the result of the operation.</returns>
-    [HttpPost("user/create")]
+    [HttpPost("administrator/create")]
     [ProducesResponseType(typeof(AuthResultDto), 200)]
     [ProducesResponseType(typeof(ErrorDto), 400)]
-    public async Task<IActionResult> SignUpUser(CreateIdentityUserCommand request, CancellationToken cancellationToken)
+    public async Task<IActionResult> SignUpAdministrator(CreateAdministratorCommand request, CancellationToken cancellationToken)
     {
         var result = await Mediator.Send(request, cancellationToken);
         return ConvertFromServiceResponse(result);
