@@ -3,7 +3,7 @@
 public class Order : Entity
 {
     public DateTime PlacedDateTime { get; set; }
-    public OrderStatuses Status { get; set; }
+    public OrderStatus Status { get; set; }
 
     public Guid? CustomerId { get; set; }
     public Customer? Customer { get; set; }
@@ -14,7 +14,7 @@ public class Order : Entity
     public ICollection<OrderProduct>? OrderProducts { get; set; }
 }
 
-public enum OrderStatuses
+public enum OrderStatus
 {
     Pending,
     Delivering,

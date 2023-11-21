@@ -12,16 +12,16 @@ namespace DeliveryBot.Db.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterDatabase()
-                .Annotation("Npgsql:Enum:order_statuses", "pending,delivering,pickup_available,delivered,cancelled")
+                .Annotation("Npgsql:Enum:order_status", "pending,delivering,pickup_available,delivered,cancelled")
                 .Annotation("Npgsql:PostgresExtension:postgis", ",,")
                 .OldAnnotation("Npgsql:PostgresExtension:postgis", ",,");
 
-            migrationBuilder.AddColumn<OrderStatuses>(
+            migrationBuilder.AddColumn<OrderStatus>(
                 name: "Status",
                 table: "Orders",
-                type: "order_statuses",
+                type: "order_status",
                 nullable: false,
-                defaultValue: OrderStatuses.Pending);
+                defaultValue: OrderStatus.Pending);
         }
 
         /// <inheritdoc />
@@ -33,7 +33,7 @@ namespace DeliveryBot.Db.Migrations
 
             migrationBuilder.AlterDatabase()
                 .Annotation("Npgsql:PostgresExtension:postgis", ",,")
-                .OldAnnotation("Npgsql:Enum:order_statuses", "pending,delivering,pickup_available,delivered,cancelled")
+                .OldAnnotation("Npgsql:Enum:order_status", "pending,delivering,pickup_available,delivered,cancelled")
                 .OldAnnotation("Npgsql:PostgresExtension:postgis", ",,");
         }
     }

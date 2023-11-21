@@ -1,6 +1,6 @@
 ﻿namespace DeliveryBot.Shared.Helpers;
 
-public enum OrderStatuses
+public enum OrderStatus
 {
     Pending,
     Delivering,

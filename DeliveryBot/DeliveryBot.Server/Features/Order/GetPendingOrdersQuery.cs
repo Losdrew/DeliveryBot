@@ -40,7 +40,7 @@ public class GetPendingOrdersQuery : IRequest<ServiceResponse<ICollection<OrderI
             var orders = Context.Orders
                 .Include(o => o.OrderProducts)
                 .Include(o => o.OrderAddress)
-                .Where(o => o.Status == OrderStatuses.Pending)
+                .Where(o => o.Status == OrderStatus.Pending)
                 .ToList();
 
             var result = Mapper.Map<ICollection<OrderInfoDto>>(orders);

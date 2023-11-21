@@ -14,7 +14,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DeliveryBot.Db.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231120110137_AddOrderStatus")]
+    [Migration("20231121110928_AddOrderStatus")]
     partial class AddOrderStatus
     {
         /// <inheritdoc />
@@ -25,7 +25,7 @@ namespace DeliveryBot.Db.Migrations
                 .HasAnnotation("ProductVersion", "7.0.13")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            NpgsqlModelBuilderExtensions.HasPostgresEnum(modelBuilder, "order_statuses", new[] { "pending", "delivering", "pickup_available", "delivered", "cancelled" });
+            NpgsqlModelBuilderExtensions.HasPostgresEnum(modelBuilder, "order_status", new[] { "pending", "delivering", "pickup_available", "delivered", "cancelled" });
             NpgsqlModelBuilderExtensions.HasPostgresExtension(modelBuilder, "postgis");
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
@@ -194,8 +194,8 @@ namespace DeliveryBot.Db.Migrations
                     b.Property<DateTime>("PlacedDateTime")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<OrderStatuses>("Status")
-                        .HasColumnType("order_statuses");
+                    b.Property<OrderStatus>("Status")
+                        .HasColumnType("order_status");
 
                     b.HasKey("Id");
 

@@ -15,7 +15,7 @@ public static class BuildExtension
         var configurationString = configuration.GetRequiredSection("ConnectionString").Value;
 
         var dataSourceBuilder = new NpgsqlDataSourceBuilder(configurationString);
-        dataSourceBuilder.MapEnum<OrderStatuses>();
+        dataSourceBuilder.MapEnum<OrderStatus>();
         var dataSource = dataSourceBuilder.Build();
 
         services.AddDbContext<ApplicationDbContext>(options =>
