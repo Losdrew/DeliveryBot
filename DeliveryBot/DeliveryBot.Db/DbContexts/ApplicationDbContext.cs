@@ -36,6 +36,7 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
             .HasColumnType("timestamp with time zone");
 
         modelBuilder.HasPostgresEnum<OrderStatus>();
+        modelBuilder.HasPostgresEnum<RobotStatus>();
 
         base.OnModelCreating(modelBuilder);
     }
