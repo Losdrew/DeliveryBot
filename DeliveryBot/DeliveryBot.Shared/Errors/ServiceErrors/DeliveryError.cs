@@ -31,4 +31,11 @@ public class DeliveryError : ServiceError
         ErrorMessage = "Error when getting delivery",
         Code = 4
     };
+
+    public static DeliveryError GetDeliveriesError = new()
+    {
+        Header = "Get deliveries error",
+        ErrorMessage = "Error when getting deliveries",
+        Code = 5
+    };
 }
