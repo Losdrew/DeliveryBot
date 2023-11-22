@@ -1,10 +1,12 @@
 ﻿using DeliveryBot.Server.Features.Account;
 using DeliveryBot.Server.Features.Company;
+using DeliveryBot.Server.Features.Delivery;
 using DeliveryBot.Server.Features.Order;
 using DeliveryBot.Server.Features.Product;
 using DeliveryBot.Server.Features.Robot;
 using DeliveryBot.Shared.Validators.Account;
 using DeliveryBot.Shared.Validators.Company;
+using DeliveryBot.Shared.Validators.Delivery;
 using DeliveryBot.Shared.Validators.Order;
 using DeliveryBot.Shared.Validators.Product;
 using DeliveryBot.Shared.Validators.Robot;
@@ -25,5 +27,6 @@ internal static class ValidatorInjection
         services.AddTransient<IValidator<EditProductCommand>, EditProductCommandValidator>();
         services.AddTransient<IValidator<CreateOrderCommand>, CreateOrderCommandValidator>();
         services.AddTransient<IValidator<CreateRobotCommand>, CreateRobotCommandValidator>();
+        services.AddTransient<IValidator<CreateDeliveryCommand>, CreateDeliveryCommandValidator>();
     }
 }
