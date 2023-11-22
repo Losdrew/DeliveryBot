@@ -24,5 +24,11 @@ public class DeliveryError : ServiceError
         ErrorMessage = "Delivery for this order not found",
         Code = 3
     };
+
+    public static DeliveryError GetDeliveryError = new()
+    {
+        Header = "Get delivery error",
+        ErrorMessage = "Error when getting delivery",
+        Code = 4
     };
 }

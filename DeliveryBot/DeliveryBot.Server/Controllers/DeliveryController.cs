@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
 using DeliveryBot.Server.Controllers.Base;
 using DeliveryBot.Server.Features.Delivery;
-using DeliveryBot.Server.Features.Order;
 using DeliveryBot.Shared.Dto.Delivery;
 using DeliveryBot.Shared.Dto.Error;
-using DeliveryBot.Shared.Dto.Order;
 using DeliveryBot.Shared.Helpers;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -40,6 +38,28 @@ public class DeliveryController : BaseController
     public async Task<IActionResult> CreateOrder(CreateDeliveryCommand request, CancellationToken cancellationToken)
     {
         var result = await Mediator.Send(request, cancellationToken);
+        return ConvertFromServiceResponse(result);
+    }
+
+    /// <summary>
+    /// Get delivery info for customer's order.
+    /// </summary>
+    /// <remarks>
+    /// If the operation is successful, it will return an DeliveryInfoDto.
+    /// If there is a bad request, it will return an ErrorDto.
+    /// </remarks>
+    /// <returns>An IActionResult representing the result of the operation.</returns>
+    [HttpGet("order-delivery")]
+    [Authorize(Roles = Roles.Customer)]
+    [ProducesResponseType(typeof(DeliveryInfoDto), 200)]
+    [ProducesResponseType(typeof(ErrorDto), 400)]
+    public async Task<IActionResult> GetDelivery(Guid orderId)
+    {
+        var query = new GetDeliveryQuery
+        {
+            OrderId = orderId
+        };
+        var result = await Mediator.Send(query);
         return ConvertFromServiceResponse(result);
     }
 }
