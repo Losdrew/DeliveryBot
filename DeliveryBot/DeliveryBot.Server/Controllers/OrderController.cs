@@ -7,6 +7,7 @@ using DeliveryBot.Shared.Helpers;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading;
 
 namespace DeliveryBot.Server.Controllers;
 
@@ -76,6 +77,24 @@ public class OrderController : BaseController
     {
         var query = new GetPendingOrdersQuery();
         var result = await Mediator.Send(query);
+        return ConvertFromServiceResponse(result);
+    }
+
+    /// <summary>
+    /// Cancel own order.
+    /// </summary>
+    /// <remarks>
+    /// If the operation is successful, it will return an OrderInfoDto.
+    /// If there is a bad request, it will return an ErrorDto.
+    /// </remarks>
+    /// <returns>An IActionResult representing the result of the operation.</returns>
+    [HttpPost("cancel")]
+    [Authorize(Roles = Roles.Customer)]
+    [ProducesResponseType(typeof(OrderInfoDto), 200)]
+    [ProducesResponseType(typeof(ErrorDto), 400)]
+    public async Task<IActionResult> CancelOwnOrder(CancelOwnOrderCommand request, CancellationToken cancellationToken)
+    {
+        var result = await Mediator.Send(request, cancellationToken);
         return ConvertFromServiceResponse(result);
     }
 }

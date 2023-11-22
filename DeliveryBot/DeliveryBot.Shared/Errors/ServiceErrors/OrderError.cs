@@ -31,4 +31,11 @@ public class OrderError : ServiceError
         ErrorMessage = "Order not found",
         Code = 4
     };
+
+    public static OrderError OrderCancelError = new()
+    {
+        Header = "Order cancel error",
+        ErrorMessage = "Error when cancelling order",
+        Code = 5
+    };
 }
