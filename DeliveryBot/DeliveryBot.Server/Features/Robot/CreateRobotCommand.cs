@@ -10,10 +10,10 @@ using MediatR;
 
 namespace DeliveryBot.Server.Features.Robot;
 
-public class CreateRobotCommand : CreateRobotCommandDto, IRequest<ServiceResponse<RobotDto>>
+public class CreateRobotCommand : CreateRobotCommandDto, IRequest<ServiceResponse<RobotInfoDto>>
 {
     public class CreateRobotCommandHandler :
-        ExtendedBaseHandler<CreateRobotCommand, ServiceResponse<RobotDto>>
+        ExtendedBaseHandler<CreateRobotCommand, ServiceResponse<RobotInfoDto>>
     {
         public CreateRobotCommandHandler(ApplicationDbContext context, IHttpContextAccessor contextAccessor,
             IMapper mapper, ILogger<CreateRobotCommandHandler> logger, IMediator mediator)
@@ -21,7 +21,7 @@ public class CreateRobotCommand : CreateRobotCommandDto, IRequest<ServiceRespons
         {
         }
 
-        public override async Task<ServiceResponse<RobotDto>> Handle(CreateRobotCommand request,
+        public override async Task<ServiceResponse<RobotInfoDto>> Handle(CreateRobotCommand request,
             CancellationToken cancellationToken)
         {
             try
@@ -31,11 +31,11 @@ public class CreateRobotCommand : CreateRobotCommandDto, IRequest<ServiceRespons
             catch (Exception ex)
             {
                 Logger.LogCritical(ex, "Robot creation error");
-                return ServiceResponseBuilder.Failure<RobotDto>(RobotError.RobotCreateError);
+                return ServiceResponseBuilder.Failure<RobotInfoDto>(RobotError.RobotCreateError);
             }
         }
 
-        protected override async Task<ServiceResponse<RobotDto>> UnsafeHandleAsync(CreateRobotCommand request,
+        protected override async Task<ServiceResponse<RobotInfoDto>> UnsafeHandleAsync(CreateRobotCommand request,
             CancellationToken cancellationToken)
         {
             var isUserIdValid = ContextAccessor.TryGetUserId(out var userId);
@@ -43,7 +43,7 @@ public class CreateRobotCommand : CreateRobotCommandDto, IRequest<ServiceRespons
 
             if (!isUserIdValid || administrator == null)
             {
-                return ServiceResponseBuilder.Failure<RobotDto>(UserError.InvalidAuthorization);
+                return ServiceResponseBuilder.Failure<RobotInfoDto>(UserError.InvalidAuthorization);
             }
 
             var robot = Mapper.Map<Db.Models.Robot>(request);
@@ -52,7 +52,7 @@ public class CreateRobotCommand : CreateRobotCommandDto, IRequest<ServiceRespons
             Context.Add(robot);
             await Context.SaveChangesAsync(cancellationToken);
 
-            var result = Mapper.Map<RobotDto>(robot);
+            var result = Mapper.Map<RobotInfoDto>(robot);
             return ServiceResponseBuilder.Success(result);
         }
     }
