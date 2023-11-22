@@ -4,14 +4,14 @@ namespace DeliveryBot.Shared.Errors.ServiceErrors;
 
 public class DeliveryError : ServiceError
 {
-    public static OrderError DeliveryCreateError = new()
+    public static DeliveryError DeliveryCreateError = new()
     {
         Header = "Delivery creation error",
         ErrorMessage = "Error when creating delivery",
         Code = 1
     };
 
-    public static OrderError DeliveryOrderError = new()
+    public static DeliveryError DeliveryOrderError = new()
     {
         Header = "Delivery creation error",
         ErrorMessage = "Can't create delivery for this order",
