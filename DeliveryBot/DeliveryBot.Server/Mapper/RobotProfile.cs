@@ -10,6 +10,6 @@ public class RobotProfile : Profile
     public RobotProfile()
     {
         CreateMap<CreateRobotCommand, Robot>();
-        CreateMap<Robot, RobotDto>();
+        CreateMap<Robot, RobotInfoDto>();
     }
 }

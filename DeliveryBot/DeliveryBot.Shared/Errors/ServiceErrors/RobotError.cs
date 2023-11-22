@@ -24,4 +24,11 @@ public class RobotError : ServiceError
         ErrorMessage = "Robot is not available right now",
         Code = 3
     };
+
+    public static RobotError GetOwnCompanyRobotsError = new()
+    {
+        Header = "Get own company robots error",
+        ErrorMessage = "Error when getting a list of company robots",
+        Code = 4
+    };
 }
