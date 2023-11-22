@@ -4,6 +4,7 @@ using DeliveryBot.Db.Models;
 using DeliveryBot.Server.Extensions;
 using DeliveryBot.Server.Features.Account;
 using DeliveryBot.Server.Features.Base;
+using DeliveryBot.Server.Features.CompanyEmployee;
 using DeliveryBot.Shared.Dto.Company;
 using DeliveryBot.Shared.Errors.ServiceErrors;
 using DeliveryBot.Shared.ServiceResponseHandling;
@@ -90,11 +91,26 @@ public class EditCompanyCommand : EditCompanyCommandDto, IRequest<ServiceRespons
         {
             foreach (var companyEmployee in request.CompanyEmployees)
             {
-                var existingEmployee = company.CompanyEmployees.FirstOrDefault(c => c.Id == companyEmployee.Id);
+                var isExistingEmployee = company.CompanyEmployees.Any(c => c.Id == companyEmployee.Id);
 
-                if (existingEmployee != null)
+                if (isExistingEmployee)
                 {
-                    Mapper.Map(companyEmployee, existingEmployee);
+                    var editCompanyEmployeeCommand = new EditCompanyEmployeeCommand
+                    {
+                        Id = companyEmployee.Id,
+                        Email = companyEmployee.Email,
+                        Password = companyEmployee.Password,
+                        FirstName = companyEmployee.FirstName,
+                        LastName = companyEmployee.LastName
+                    };
+
+                    var editCompanyEmployeeResponse = 
+                        await _mediator.Send(editCompanyEmployeeCommand, cancellationToken);
+
+                    if (!editCompanyEmployeeResponse.IsSuccess)
+                    {
+                        return editCompanyEmployeeResponse.MapErrorResult();
+                    }
                 }
                 else
                 {

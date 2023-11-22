@@ -44,7 +44,7 @@ public class CreateAdministratorCommand : CreateCompanyEmployeeCommandDto, IRequ
         protected override async Task<User> CreateUserAsync(CreateAdministratorCommand request,
             ServiceResponse<CreateIdentityUserResult> createIdentityResponse)
         {
-            var companyEmployee = new CompanyEmployee
+            var companyEmployee = new Db.Models.CompanyEmployee
             {
                 Id = Guid.Parse(createIdentityResponse.Result.IdentityUser.Id),
                 Email = request.Email,
