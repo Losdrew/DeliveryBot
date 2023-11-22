@@ -40,7 +40,7 @@ public class CreateDeliveryCommand : CreateDeliveryCommandDto, IRequest<ServiceR
             CancellationToken cancellationToken)
         {
             var isUserIdValid = ContextAccessor.TryGetUserId(out var userId);
-            var companyEmployee = await Context.FindAsync<CompanyEmployee>(userId);
+            var companyEmployee = await Context.CompanyEmployees.FindAsync(userId);
 
             if (!isUserIdValid || companyEmployee == null)
             {

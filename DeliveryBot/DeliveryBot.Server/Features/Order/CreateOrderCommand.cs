@@ -39,7 +39,7 @@ public class CreateOrderCommand : CreateOrderCommandDto, IRequest<ServiceRespons
             CancellationToken cancellationToken)
         {
             var isUserIdValid = ContextAccessor.TryGetUserId(out var userId);
-            var customer = await Context.FindAsync<Customer>(userId);
+            var customer = await Context.Customers.FindAsync(userId);
 
             if (!isUserIdValid || customer == null)
             {

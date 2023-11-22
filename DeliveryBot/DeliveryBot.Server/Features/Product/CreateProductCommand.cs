@@ -40,7 +40,7 @@ public class CreateProductCommand : ProductDto, IRequest<ServiceResponse<Company
             CancellationToken cancellationToken)
         {
             var isUserIdValid = ContextAccessor.TryGetUserId(out var userId);
-            var manager = await Context.FindAsync<CompanyEmployee>(userId);
+            var manager = await Context.CompanyEmployees.FindAsync(userId);
 
             if (!isUserIdValid || manager == null)
             {

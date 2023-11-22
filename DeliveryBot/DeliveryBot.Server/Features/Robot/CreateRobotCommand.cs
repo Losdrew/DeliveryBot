@@ -39,7 +39,7 @@ public class CreateRobotCommand : CreateRobotCommandDto, IRequest<ServiceRespons
             CancellationToken cancellationToken)
         {
             var isUserIdValid = ContextAccessor.TryGetUserId(out var userId);
-            var administrator = await Context.FindAsync<CompanyEmployee>(userId);
+            var administrator = await Context.CompanyEmployees.FindAsync(userId);
 
             if (!isUserIdValid || administrator == null)
             {

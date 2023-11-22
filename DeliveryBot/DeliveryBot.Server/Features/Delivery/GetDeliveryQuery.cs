@@ -41,7 +41,7 @@ public class GetDeliveryQuery : IRequest<ServiceResponse<DeliveryInfoDto>>
             CancellationToken cancellationToken)
         {
             var isUserIdValid = ContextAccessor.TryGetUserId(out var userId);
-            var customer = await Context.FindAsync<Customer>(userId);
+            var customer = await Context.Customers.FindAsync(userId);
 
             if (!isUserIdValid || customer == null)
             {
