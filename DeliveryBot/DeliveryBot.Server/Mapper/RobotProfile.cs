@@ -11,5 +11,6 @@ public class RobotProfile : Profile
     {
         CreateMap<CreateRobotCommand, Robot>();
         CreateMap<Robot, RobotInfoDto>();
+        CreateMap<Robot, GetDeliveryRobotQueryDto>();
     }
 }

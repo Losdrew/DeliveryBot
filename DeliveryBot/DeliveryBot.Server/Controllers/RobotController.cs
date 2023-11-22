@@ -59,4 +59,26 @@ public class RobotController : BaseController
         var result = await Mediator.Send(query);
         return ConvertFromServiceResponse(result);
     }
+
+    /// <summary>
+    /// Get info about customer's order delivery robot.
+    /// </summary>
+    /// <remarks>
+    /// If the operation is successful, it will return an GetDeliveryRobotQuery.
+    /// If there is a bad request, it will return an ErrorDto.
+    /// </remarks>
+    /// <returns>An IActionResult representing the result of the operation.</returns>
+    [HttpGet("delivery-robot")]
+    [Authorize(Roles = Roles.Customer)]
+    [ProducesResponseType(typeof(GetDeliveryRobotQueryDto), 200)]
+    [ProducesResponseType(typeof(ErrorDto), 400)]
+    public async Task<IActionResult> GetDeliveryRobot(Guid deliveryId)
+    {
+        var query = new GetDeliveryRobotQuery
+        {
+            DeliveryId = deliveryId
+        };
+        var result = await Mediator.Send(query);
+        return ConvertFromServiceResponse(result);
+    }
 }

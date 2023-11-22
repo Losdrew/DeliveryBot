@@ -17,4 +17,12 @@ public class DeliveryError : ServiceError
         ErrorMessage = "Can't create delivery for this order",
         Code = 2
     };
+
+    public static DeliveryError OrderDeliveryNotFound = new()
+    {
+        Header = "Delivery not found",
+        ErrorMessage = "Delivery for this order not found",
+        Code = 3
+    };
+    };
 }

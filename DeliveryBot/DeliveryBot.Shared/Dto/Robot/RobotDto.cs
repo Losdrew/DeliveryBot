@@ -6,7 +6,7 @@ namespace DeliveryBot.Shared.Dto.Robot;
 public class RobotDto
 {
     public string? Name { get; set; }
-    public RobotStatus? Status { get; set; }
+    public RobotStatus Status { get; set; }
     public Point? Location { get; set; }
     public int BatteryCharge { get; set; }
     public bool HasCargo { get; set; }
