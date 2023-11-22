@@ -17,4 +17,11 @@ public class CompanyEmployeeError : ServiceError
         ErrorMessage = "Company employee not found",
         Code = 2
     };
+
+    public static CompanyEmployeeError CompanyEmployeeDeleteError = new()
+    {
+        Header = "Delete company employee error",
+        ErrorMessage = "Company employee not found",
+        Code = 3
+    };
 }

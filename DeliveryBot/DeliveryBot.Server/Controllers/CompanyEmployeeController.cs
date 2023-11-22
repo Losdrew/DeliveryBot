@@ -44,4 +44,26 @@ public class CompanyEmployeeController : BaseController
         var result = await Mediator.Send(request, cancellationToken);
         return ConvertFromServiceResponse(result);
     }
+
+    /// <summary>
+    /// Delete existing company employee.
+    /// </summary>
+    /// <param name="companyEmployeeId">The request to delete company employee.</param>
+    /// <param name="cancellationToken">The cancellation token.</param>
+    /// <remarks>
+    /// If there is a bad request, it will return an ErrorDto.
+    /// </remarks>
+    /// <returns>An IActionResult representing the result of the operation.</returns>
+    [HttpDelete]
+    [Authorize(Roles = Roles.Manager)]
+    [ProducesResponseType(typeof(ErrorDto), 400)]
+    public async Task<IActionResult> DeleteProduct(Guid companyEmployeeId, CancellationToken cancellationToken)
+    {
+        var command = new DeleteCompanyEmployeeCommand
+        {
+            CompanyEmployeeId = companyEmployeeId
+        };
+        var result = await Mediator.Send(command, cancellationToken);
+        return ConvertFromServiceResponse(result);
+    }
 }
