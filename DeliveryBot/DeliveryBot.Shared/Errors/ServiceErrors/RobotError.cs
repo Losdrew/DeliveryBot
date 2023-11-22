@@ -38,4 +38,11 @@ public class RobotError : ServiceError
         ErrorMessage = "Error when getting a robot for this delivery",
         Code = 5
     };
+
+    public static RobotError RobotEditError = new()
+    {
+        Header = "Robot edit error",
+        ErrorMessage = "Error when editing robot",
+        Code = 6
+    };
 }

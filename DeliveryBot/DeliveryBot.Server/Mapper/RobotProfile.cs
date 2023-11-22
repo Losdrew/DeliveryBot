@@ -10,6 +10,7 @@ public class RobotProfile : Profile
     public RobotProfile()
     {
         CreateMap<CreateRobotCommand, Robot>();
+        CreateMap<EditRobotCommand, Robot>();
         CreateMap<Robot, RobotInfoDto>();
         CreateMap<Robot, GetDeliveryRobotQueryDto>();
     }

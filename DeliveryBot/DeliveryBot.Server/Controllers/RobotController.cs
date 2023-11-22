@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using DeliveryBot.Server.Controllers.Base;
+using DeliveryBot.Server.Features.Product;
 using DeliveryBot.Server.Features.Robot;
 using DeliveryBot.Shared.Dto.Error;
+using DeliveryBot.Shared.Dto.Product;
 using DeliveryBot.Shared.Dto.Robot;
 using DeliveryBot.Shared.Helpers;
 using MediatR;
@@ -79,6 +81,28 @@ public class RobotController : BaseController
             DeliveryId = deliveryId
         };
         var result = await Mediator.Send(query);
+        return ConvertFromServiceResponse(result);
+    }
+
+    /// <summary>
+    /// Edit existing robot.
+    /// </summary>
+    /// <param name="request">The request to edit company's robot.</param>
+    /// <param name="cancellationToken">The cancellation token.</param>
+    /// <remarks>
+    /// If the operation is successful, it will return an RobotInfoDto.
+    /// If there is a bad request, it will return an ErrorDto.
+    /// </remarks>
+    /// <returns>An IActionResult representing the result of the operation.</returns>
+    [HttpPost("edit")]
+    [Authorize(Roles = Roles.Administrator)]
+    [ProducesResponseType(typeof(RobotInfoDto), 200)]
+    [ProducesResponseType(typeof(ErrorDto), 400)]
+    [ProducesResponseType(typeof(string), 401)]
+    [ProducesResponseType(typeof(string), 403)]
+    public async Task<IActionResult> EditRobot(EditRobotCommand request, CancellationToken cancellationToken)
+    {
+        var result = await Mediator.Send(request, cancellationToken);
         return ConvertFromServiceResponse(result);
     }
 }
