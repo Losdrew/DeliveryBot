@@ -17,7 +17,7 @@ public class CreateDeliveryCommand : CreateDeliveryCommandDto, IRequest<ServiceR
         ExtendedBaseHandler<CreateDeliveryCommand, ServiceResponse<DeliveryInfoDto>>
     {
         public CreateDeliveryCommandHandler(ApplicationDbContext context, IHttpContextAccessor contextAccessor,
-            IMapper mapper, ILogger<CreateDeliveryCommandHandler> logger, IMediator mediator)
+            IMapper mapper, ILogger<CreateDeliveryCommandHandler> logger)
             : base(context, contextAccessor, mapper, logger)
         {
         }

@@ -16,7 +16,7 @@ public class CreateRobotCommand : CreateRobotCommandDto, IRequest<ServiceRespons
         ExtendedBaseHandler<CreateRobotCommand, ServiceResponse<RobotInfoDto>>
     {
         public CreateRobotCommandHandler(ApplicationDbContext context, IHttpContextAccessor contextAccessor,
-            IMapper mapper, ILogger<CreateRobotCommandHandler> logger, IMediator mediator)
+            IMapper mapper, ILogger<CreateRobotCommandHandler> logger)
             : base(context, contextAccessor, mapper, logger)
         {
         }

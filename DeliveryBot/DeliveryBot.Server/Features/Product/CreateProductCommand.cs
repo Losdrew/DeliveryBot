@@ -17,7 +17,7 @@ public class CreateProductCommand : ProductDto, IRequest<ServiceResponse<Company
         ExtendedBaseHandler<CreateProductCommand, ServiceResponse<CompanyProductInfoDto>>
     {
         public CreateProductCommandHandler(ApplicationDbContext context, IHttpContextAccessor contextAccessor,
-            IMapper mapper, ILogger<CreateProductCommandHandler> logger, IMediator mediator)
+            IMapper mapper, ILogger<CreateProductCommandHandler> logger)
             : base(context, contextAccessor, mapper, logger)
         {
         }

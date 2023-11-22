@@ -16,7 +16,7 @@ public class CreateOrderCommand : CreateOrderCommandDto, IRequest<ServiceRespons
         ExtendedBaseHandler<CreateOrderCommand, ServiceResponse<OrderInfoDto>>
     {
         public CreateOrderCommandHandler(ApplicationDbContext context, IHttpContextAccessor contextAccessor,
-            IMapper mapper, ILogger<CreateOrderCommandHandler> logger, IMediator mediator)
+            IMapper mapper, ILogger<CreateOrderCommandHandler> logger)
             : base(context, contextAccessor, mapper, logger)
         {
         }
