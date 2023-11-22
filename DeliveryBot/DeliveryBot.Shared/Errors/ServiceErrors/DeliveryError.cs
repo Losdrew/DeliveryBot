@@ -6,14 +6,14 @@ public class DeliveryError : ServiceError
 {
     public static DeliveryError DeliveryCreateError = new()
     {
-        Header = "Delivery creation error",
+        Header = "Create delivery error",
         ErrorMessage = "Error when creating delivery",
         Code = 1
     };
 
     public static DeliveryError DeliveryOrderError = new()
     {
-        Header = "Delivery creation error",
+        Header = "Create delivery error",
         ErrorMessage = "Can't create delivery for this order",
         Code = 2
     };

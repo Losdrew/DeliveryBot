@@ -32,7 +32,7 @@ public class SignInCommand : CredentialsDto, IRequest<ServiceResponse<AuthResult
             }
             catch (Exception ex)
             {
-                Logger.LogError("Sign in error", ex);
+                Logger.LogError(ex, "Sign in error");
                 return ServiceResponseBuilder.Failure<AuthResultDto>(AccountError.LoginServiceError);
             }
         }

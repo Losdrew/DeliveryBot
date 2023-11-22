@@ -6,7 +6,7 @@ public class CompanyError : ServiceError
 {
     public static CompanyError CompanyCreateError = new()
     {
-        Header = "Company creation error",
+        Header = "Create company error",
         ErrorMessage = "Error when creating company",
         Code = 1
     };

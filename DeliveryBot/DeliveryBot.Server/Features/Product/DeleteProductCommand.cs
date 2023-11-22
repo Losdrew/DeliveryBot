@@ -30,8 +30,8 @@ public class DeleteProductCommand : IRequest<ServiceResponse>
             }
             catch (Exception ex)
             {
-                Logger.LogCritical(ex, "Edit product error");
-                return ServiceResponseBuilder.Failure(ProductError.ProductEditError);
+                Logger.LogCritical(ex, "Delete product error");
+                return ServiceResponseBuilder.Failure(ProductError.ProductDeleteError);
             }
         }
 

@@ -6,7 +6,7 @@ public class RobotError : ServiceError
 {
     public static RobotError RobotCreateError = new()
     {
-        Header = "Robot creation error",
+        Header = "Create robot error",
         ErrorMessage = "Error when creating robot",
         Code = 1
     };
@@ -41,7 +41,7 @@ public class RobotError : ServiceError
 
     public static RobotError RobotEditError = new()
     {
-        Header = "Robot edit error",
+        Header = "Edit robot error",
         ErrorMessage = "Error when editing robot",
         Code = 6
     };

@@ -6,7 +6,7 @@ public class OrderError : ServiceError
 {
     public static OrderError OrderCreateError = new()
     {
-        Header = "Order creation error",
+        Header = "Create order error",
         ErrorMessage = "Error when creating order",
         Code = 1
     };
@@ -34,7 +34,7 @@ public class OrderError : ServiceError
 
     public static OrderError OrderCancelError = new()
     {
-        Header = "Order cancel error",
+        Header = "Cancel order error",
         ErrorMessage = "Error when cancelling order",
         Code = 5
     };

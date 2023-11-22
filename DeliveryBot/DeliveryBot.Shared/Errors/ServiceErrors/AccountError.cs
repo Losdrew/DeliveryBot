@@ -6,7 +6,7 @@ public class AccountError : ServiceError
 {
     public static AccountError AccountCreateError = new()
     {
-        Header = "Account creation error",
+        Header = "Create account error",
         ErrorMessage = "Error when creating account",
         Code = 1
     };

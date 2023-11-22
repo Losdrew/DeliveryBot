@@ -29,7 +29,7 @@ public class GetPendingOrdersQuery : IRequest<ServiceResponse<ICollection<OrderI
             }
             catch (Exception ex)
             {
-                Logger.LogError(ex, "Get all orders error");
+                Logger.LogError(ex, "Get pending orders error");
                 return ServiceResponseBuilder.Failure<ICollection<OrderInfoDto>>(OrderError.GetPendingOrdersError);
             }
         }

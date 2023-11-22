@@ -6,7 +6,7 @@ public class ProductError : ServiceError
 {
     public static ProductError ProductCreateError = new()
     {
-        Header = "Product creation error",
+        Header = "Create product error",
         ErrorMessage = "Error when creating product",
         Code = 1
     };
@@ -20,7 +20,7 @@ public class ProductError : ServiceError
 
     public static ProductError ProductEditError = new()
     {
-        Header = "Product edit error",
+        Header = "Edit product error",
         ErrorMessage = "Error when editing product",
         Code = 3
     };
@@ -29,6 +29,13 @@ public class ProductError : ServiceError
     {
         Header = "Product not found",
         ErrorMessage = "The requested product was not found",
-        Code = 3
+        Code = 4
+    };
+
+    public static ProductError ProductDeleteError = new()
+    {
+        Header = "Delete product error",
+        ErrorMessage = "Error when deleting product",
+        Code = 5
     };
 }
