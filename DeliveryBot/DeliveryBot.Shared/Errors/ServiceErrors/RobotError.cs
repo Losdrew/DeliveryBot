@@ -10,4 +10,18 @@ public class RobotError : ServiceError
         ErrorMessage = "Error when creating robot",
         Code = 1
     };
+
+    public static RobotError RobotNotFound = new()
+    {
+        Header = "Robot not found",
+        ErrorMessage = "Robot not found",
+        Code = 2
+    };
+
+    public static RobotError RobotUnavailableError = new()
+    {
+        Header = "Robot unavailable",
+        ErrorMessage = "Robot is not available right now",
+        Code = 3
+    };
 }
