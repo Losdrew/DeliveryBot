@@ -7,7 +7,6 @@ using DeliveryBot.Shared.Helpers;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading;
 
 namespace DeliveryBot.Server.Controllers;
 
@@ -15,7 +14,7 @@ namespace DeliveryBot.Server.Controllers;
 [ApiController]
 public class OrderController : BaseController
 {
-    public OrderController(IMapper mapper, IMediator mediator) 
+    public OrderController(IMapper mapper, IMediator mediator)
         : base(mapper, mediator)
     {
     }

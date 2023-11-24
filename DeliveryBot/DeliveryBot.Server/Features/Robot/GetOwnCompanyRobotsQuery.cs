@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using DeliveryBot.Db.DbContexts;
-using DeliveryBot.Db.Models;
 using DeliveryBot.Server.Extensions;
 using DeliveryBot.Server.Features.Base;
 using DeliveryBot.Shared.Dto.Robot;
@@ -12,15 +11,16 @@ namespace DeliveryBot.Server.Features.Robot;
 
 public class GetOwnCompanyRobotsQuery : IRequest<ServiceResponse<ICollection<RobotInfoDto>>>
 {
-    public class GetOwnCompanyRobotsQueryHandler : ExtendedBaseHandler<GetOwnCompanyRobotsQuery, ServiceResponse<ICollection<RobotInfoDto>>>
+    public class GetOwnCompanyRobotsQueryHandler : 
+        ExtendedBaseHandler<GetOwnCompanyRobotsQuery, ServiceResponse<ICollection<RobotInfoDto>>>
     {
         public GetOwnCompanyRobotsQueryHandler(ApplicationDbContext context, IHttpContextAccessor contextAccessor,
-            IMapper mapper, ILogger<GetOwnCompanyRobotsQueryHandler> logger) 
+            IMapper mapper, ILogger<GetOwnCompanyRobotsQueryHandler> logger)
             : base(context, contextAccessor, mapper, logger)
         {
         }
 
-        public override async Task<ServiceResponse<ICollection<RobotInfoDto>>> Handle(GetOwnCompanyRobotsQuery request, 
+        public override async Task<ServiceResponse<ICollection<RobotInfoDto>>> Handle(GetOwnCompanyRobotsQuery request,
             CancellationToken cancellationToken)
         {
             try
@@ -34,8 +34,8 @@ public class GetOwnCompanyRobotsQuery : IRequest<ServiceResponse<ICollection<Rob
             }
         }
 
-        protected override async Task<ServiceResponse<ICollection<RobotInfoDto>>> UnsafeHandleAsync(GetOwnCompanyRobotsQuery request,
-            CancellationToken cancellationToken)
+        protected override async Task<ServiceResponse<ICollection<RobotInfoDto>>> UnsafeHandleAsync(
+            GetOwnCompanyRobotsQuery request, CancellationToken cancellationToken)
         {
             var isUserIdValid = ContextAccessor.TryGetUserId(out var userId);
             var companyEmployee = await Context.CompanyEmployees.FindAsync(userId);

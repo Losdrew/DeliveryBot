@@ -16,14 +16,13 @@ public class GetCompanyProductsQuery : IRequest<ServiceResponse<ICollection<Comp
         ServiceResponse<ICollection<CompanyProductInfoDto>>>
     {
         public GetCompanyProductsQueryHandler(ApplicationDbContext context, IHttpContextAccessor contextAccessor,
-            IMapper mapper,
-            ILogger<GetCompanyProductsQueryHandler> logger) 
+            IMapper mapper, ILogger<GetCompanyProductsQueryHandler> logger)
             : base(context, contextAccessor, mapper, logger)
         {
         }
 
-        public override async Task<ServiceResponse<ICollection<CompanyProductInfoDto>>> Handle(GetCompanyProductsQuery request, 
-            CancellationToken cancellationToken)
+        public override async Task<ServiceResponse<ICollection<CompanyProductInfoDto>>> Handle(
+            GetCompanyProductsQuery request, CancellationToken cancellationToken)
         {
             try
             {
@@ -32,12 +31,13 @@ public class GetCompanyProductsQuery : IRequest<ServiceResponse<ICollection<Comp
             catch (Exception ex)
             {
                 Logger.LogError(ex, "Get company products error");
-                return ServiceResponseBuilder.Failure<ICollection<CompanyProductInfoDto>>(ProductError.GetCompanyProductsError);
+                return ServiceResponseBuilder.Failure<ICollection<CompanyProductInfoDto>>(ProductError
+                    .GetCompanyProductsError);
             }
         }
 
-        protected override async Task<ServiceResponse<ICollection<CompanyProductInfoDto>>> UnsafeHandleAsync(GetCompanyProductsQuery request,
-            CancellationToken cancellationToken)
+        protected override async Task<ServiceResponse<ICollection<CompanyProductInfoDto>>> UnsafeHandleAsync(
+            GetCompanyProductsQuery request, CancellationToken cancellationToken)
         {
             var products = Context.Products.Where(p => p.CompanyId == request.CompanyId);
             var result = Mapper.Map<ICollection<CompanyProductInfoDto>>(products);

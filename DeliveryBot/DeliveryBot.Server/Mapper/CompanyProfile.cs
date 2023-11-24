@@ -11,7 +11,7 @@ public class CompanyProfile : Profile
     {
         CreateMap<CreateCompanyCommand, Company>()
             .ForMember(c => c.CompanyEmployees, opt => opt.Ignore());
-        
+
         CreateMap<EditCompanyCommand, Company>()
             .ForMember(c => c.CompanyEmployees, opt => opt.Ignore())
             .ForMember(c => c.CompanyAddresses, opt => opt.Ignore())

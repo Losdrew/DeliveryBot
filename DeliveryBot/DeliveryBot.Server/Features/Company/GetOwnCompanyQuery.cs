@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using DeliveryBot.Db.DbContexts;
-using DeliveryBot.Db.Models;
 using DeliveryBot.Server.Extensions;
 using DeliveryBot.Server.Features.Base;
 using DeliveryBot.Shared.Dto.Company;
@@ -16,12 +15,12 @@ public class GetOwnCompanyQuery : IRequest<ServiceResponse<OwnCompanyInfoDto>>
     public class GetOwnCompanyQueryHandler : ExtendedBaseHandler<GetOwnCompanyQuery, ServiceResponse<OwnCompanyInfoDto>>
     {
         public GetOwnCompanyQueryHandler(ApplicationDbContext context, IHttpContextAccessor contextAccessor,
-            IMapper mapper, ILogger<GetOwnCompanyQueryHandler> logger) 
+            IMapper mapper, ILogger<GetOwnCompanyQueryHandler> logger)
             : base(context, contextAccessor, mapper, logger)
         {
         }
 
-        public override async Task<ServiceResponse<OwnCompanyInfoDto>> Handle(GetOwnCompanyQuery request, 
+        public override async Task<ServiceResponse<OwnCompanyInfoDto>> Handle(GetOwnCompanyQuery request,
             CancellationToken cancellationToken)
         {
             try

@@ -41,7 +41,7 @@ public abstract class SignUpHandler<TCommand, TResponse> : BaseHandler<TCommand,
         {
             var user = await CreateUserAsync(request, createIdentityResponse);
             var token = await TokenGenerator.GenerateAsync(createIdentityResponse.Result.IdentityUser);
-                
+
             var result = new AuthResultDto
             {
                 UserId = user.Id,
@@ -55,6 +55,7 @@ public abstract class SignUpHandler<TCommand, TResponse> : BaseHandler<TCommand,
     }
 
     protected abstract string GetRole();
+
     protected abstract Task<User> CreateUserAsync(TCommand request,
         ServiceResponse<CreateIdentityUserResult> createIdentityResponse);
 }

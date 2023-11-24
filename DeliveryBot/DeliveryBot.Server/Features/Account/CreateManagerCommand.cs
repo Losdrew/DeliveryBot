@@ -13,7 +13,7 @@ namespace DeliveryBot.Server.Features.Account;
 
 public class CreateManagerCommand : CreateCompanyEmployeeCommandDto, IRequest<ServiceResponse<AuthResultDto>>
 {
-    public class CreateManagerCommandHandler : 
+    public class CreateManagerCommandHandler :
         SignUpHandler<CreateManagerCommand, ServiceResponse<AuthResultDto>>
     {
         public CreateManagerCommandHandler(IMediator mediator, ApplicationDbContext context,
@@ -22,7 +22,7 @@ public class CreateManagerCommand : CreateCompanyEmployeeCommandDto, IRequest<Se
         {
         }
 
-        public override async Task<ServiceResponse<AuthResultDto>> Handle(CreateManagerCommand request, 
+        public override async Task<ServiceResponse<AuthResultDto>> Handle(CreateManagerCommand request,
             CancellationToken cancellationToken)
         {
             try

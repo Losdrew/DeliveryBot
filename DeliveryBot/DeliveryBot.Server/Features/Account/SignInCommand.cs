@@ -12,11 +12,11 @@ public class SignInCommand : CredentialsDto, IRequest<ServiceResponse<AuthResult
 {
     public class SignInCommandHandler : BaseHandler<SignInCommand, ServiceResponse<AuthResultDto>>
     {
-        private readonly UserManager<IdentityUser> _userManager;
         private readonly ITokenGenerator _tokenGenerator;
+        private readonly UserManager<IdentityUser> _userManager;
 
         public SignInCommandHandler(UserManager<IdentityUser> userManager, ITokenGenerator tokenGenerator,
-            ILogger<SignInCommandHandler> logger) 
+            ILogger<SignInCommandHandler> logger)
             : base(logger)
         {
             _userManager = userManager;

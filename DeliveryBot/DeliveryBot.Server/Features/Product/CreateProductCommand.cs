@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
 using DeliveryBot.Db.DbContexts;
-using DeliveryBot.Db.Models;
 using DeliveryBot.Server.Extensions;
 using DeliveryBot.Server.Features.Base;
-using DeliveryBot.Shared.Dto.Company;
 using DeliveryBot.Shared.Dto.Product;
 using DeliveryBot.Shared.Errors.ServiceErrors;
 using DeliveryBot.Shared.ServiceResponseHandling;
@@ -36,8 +34,8 @@ public class CreateProductCommand : ProductDto, IRequest<ServiceResponse<Company
             }
         }
 
-        protected override async Task<ServiceResponse<CompanyProductInfoDto>> UnsafeHandleAsync(CreateProductCommand request,
-            CancellationToken cancellationToken)
+        protected override async Task<ServiceResponse<CompanyProductInfoDto>> UnsafeHandleAsync(
+            CreateProductCommand request, CancellationToken cancellationToken)
         {
             var isUserIdValid = ContextAccessor.TryGetUserId(out var userId);
             var manager = await Context.CompanyEmployees.FindAsync(userId);

@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using DeliveryBot.Db.DbContexts;
-using DeliveryBot.Db.Models;
 using DeliveryBot.Server.Extensions;
 using DeliveryBot.Server.Features.Account;
 using DeliveryBot.Server.Features.Base;
@@ -39,8 +38,8 @@ public class CreateCompanyCommand : CreateCompanyCommandDto, IRequest<ServiceRes
             }
         }
 
-        protected override async Task<ServiceResponse<OwnCompanyInfoDto>> UnsafeHandleAsync(CreateCompanyCommand request,
-            CancellationToken cancellationToken)
+        protected override async Task<ServiceResponse<OwnCompanyInfoDto>> UnsafeHandleAsync(
+            CreateCompanyCommand request, CancellationToken cancellationToken)
         {
             var isUserIdValid = ContextAccessor.TryGetUserId(out var userId);
             var manager = await Context.CompanyEmployees.FindAsync(userId);
@@ -56,7 +55,8 @@ public class CreateCompanyCommand : CreateCompanyCommandDto, IRequest<ServiceRes
 
             await Context.SaveChangesAsync(cancellationToken);
 
-            var createCompanyEmployeesResponse = await CreateCompanyEmployees(request, newCompany.Id, cancellationToken);
+            var createCompanyEmployeesResponse =
+                await CreateCompanyEmployees(request, newCompany.Id, cancellationToken);
 
             if (!createCompanyEmployeesResponse.IsSuccess)
             {
@@ -83,7 +83,8 @@ public class CreateCompanyCommand : CreateCompanyCommandDto, IRequest<ServiceRes
                         CompanyId = companyId
                     };
 
-                    var createCompanyEmployeeResponse = await _mediator.Send(createCompanyEmployeeCommand, cancellationToken);
+                    var createCompanyEmployeeResponse =
+                        await _mediator.Send(createCompanyEmployeeCommand, cancellationToken);
 
                     if (!createCompanyEmployeeResponse.IsSuccess)
                     {
@@ -91,6 +92,7 @@ public class CreateCompanyCommand : CreateCompanyCommandDto, IRequest<ServiceRes
                     }
                 }
             }
+
             return ServiceResponseBuilder.Success();
         }
     }

@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using DeliveryBot.Db.DbContexts;
-using DeliveryBot.Db.Models;
 using DeliveryBot.Server.Extensions;
 using DeliveryBot.Server.Features.Base;
 using DeliveryBot.Shared.Dto.Robot;
@@ -15,15 +14,16 @@ public class GetDeliveryRobotQuery : IRequest<ServiceResponse<GetDeliveryRobotQu
 {
     public Guid DeliveryId { get; set; }
 
-    public class GetDeliveryRobotQueryHandler : ExtendedBaseHandler<GetDeliveryRobotQuery, ServiceResponse<GetDeliveryRobotQueryDto>>
+    public class GetDeliveryRobotQueryHandler : 
+        ExtendedBaseHandler<GetDeliveryRobotQuery, ServiceResponse<GetDeliveryRobotQueryDto>>
     {
         public GetDeliveryRobotQueryHandler(ApplicationDbContext context, IHttpContextAccessor contextAccessor,
-            IMapper mapper, ILogger<GetDeliveryRobotQueryHandler> logger) 
+            IMapper mapper, ILogger<GetDeliveryRobotQueryHandler> logger)
             : base(context, contextAccessor, mapper, logger)
         {
         }
 
-        public override async Task<ServiceResponse<GetDeliveryRobotQueryDto>> Handle(GetDeliveryRobotQuery request, 
+        public override async Task<ServiceResponse<GetDeliveryRobotQueryDto>> Handle(GetDeliveryRobotQuery request,
             CancellationToken cancellationToken)
         {
             try
@@ -37,8 +37,8 @@ public class GetDeliveryRobotQuery : IRequest<ServiceResponse<GetDeliveryRobotQu
             }
         }
 
-        protected override async Task<ServiceResponse<GetDeliveryRobotQueryDto>> UnsafeHandleAsync(GetDeliveryRobotQuery request,
-            CancellationToken cancellationToken)
+        protected override async Task<ServiceResponse<GetDeliveryRobotQueryDto>> UnsafeHandleAsync(
+            GetDeliveryRobotQuery request, CancellationToken cancellationToken)
         {
             var isUserIdValid = ContextAccessor.TryGetUserId(out var userId);
             var customer = await Context.Customers.FindAsync(userId);

@@ -34,8 +34,8 @@ public class EditProductCommand : EditProductCommandDto, IRequest<ServiceRespons
             }
         }
 
-        protected override async Task<ServiceResponse<CompanyProductInfoDto>> UnsafeHandleAsync(EditProductCommand request,
-            CancellationToken cancellationToken)
+        protected override async Task<ServiceResponse<CompanyProductInfoDto>> UnsafeHandleAsync(
+            EditProductCommand request, CancellationToken cancellationToken)
         {
             var isUserIdValid = ContextAccessor.TryGetUserId(out var userId);
             var manager = await Context.CompanyEmployees.FindAsync(userId);

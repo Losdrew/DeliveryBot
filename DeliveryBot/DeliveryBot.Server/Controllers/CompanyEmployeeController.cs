@@ -1,11 +1,8 @@
 ﻿using AutoMapper;
 using DeliveryBot.Server.Controllers.Base;
 using DeliveryBot.Server.Features.CompanyEmployee;
-using DeliveryBot.Server.Features.Product;
-using DeliveryBot.Shared.Dto.Account;
 using DeliveryBot.Shared.Dto.CompanyEmployee;
 using DeliveryBot.Shared.Dto.Error;
-using DeliveryBot.Shared.Dto.Product;
 using DeliveryBot.Shared.Helpers;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -17,7 +14,7 @@ namespace DeliveryBot.Server.Controllers;
 [ApiController]
 public class CompanyEmployeeController : BaseController
 {
-    public CompanyEmployeeController(IMapper mapper, IMediator mediator) 
+    public CompanyEmployeeController(IMapper mapper, IMediator mediator)
         : base(mapper, mediator)
     {
     }

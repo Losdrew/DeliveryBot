@@ -14,11 +14,11 @@ namespace DeliveryBot.Server.Controllers;
 [ApiController]
 public class DeliveryController : BaseController
 {
-    public DeliveryController(IMapper mapper, IMediator mediator) 
+    public DeliveryController(IMapper mapper, IMediator mediator)
         : base(mapper, mediator)
     {
     }
-    
+
     /// <summary>
     /// Create new delivery.
     /// </summary>

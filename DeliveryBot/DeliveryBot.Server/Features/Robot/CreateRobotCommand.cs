@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using DeliveryBot.Db.DbContexts;
-using DeliveryBot.Db.Models;
 using DeliveryBot.Server.Extensions;
 using DeliveryBot.Server.Features.Base;
 using DeliveryBot.Shared.Dto.Robot;

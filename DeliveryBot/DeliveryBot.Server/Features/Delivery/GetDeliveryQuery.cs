@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using DeliveryBot.Db.DbContexts;
-using DeliveryBot.Db.Models;
 using DeliveryBot.Server.Extensions;
 using DeliveryBot.Server.Features.Base;
 using DeliveryBot.Shared.Dto.Delivery;
@@ -18,12 +17,12 @@ public class GetDeliveryQuery : IRequest<ServiceResponse<DeliveryInfoDto>>
     public class GetDeliveryQueryHandler : ExtendedBaseHandler<GetDeliveryQuery, ServiceResponse<DeliveryInfoDto>>
     {
         public GetDeliveryQueryHandler(ApplicationDbContext context, IHttpContextAccessor contextAccessor,
-            IMapper mapper, ILogger<GetDeliveryQueryHandler> logger) 
+            IMapper mapper, ILogger<GetDeliveryQueryHandler> logger)
             : base(context, contextAccessor, mapper, logger)
         {
         }
 
-        public override async Task<ServiceResponse<DeliveryInfoDto>> Handle(GetDeliveryQuery request, 
+        public override async Task<ServiceResponse<DeliveryInfoDto>> Handle(GetDeliveryQuery request,
             CancellationToken cancellationToken)
         {
             try

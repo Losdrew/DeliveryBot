@@ -52,7 +52,7 @@ public class EditCompanyEmployeeCommand : EditCompanyEmployeeCommandDto,
             }
 
             var companyEmployeeToEdit = await Context.CompanyEmployees.FindAsync(request.Id);
-            
+
             if (companyEmployeeToEdit == null)
             {
                 var error = CompanyEmployeeError.CompanyEmployeeNotFound;

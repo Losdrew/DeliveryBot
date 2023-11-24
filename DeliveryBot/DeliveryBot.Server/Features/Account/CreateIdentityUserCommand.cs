@@ -16,8 +16,8 @@ public class CreateIdentityUserCommand : CredentialsDto, IRequest<ServiceRespons
     public class CreateIdentityUserCommandHandler :
         BaseHandler<CreateIdentityUserCommand, ServiceResponse<CreateIdentityUserResult>>
     {
-        private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly UserManager<IdentityUser> _userManager;
 
         public CreateIdentityUserCommandHandler(UserManager<IdentityUser> userManager,
             RoleManager<IdentityRole> roleManager, ILogger<CreateIdentityUserCommandHandler> logger)
@@ -27,7 +27,8 @@ public class CreateIdentityUserCommand : CredentialsDto, IRequest<ServiceRespons
             _roleManager = roleManager;
         }
 
-        public override async Task<ServiceResponse<CreateIdentityUserResult>> Handle(CreateIdentityUserCommand request, CancellationToken cancellationToken)
+        public override async Task<ServiceResponse<CreateIdentityUserResult>> Handle(CreateIdentityUserCommand request,
+            CancellationToken cancellationToken)
         {
             try
             {
@@ -40,8 +41,8 @@ public class CreateIdentityUserCommand : CredentialsDto, IRequest<ServiceRespons
             }
         }
 
-        protected override async Task<ServiceResponse<CreateIdentityUserResult>> UnsafeHandleAsync(CreateIdentityUserCommand request,
-            CancellationToken cancellationToken)
+        protected override async Task<ServiceResponse<CreateIdentityUserResult>> UnsafeHandleAsync(
+            CreateIdentityUserCommand request, CancellationToken cancellationToken)
         {
             var identityUser = new IdentityUser
             {

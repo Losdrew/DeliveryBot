@@ -100,7 +100,8 @@ public class CreateDeliveryCommand : CreateDeliveryCommandDto, IRequest<ServiceR
                 totalVolume += product.VolumeCm3 * orderProduct.Quantity;
             }
 
-            if (robot.Status != RobotStatus.Idle || robot.WeightCapacityG < totalWeight || robot.VolumeCapacityCm3 < totalVolume)
+            if (robot.Status != RobotStatus.Idle || robot.WeightCapacityG < totalWeight ||
+                robot.VolumeCapacityCm3 < totalVolume)
             {
                 return ServiceResponseBuilder.Failure<DeliveryInfoDto>(RobotError.RobotUnavailableError);
             }

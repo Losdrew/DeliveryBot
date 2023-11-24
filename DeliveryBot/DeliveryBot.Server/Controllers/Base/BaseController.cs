@@ -23,6 +23,7 @@ public abstract class BaseController : ControllerBase
         {
             return Ok();
         }
+
         var errorDto = _mapper.Map<ErrorDto>(serviceResponse.Error);
         return BadRequest(errorDto);
     }
@@ -33,6 +34,7 @@ public abstract class BaseController : ControllerBase
         {
             return Ok(serviceResponse.Result);
         }
+
         var errorDto = _mapper.Map<ErrorDto>(serviceResponse.Error);
         return BadRequest(errorDto);
     }

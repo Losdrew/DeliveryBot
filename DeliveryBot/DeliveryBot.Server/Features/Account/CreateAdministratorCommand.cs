@@ -16,13 +16,13 @@ public class CreateAdministratorCommand : CreateCompanyEmployeeCommandDto, IRequ
     public class CreateAdministratorCommandHandler :
         SignUpHandler<CreateAdministratorCommand, ServiceResponse<AuthResultDto>>
     {
-        public CreateAdministratorCommandHandler(IMediator mediator, ApplicationDbContext context, 
-            ITokenGenerator tokenGenerator, ILogger<CreateAdministratorCommandHandler> logger)
+        public CreateAdministratorCommandHandler(IMediator mediator, ApplicationDbContext context,
+            ITokenGenerator tokenGenerator, ILogger<CreateAdministratorCommandHandler> logger) 
             : base(mediator, context, tokenGenerator, logger)
         {
         }
 
-        public override async Task<ServiceResponse<AuthResultDto>> Handle(CreateAdministratorCommand request, 
+        public override async Task<ServiceResponse<AuthResultDto>> Handle(CreateAdministratorCommand request,
             CancellationToken cancellationToken)
         {
             try

@@ -30,7 +30,8 @@ public class AccountController : BaseController
     [HttpPost("administrator/create")]
     [ProducesResponseType(typeof(AuthResultDto), 200)]
     [ProducesResponseType(typeof(ErrorDto), 400)]
-    public async Task<IActionResult> SignUpAdministrator(CreateAdministratorCommand request, CancellationToken cancellationToken)
+    public async Task<IActionResult> SignUpAdministrator(CreateAdministratorCommand request,
+        CancellationToken cancellationToken)
     {
         var result = await Mediator.Send(request, cancellationToken);
         return ConvertFromServiceResponse(result);
@@ -68,7 +69,8 @@ public class AccountController : BaseController
     [HttpPost("company-employee/create")]
     [ProducesResponseType(typeof(AuthResultDto), 200)]
     [ProducesResponseType(typeof(ErrorDto), 400)]
-    public async Task<IActionResult> SignUpCompanyEmployee(CreateCompanyEmployeeCommand request, CancellationToken cancellationToken)
+    public async Task<IActionResult> SignUpCompanyEmployee(CreateCompanyEmployeeCommand request,
+        CancellationToken cancellationToken)
     {
         var result = await Mediator.Send(request, cancellationToken);
         return ConvertFromServiceResponse(result);

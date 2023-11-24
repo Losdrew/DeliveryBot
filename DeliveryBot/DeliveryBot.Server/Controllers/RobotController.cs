@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
 using DeliveryBot.Server.Controllers.Base;
-using DeliveryBot.Server.Features.Product;
 using DeliveryBot.Server.Features.Robot;
 using DeliveryBot.Shared.Dto.Error;
-using DeliveryBot.Shared.Dto.Product;
 using DeliveryBot.Shared.Dto.Robot;
 using DeliveryBot.Shared.Helpers;
 using MediatR;
@@ -16,7 +14,7 @@ namespace DeliveryBot.Server.Controllers;
 [ApiController]
 public class RobotController : BaseController
 {
-    public RobotController(IMapper mapper, IMediator mediator) 
+    public RobotController(IMapper mapper, IMediator mediator)
         : base(mapper, mediator)
     {
     }

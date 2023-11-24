@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using DeliveryBot.Db.DbContexts;
 using DeliveryBot.Server.Features.Base;
-using DeliveryBot.Server.Features.Product;
 using DeliveryBot.Shared.Errors.ServiceErrors;
 using DeliveryBot.Shared.ServiceResponseHandling;
 using MediatR;
@@ -45,7 +44,7 @@ public class DeleteCompanyEmployeeCommand : IRequest<ServiceResponse>
         {
             var companyEmployeeToDelete = Context.CompanyEmployees.Where(p => p.Id == request.CompanyEmployeeId);
             var userToDelete = await _userManager.FindByIdAsync(request.CompanyEmployeeId.ToString());
-            
+
             var isCompanyEmployeeDeleted = await companyEmployeeToDelete.ExecuteDeleteAsync(cancellationToken);
             var userDeleteResult = await _userManager.DeleteAsync(userToDelete);
 

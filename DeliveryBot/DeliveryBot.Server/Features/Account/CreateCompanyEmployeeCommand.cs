@@ -16,13 +16,13 @@ public class CreateCompanyEmployeeCommand : CreateCompanyEmployeeCommandDto, IRe
     public class CreateCompanyEmployeeCommandHandler :
         SignUpHandler<CreateCompanyEmployeeCommand, ServiceResponse<AuthResultDto>>
     {
-        public CreateCompanyEmployeeCommandHandler(IMediator mediator, ApplicationDbContext context, 
+        public CreateCompanyEmployeeCommandHandler(IMediator mediator, ApplicationDbContext context,
             ITokenGenerator tokenGenerator, ILogger<CreateCompanyEmployeeCommandHandler> logger)
             : base(mediator, context, tokenGenerator, logger)
         {
         }
 
-        public override async Task<ServiceResponse<AuthResultDto>> Handle(CreateCompanyEmployeeCommand request, 
+        public override async Task<ServiceResponse<AuthResultDto>> Handle(CreateCompanyEmployeeCommand request,
             CancellationToken cancellationToken)
         {
             try

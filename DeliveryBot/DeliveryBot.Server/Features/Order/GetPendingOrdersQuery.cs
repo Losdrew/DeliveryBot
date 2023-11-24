@@ -12,15 +12,16 @@ namespace DeliveryBot.Server.Features.Order;
 
 public class GetPendingOrdersQuery : IRequest<ServiceResponse<ICollection<OrderInfoDto>>>
 {
-    public class GetPendingOrdersQueryHandler : ExtendedBaseHandler<GetPendingOrdersQuery, ServiceResponse<ICollection<OrderInfoDto>>>
+    public class GetPendingOrdersQueryHandler : 
+        ExtendedBaseHandler<GetPendingOrdersQuery, ServiceResponse<ICollection<OrderInfoDto>>>
     {
         public GetPendingOrdersQueryHandler(ApplicationDbContext context, IHttpContextAccessor contextAccessor,
-            IMapper mapper, ILogger<GetPendingOrdersQueryHandler> logger) 
+            IMapper mapper, ILogger<GetPendingOrdersQueryHandler> logger)
             : base(context, contextAccessor, mapper, logger)
         {
         }
 
-        public override async Task<ServiceResponse<ICollection<OrderInfoDto>>> Handle(GetPendingOrdersQuery request, 
+        public override async Task<ServiceResponse<ICollection<OrderInfoDto>>> Handle(GetPendingOrdersQuery request,
             CancellationToken cancellationToken)
         {
             try
@@ -34,8 +35,8 @@ public class GetPendingOrdersQuery : IRequest<ServiceResponse<ICollection<OrderI
             }
         }
 
-        protected override async Task<ServiceResponse<ICollection<OrderInfoDto>>> UnsafeHandleAsync(GetPendingOrdersQuery request,
-            CancellationToken cancellationToken)
+        protected override async Task<ServiceResponse<ICollection<OrderInfoDto>>> UnsafeHandleAsync(
+            GetPendingOrdersQuery request, CancellationToken cancellationToken)
         {
             var orders = Context.Orders
                 .Include(o => o.OrderProducts)

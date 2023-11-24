@@ -16,7 +16,7 @@ public class GetActiveDeliveriesQuery : IRequest<ServiceResponse<ICollection<Del
         ServiceResponse<ICollection<DeliveryInfoDto>>>
     {
         public GetActiveDeliveriesQueryHandler(ApplicationDbContext context, IHttpContextAccessor contextAccessor,
-            IMapper mapper, ILogger<GetActiveDeliveriesQueryHandler> logger) 
+            IMapper mapper, ILogger<GetActiveDeliveriesQueryHandler> logger)
             : base(context, contextAccessor, mapper, logger)
         {
         }
@@ -41,7 +41,7 @@ public class GetActiveDeliveriesQuery : IRequest<ServiceResponse<ICollection<Del
             var deliveries = Context.Deliveries
                 .Include(d => d.Order)
                 .Where(d => d.Order.Status == OrderStatus.Delivering || d.Order.Status == OrderStatus.PickupAvailable);
-            
+
             var result = Mapper.Map<ICollection<DeliveryInfoDto>>(deliveries);
             return ServiceResponseBuilder.Success(result);
         }

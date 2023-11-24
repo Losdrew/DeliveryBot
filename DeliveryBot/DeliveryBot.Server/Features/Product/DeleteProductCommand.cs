@@ -40,7 +40,7 @@ public class DeleteProductCommand : IRequest<ServiceResponse>
         {
             var productToDelete = Context.Products.Where(p => p.Id == request.ProductId);
             var isDeleted = await productToDelete.ExecuteDeleteAsync(cancellationToken);
-            
+
             if (isDeleted == 0)
             {
                 return ServiceResponseBuilder.Failure(ProductError.ProductNotFound);

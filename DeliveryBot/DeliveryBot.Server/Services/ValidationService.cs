@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using DeliveryBot.Shared.Errors.Base;
+﻿using DeliveryBot.Shared.Errors.Base;
 using DeliveryBot.Shared.ServiceResponseHandling;
 using FluentValidation;
 using FluentValidation.Results;

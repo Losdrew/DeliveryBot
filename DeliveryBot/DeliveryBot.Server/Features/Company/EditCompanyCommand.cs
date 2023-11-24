@@ -104,7 +104,7 @@ public class EditCompanyCommand : EditCompanyCommandDto, IRequest<ServiceRespons
                         LastName = companyEmployee.LastName
                     };
 
-                    var editCompanyEmployeeResponse = 
+                    var editCompanyEmployeeResponse =
                         await _mediator.Send(editCompanyEmployeeCommand, cancellationToken);
 
                     if (!editCompanyEmployeeResponse.IsSuccess)
@@ -132,6 +132,7 @@ public class EditCompanyCommand : EditCompanyCommandDto, IRequest<ServiceRespons
                     }
                 }
             }
+
             return ServiceResponseBuilder.Success();
         }
 
