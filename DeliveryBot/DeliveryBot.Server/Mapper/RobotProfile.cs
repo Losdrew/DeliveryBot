@@ -11,7 +11,20 @@ public class RobotProfile : Profile
     {
         CreateMap<CreateRobotCommand, Robot>();
         CreateMap<EditRobotCommand, Robot>();
-        CreateMap<Robot, RobotInfoDto>();
-        CreateMap<Robot, GetDeliveryRobotQueryDto>();
+        CreateMap<Robot, RobotInfoDto>()
+            .ForMember(dest => dest.Location, opt => 
+                opt.MapFrom(src => src.Location == null ? null : new LocationDto
+                {
+                    X = src.Location.X, 
+                    Y = src.Location.Y
+                }));
+
+        CreateMap<Robot, GetDeliveryRobotQueryDto>()
+            .ForMember(dest => dest.Location, opt => 
+                opt.MapFrom(src => src.Location == null ? null : new LocationDto
+                {
+                    X = src.Location.X, 
+                    Y = src.Location.Y
+                }));
     }
 }
