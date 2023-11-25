@@ -11,6 +11,7 @@ public class Robot : Entity
     public bool HasCargo { get; set; }
     public decimal WeightCapacityG { get; set; }
     public decimal VolumeCapacityCm3 { get; set; }
+    public string? DeviceId { get; set; }
 
     [Column(TypeName="geometry (point)")]
     public Point? Location { get; set; }
