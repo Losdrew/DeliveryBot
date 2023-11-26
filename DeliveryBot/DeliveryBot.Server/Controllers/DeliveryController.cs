@@ -81,4 +81,25 @@ public class DeliveryController : BaseController
         var result = await Mediator.Send(query);
         return ConvertFromServiceResponse(result);
     }
+
+    /// <summary>
+    /// Get active delivery for specific robot.
+    /// </summary>
+    /// <remarks>
+    /// If the operation is successful, it will return an DeliveryInfoDto.
+    /// If there is a bad request, it will return an ErrorDto.
+    /// </remarks>
+    /// <returns>An IActionResult representing the result of the operation.</returns>
+    [HttpGet("robot-active-delivery")]
+    [ProducesResponseType(typeof(DeliveryInfoDto), 200)]
+    [ProducesResponseType(typeof(ErrorDto), 400)]
+    public async Task<IActionResult> GetActiveDeliveryForRobot([FromQuery] string deviceId)
+    {
+        var query = new GetActiveDeliveryForRobotQuery
+        {
+            DeviceId = deviceId
+        };
+        var result = await Mediator.Send(query);
+        return ConvertFromServiceResponse(result);
+    }
 }

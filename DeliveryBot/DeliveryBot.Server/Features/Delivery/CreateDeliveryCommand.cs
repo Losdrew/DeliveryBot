@@ -62,7 +62,6 @@ public class CreateDeliveryCommand : CreateDeliveryCommandDto, IRequest<ServiceR
                 return (ServiceResponse<DeliveryInfoDto>)validationResult;
             }
 
-            robot.Status = RobotStatus.Delivering;
             order.Status = OrderStatus.Delivering;
             newDelivery.CompanyEmployee = companyEmployee;
             Context.Add(newDelivery);
