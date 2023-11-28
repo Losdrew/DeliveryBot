@@ -113,7 +113,7 @@ public class RobotController : BaseController
     /// If there is a bad request, it will return an ErrorDto.
     /// </remarks>
     /// <returns>An IActionResult representing the result of the operation.</returns>
-    [HttpDelete]
+    [HttpDelete("delete")]
     [Authorize(Roles = Roles.Administrator)]
     [ProducesResponseType(typeof(ErrorDto), 400)]
     public async Task<IActionResult> DeleteRobot(Guid robotId, CancellationToken cancellationToken)

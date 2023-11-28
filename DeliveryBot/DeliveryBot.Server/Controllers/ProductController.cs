@@ -94,7 +94,7 @@ public class ProductController : BaseController
     /// If there is a bad request, it will return an ErrorDto.
     /// </remarks>
     /// <returns>An IActionResult representing the result of the operation.</returns>
-    [HttpDelete]
+    [HttpDelete("delete")]
     [Authorize(Roles = Roles.Manager)]
     [ProducesResponseType(typeof(ErrorDto), 400)]
     public async Task<IActionResult> DeleteProduct(Guid productId, CancellationToken cancellationToken)
