@@ -83,19 +83,19 @@ public class DeliveryController : BaseController
     }
 
     /// <summary>
-    /// Get active delivery for specific robot.
+    /// Get robot's active delivery location.
     /// </summary>
     /// <remarks>
-    /// If the operation is successful, it will return an DeliveryInfoDto.
+    /// If the operation is successful, it will return a LocationDto.
     /// If there is a bad request, it will return an ErrorDto.
     /// </remarks>
     /// <returns>An IActionResult representing the result of the operation.</returns>
-    [HttpGet("robot-active-delivery")]
+    [HttpGet("active-delivery-location")]
     [ProducesResponseType(typeof(DeliveryInfoDto), 200)]
     [ProducesResponseType(typeof(ErrorDto), 400)]
-    public async Task<IActionResult> GetActiveDeliveryForRobot([FromQuery] string deviceId)
+    public async Task<IActionResult> GetActiveDeliveryLocation([FromQuery] string deviceId)
     {
-        var query = new GetActiveDeliveryForRobotQuery
+        var query = new GetActiveDeliveryLocationQuery
         {
             DeviceId = deviceId
         };

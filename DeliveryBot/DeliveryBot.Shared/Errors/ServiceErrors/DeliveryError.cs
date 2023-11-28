@@ -21,7 +21,7 @@ public class DeliveryError : ServiceError
     public static DeliveryError OrderDeliveryNotFound = new()
     {
         Header = "Delivery not found",
-        ErrorMessage = "Delivery for this order not found",
+        ErrorMessage = "Delivery not found",
         Code = 3
     };
 
