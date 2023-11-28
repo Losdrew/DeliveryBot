@@ -11,5 +11,6 @@ internal static class ServicesInjection
         services.AddTransient<ITokenGenerator, JwtTokenGenerator>();
         services.AddTransient<IValidationService, ValidationService>();
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
+        services.AddTransient<IGeolocationService, GeolocationService>();
     }
 }
