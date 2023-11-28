@@ -54,7 +54,7 @@ public class CompanyEmployeeController : BaseController
     [HttpDelete]
     [Authorize(Roles = Roles.Manager)]
     [ProducesResponseType(typeof(ErrorDto), 400)]
-    public async Task<IActionResult> DeleteProduct(Guid companyEmployeeId, CancellationToken cancellationToken)
+    public async Task<IActionResult> DeleteCompanyEmployee(Guid companyEmployeeId, CancellationToken cancellationToken)
     {
         var command = new DeleteCompanyEmployeeCommand
         {
