@@ -4,7 +4,6 @@ using DeliveryBot.Server.Features.Robot;
 using DeliveryBot.Shared.Dto.Error;
 using DeliveryBot.Shared.Dto.Robot;
 using DeliveryBot.Shared.Helpers;
-using DeliveryBot.Shared.ServiceResponseHandling;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -102,6 +101,28 @@ public class RobotController : BaseController
     public async Task<IActionResult> EditRobot(EditRobotCommand request, CancellationToken cancellationToken)
     {
         var result = await Mediator.Send(request, cancellationToken);
+        return ConvertFromServiceResponse(result);
+    }
+
+    /// <summary>
+    /// Delete existing robot.
+    /// </summary>
+    /// <param name="robotId">The request to delete company's robot.</param>
+    /// <param name="cancellationToken">The cancellation token.</param>
+    /// <remarks>
+    /// If there is a bad request, it will return an ErrorDto.
+    /// </remarks>
+    /// <returns>An IActionResult representing the result of the operation.</returns>
+    [HttpDelete]
+    [Authorize(Roles = Roles.Administrator)]
+    [ProducesResponseType(typeof(ErrorDto), 400)]
+    public async Task<IActionResult> DeleteRobot(Guid robotId, CancellationToken cancellationToken)
+    {
+        var command = new DeleteRobotCommand
+        {
+            RobotId = robotId
+        };
+        var result = await Mediator.Send(command, cancellationToken);
         return ConvertFromServiceResponse(result);
     }
 

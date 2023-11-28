@@ -45,4 +45,11 @@ public class RobotError : ServiceError
         ErrorMessage = "Error when editing robot",
         Code = 6
     };
+
+    public static RobotError RobotDeleteError = new()
+    {
+        Header = "Delete robot error",
+        ErrorMessage = "Error when deleting robot",
+        Code = 7
+    };
 }
