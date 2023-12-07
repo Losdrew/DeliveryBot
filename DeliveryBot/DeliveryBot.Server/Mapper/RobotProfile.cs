@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DeliveryBot.Db.Models;
 using DeliveryBot.Server.Features.Robot;
+using DeliveryBot.Shared.Dto.Geolocation;
 using DeliveryBot.Shared.Dto.Robot;
 using NetTopologySuite.Geometries;
 

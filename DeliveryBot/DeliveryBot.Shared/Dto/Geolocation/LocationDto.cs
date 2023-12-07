@@ -1,4 +1,4 @@
-﻿namespace DeliveryBot.Shared.Dto.Robot;
+﻿namespace DeliveryBot.Shared.Dto.Geolocation;
 
 public class LocationDto
 {

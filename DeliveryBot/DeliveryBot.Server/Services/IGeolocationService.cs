@@ -1,5 +1,5 @@
 ﻿using DeliveryBot.Shared.Dto.Address;
-using DeliveryBot.Shared.Dto.Robot;
+using DeliveryBot.Shared.Dto.Geolocation;
 using DeliveryBot.Shared.ServiceResponseHandling;
 
 namespace DeliveryBot.Server.Services;

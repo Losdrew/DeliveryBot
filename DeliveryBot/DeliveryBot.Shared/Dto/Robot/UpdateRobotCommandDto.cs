@@ -1,4 +1,5 @@
-﻿using DeliveryBot.Shared.Helpers;
+﻿using DeliveryBot.Shared.Dto.Geolocation;
+using DeliveryBot.Shared.Helpers;
 
 namespace DeliveryBot.Shared.Dto.Robot;
 

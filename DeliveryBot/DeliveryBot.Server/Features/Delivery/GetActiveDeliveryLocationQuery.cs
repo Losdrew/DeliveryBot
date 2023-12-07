@@ -5,7 +5,7 @@ using DeliveryBot.Server.Features.Base;
 using DeliveryBot.Server.Services;
 using DeliveryBot.Shared.Dto.Address;
 using DeliveryBot.Shared.Dto.Delivery;
-using DeliveryBot.Shared.Dto.Robot;
+using DeliveryBot.Shared.Dto.Geolocation;
 using DeliveryBot.Shared.Errors.ServiceErrors;
 using DeliveryBot.Shared.ServiceResponseHandling;
 using MediatR;

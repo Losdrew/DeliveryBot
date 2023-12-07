@@ -1,6 +1,7 @@
-﻿using DeliveryBot.Server.Models.Geolocation;
+﻿using DeliveryBot.Db.Models;
+using DeliveryBot.Server.Models.Geolocation;
 using DeliveryBot.Shared.Dto.Address;
-using DeliveryBot.Shared.Dto.Robot;
+using DeliveryBot.Shared.Dto.Geolocation;
 using DeliveryBot.Shared.Errors.Base;
 using DeliveryBot.Shared.ServiceResponseHandling;
 using Newtonsoft.Json;
@@ -10,7 +11,7 @@ namespace DeliveryBot.Server.Services;
 
 public class GeolocationService : IGeolocationService
 {
-    private const string BaseUrl = "http://api.positionstack.com/";
+    private const string PositionStackBaseUrl = "http://api.positionstack.com/v1/forward";
 
     private readonly IConfiguration _configuration;
     private readonly HttpClient _httpClient;
@@ -19,24 +20,32 @@ public class GeolocationService : IGeolocationService
     {
         _configuration = configuration;
         _httpClient = new HttpClient();
-        _httpClient.BaseAddress = new Uri(BaseUrl);
     }
 
     public async Task<ServiceResponse<LocationDto>> GetAddressLocationAsync(AddressDto address)
     {
-        var accessKey = _configuration.GetRequiredSection("GeolocationAPIAccessKey").Value;
+        var accessToken = _configuration.GetRequiredSection("PositionStackAccessToken").Value;
         var fullAddress = GetFullAddress(address);
-        var endpoint = $"v1/forward?access_key={accessKey}&query={fullAddress}";
+        var endpoint = $"{PositionStackBaseUrl}?access_key={accessToken}&query={fullAddress}";
 
         var httpResponseMessage = await _httpClient.GetAsync(endpoint);
         var json = await httpResponseMessage.Content.ReadAsStringAsync();
 
         if (!httpResponseMessage.IsSuccessStatusCode)
         {
-            return HandleError(json);
+            return HandleError(json).MapErrorResult<LocationDto>();
         }
 
-        return HandleSuccess(json);
+        var result = JsonConvert.DeserializeObject<GeolocationResult>(json);
+        var addressResult = result.Data.First();
+        var location = new LocationDto
+        {
+            X = addressResult.Longitude,
+            Y = addressResult.Latitude
+        };
+
+        return ServiceResponseBuilder.Success(location);
+    }
     }
 
     private string GetFullAddress(AddressDto address)
@@ -63,19 +72,7 @@ public class GeolocationService : IGeolocationService
         return fullAddress.ToString();
     }
 
-    private ServiceResponse<LocationDto> HandleSuccess(string json)
-    {
-        var result = JsonConvert.DeserializeObject<GeolocationResult>(json);
-        var addressResult = result.Data.First();
-        var location = new LocationDto
-        {
-            X = addressResult.Longitude,
-            Y = addressResult.Latitude
-        };
-        return ServiceResponseBuilder.Success(location);
-    }
-
-    private ServiceResponse<LocationDto> HandleError(string json)
+    private ServiceResponse HandleError(string json)
     {
         var errorResult = JsonConvert.DeserializeObject<GeolocationError>(json);
         var error = new Error().ServiceErrors = new List<ServiceError>
@@ -88,6 +85,6 @@ public class GeolocationService : IGeolocationService
             }
         };
 
-        return ServiceResponseBuilder.Failure<LocationDto>(error);
+        return ServiceResponseBuilder.Failure(error);
     }
 }
