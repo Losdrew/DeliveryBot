@@ -12,6 +12,7 @@ namespace DeliveryBot.Server.Services;
 public class GeolocationService : IGeolocationService
 {
     private const string PositionStackBaseUrl = "http://api.positionstack.com/v1/forward";
+    private const string MapboxBaseUrl = "https://api.mapbox.com/directions/v5/mapbox/walking";
 
     private readonly IConfiguration _configuration;
     private readonly HttpClient _httpClient;
@@ -46,6 +47,24 @@ public class GeolocationService : IGeolocationService
 
         return ServiceResponseBuilder.Success(location);
     }
+
+    public async Task<ServiceResponse<RoutesDto>> GetRoutesAsync(LocationDto firstPoint, LocationDto secondPoint)
+    {
+        var accessToken = _configuration.GetRequiredSection("MapBoxAccessToken").Value;
+        var location = $"{firstPoint.X},{firstPoint.Y};{secondPoint.X},{secondPoint.Y}";
+        var parameters = $"geometries=geojson&overview=simplified&steps=true&access_token={accessToken}";
+        var endpoint = $"{MapboxBaseUrl}/{location}?{parameters}";
+
+        var httpResponseMessage = await _httpClient.GetAsync(endpoint);
+        var json = await httpResponseMessage.Content.ReadAsStringAsync();
+
+        if (!httpResponseMessage.IsSuccessStatusCode)
+        {
+            return HandleError(json).MapErrorResult<RoutesDto>();
+        }
+
+        var result = JsonConvert.DeserializeObject<RoutesDto>(json);
+        return ServiceResponseBuilder.Success(result);
     }
 
     private string GetFullAddress(AddressDto address)
