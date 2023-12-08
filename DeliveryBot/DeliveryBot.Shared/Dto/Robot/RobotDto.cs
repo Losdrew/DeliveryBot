@@ -12,6 +12,7 @@ public class RobotDto
     public bool HasCargo { get; set; }
     public decimal WeightCapacityG { get; set; }
     public decimal VolumeCapacityCm3 { get; set; }
+    public bool IsCargoLidOpen { get; set; }
     public string? DeviceId { get; set; }
     public Guid? CompanyId { get; set; }
 }
