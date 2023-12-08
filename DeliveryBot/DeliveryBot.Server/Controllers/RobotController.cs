@@ -160,8 +160,6 @@ public class RobotController : BaseController
     /// <returns>An IActionResult representing the result of the operation.</returns>
     [HttpPost("update")]
     [ProducesResponseType(typeof(ErrorDto), 400)]
-    [ProducesResponseType(typeof(string), 401)]
-    [ProducesResponseType(typeof(string), 403)]
     public async Task<IActionResult> UpdateRobot(UpdateRobotCommand request, CancellationToken cancellationToken)
     {
         var result = await Mediator.Send(request, cancellationToken);
@@ -187,6 +185,28 @@ public class RobotController : BaseController
     public async Task<IActionResult> ToggleRobotCargoLid(ToggleRobotCargoLidCommand request, CancellationToken cancellationToken)
     {
         var result = await Mediator.Send(request, cancellationToken);
+        return ConvertFromServiceResponse(result);
+    }
+
+    /// <summary>
+    /// Get robot cargo lid status.
+    /// </summary>
+    /// <param name="deviceId">Robot's device id</param>
+    /// <remarks>
+    /// If the operation is successful, it will return an success result.
+    /// If there is a bad request, it will return an ErrorDto.
+    /// </remarks>
+    /// <returns>An IActionResult representing the result of the operation.</returns>
+    [HttpGet("lid-status")]
+    [ProducesResponseType(typeof(string), 200)]
+    [ProducesResponseType(typeof(ErrorDto), 400)]
+    public async Task<IActionResult> UpdateRobot([FromQuery] string? deviceId)
+    {
+        var query = new GetRobotCargoLidStatusQuery
+        {
+            DeviceId = deviceId
+        };
+        var result = await Mediator.Send(query);
         return ConvertFromServiceResponse(result);
     }
 }
