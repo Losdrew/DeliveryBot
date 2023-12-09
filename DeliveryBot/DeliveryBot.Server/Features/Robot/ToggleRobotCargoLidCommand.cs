@@ -73,7 +73,8 @@ public class ToggleRobotCargoLidCommand : IRequest<ServiceResponse<RobotInfoDto>
                     .Include(d => d.Order)
                     .FirstOrDefault(d => d.CompanyEmployeeId == companyEmployee.Id);
 
-                if (delivery == null || delivery.Order.Status != OrderStatus.Pending || robotToEdit.Status != RobotStatus.Idle)
+                if (delivery == null || delivery.Order.Status != OrderStatus.Pending || 
+                    (robotToEdit.Status != RobotStatus.Idle && robotToEdit.Status != RobotStatus.WaitingForCargo))
                 {
                     return ServiceResponseBuilder.Failure<RobotInfoDto>(RobotError.RobotUnavailableError);
                 }
@@ -88,7 +89,8 @@ public class ToggleRobotCargoLidCommand : IRequest<ServiceResponse<RobotInfoDto>
                     .Include(d => d.Order)
                     .FirstOrDefault(d => d.Order.CustomerId == customer.Id);
 
-                if (delivery == null || delivery.Robot.Status != RobotStatus.ReadyForPickup)
+                if (delivery == null || delivery.Order.Status != OrderStatus.PickupAvailable ||
+                    delivery.Robot.Status != RobotStatus.ReadyForPickup)
                 {
                     return ServiceResponseBuilder.Failure<RobotInfoDto>(RobotError.RobotUnavailableError);
                 }
