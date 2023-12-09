@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using DeliveryBot.Server.Controllers.Base;
 using DeliveryBot.Server.Features.Geolocation;
-using DeliveryBot.Shared.Dto.Delivery;
 using DeliveryBot.Shared.Dto.Error;
 using DeliveryBot.Shared.Dto.Geolocation;
 using MediatR;
@@ -9,6 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DeliveryBot.Server.Controllers;
 
+[Route("api/[controller]")]
+[ApiController]
 public class GeolocationController : BaseController
 {
     public GeolocationController(IMapper mapper, IMediator mediator)
