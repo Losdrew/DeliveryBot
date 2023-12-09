@@ -8,7 +8,6 @@ public class Robot : Entity
     public string? Name { get; set; }
     public RobotStatus Status { get; set; }
     public int BatteryCharge { get; set; }
-    public bool HasCargo { get; set; }
     public decimal WeightCapacityG { get; set; }
     public decimal VolumeCapacityCm3 { get; set; }
     public bool IsCargoLidOpen { get; set; }
