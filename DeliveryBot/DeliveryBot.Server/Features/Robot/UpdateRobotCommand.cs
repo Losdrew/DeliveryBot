@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using DeliveryBot.Db.DbContexts;
+using DeliveryBot.Db.Models;
 using DeliveryBot.Server.Features.Base;
 using DeliveryBot.Shared.Dto.Robot;
 using DeliveryBot.Shared.Errors.ServiceErrors;
 using DeliveryBot.Shared.ServiceResponseHandling;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace DeliveryBot.Server.Features.Robot;
 
@@ -35,17 +37,33 @@ public class UpdateRobotCommand : UpdateRobotCommandDto, IRequest<ServiceRespons
         protected override async Task<ServiceResponse> UnsafeHandleAsync(UpdateRobotCommand request,
             CancellationToken cancellationToken)
         {
-            var robotToUpdate =
-                Context.Robots.FirstOrDefault(r => r.DeviceId != null && r.DeviceId.Equals(request.DeviceId));
+            var robot = Context.Robots.FirstOrDefault(r => r.DeviceId != null && r.DeviceId.Equals(request.DeviceId));
 
-            if (robotToUpdate == null)
+            if (robot == null)
             {
                 return ServiceResponseBuilder.Failure(RobotError.RobotNotFound);
             }
 
-            Mapper.Map(request, robotToUpdate);
-            await Context.SaveChangesAsync(cancellationToken);
+            Mapper.Map(request, robot);
 
+            var delivery = Context.Deliveries
+                .Include(d => d.Order)
+                .FirstOrDefault(d => d.RobotId == robot.Id);
+
+            if (delivery == null)
+            {
+                return ServiceResponseBuilder.Failure(DeliveryError.OrderDeliveryNotFound);
+            }
+
+            delivery.Order.Status = robot.Status switch
+            {
+                RobotStatus.Delivering => OrderStatus.Delivering,
+                RobotStatus.ReadyForPickup => OrderStatus.PickupAvailable,
+                RobotStatus.Returning => OrderStatus.Delivered,
+                _ => delivery.Order.Status
+            };
+
+            await Context.SaveChangesAsync(cancellationToken);
             return ServiceResponseBuilder.Success();
         }
     }
