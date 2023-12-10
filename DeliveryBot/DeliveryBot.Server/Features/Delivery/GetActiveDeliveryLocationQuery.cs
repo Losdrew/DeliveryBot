@@ -52,7 +52,7 @@ public class GetActiveDeliveryLocationQuery : IRequest<ServiceResponse<LocationD
                 .Include(d => d.Robot)
                 .FirstOrDefaultAsync(d => d.Robot.DeviceId.Equals(request.DeviceId), cancellationToken);
 
-            if (delivery == null || delivery.Order.Status != OrderStatus.Delivering)
+            if (delivery == null)
             {
                 return ServiceResponseBuilder.Failure<LocationDto>(DeliveryError.OrderDeliveryNotFound);
             }
