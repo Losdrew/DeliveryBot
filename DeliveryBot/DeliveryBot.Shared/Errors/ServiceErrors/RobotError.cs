@@ -56,7 +56,7 @@ public class RobotError : ServiceError
     public static RobotError GetCompanyNearestRouteError = new()
     {
         Header = "Get company nearest route error",
-        ErrorMessage = "Error when getting nearest root for robot's company",
+        ErrorMessage = "Error when getting nearest route for robot's company",
         Code = 8
     };
 }

@@ -220,7 +220,7 @@ public class RobotController : BaseController
     /// If there is a bad request, it will return an ErrorDto.
     /// </remarks>
     /// <returns>An IActionResult representing the result of the operation.</returns>
-    [HttpGet("nearest-company-location")]
+    [HttpGet("nearest-company-route")]
     [ProducesResponseType(typeof(RoutesDto), 200)]
     [ProducesResponseType(typeof(ErrorDto), 400)]
     public async Task<IActionResult> GetNearestCompanyRoute([FromQuery] string? deviceId)
