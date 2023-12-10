@@ -52,4 +52,11 @@ public class RobotError : ServiceError
         ErrorMessage = "Error when deleting robot",
         Code = 7
     };
+
+    public static RobotError GetCompanyNearestRouteError = new()
+    {
+        Header = "Get company nearest route error",
+        ErrorMessage = "Error when getting nearest root for robot's company",
+        Code = 8
+    };
 }

@@ -8,4 +8,5 @@ public interface IGeolocationService
 {
     public Task<ServiceResponse<LocationDto>> GetAddressLocationAsync(AddressDto address);
     public Task<ServiceResponse<RoutesDto>> GetRoutesAsync(LocationDto firstPoint, LocationDto secondPoint);
+    public double CalculateDistance(LocationDto firstPoint, LocationDto secondPoint);
 }

@@ -2,6 +2,7 @@
 using DeliveryBot.Server.Controllers.Base;
 using DeliveryBot.Server.Features.Robot;
 using DeliveryBot.Shared.Dto.Error;
+using DeliveryBot.Shared.Dto.Geolocation;
 using DeliveryBot.Shared.Dto.Robot;
 using DeliveryBot.Shared.Helpers;
 using MediatR;
@@ -203,6 +204,28 @@ public class RobotController : BaseController
     public async Task<IActionResult> UpdateRobot([FromQuery] string? deviceId)
     {
         var query = new GetRobotCargoLidStatusQuery
+        {
+            DeviceId = deviceId
+        };
+        var result = await Mediator.Send(query);
+        return ConvertFromServiceResponse(result);
+    }
+
+    /// <summary>
+    /// Get route to robot's company nearest location.
+    /// </summary>
+    /// <param name="deviceId">Robot's device id</param>
+    /// <remarks>
+    /// If the operation is successful, it will return an success result.
+    /// If there is a bad request, it will return an ErrorDto.
+    /// </remarks>
+    /// <returns>An IActionResult representing the result of the operation.</returns>
+    [HttpGet("nearest-company-location")]
+    [ProducesResponseType(typeof(RoutesDto), 200)]
+    [ProducesResponseType(typeof(ErrorDto), 400)]
+    public async Task<IActionResult> GetNearestCompanyRoute([FromQuery] string? deviceId)
+    {
+        var query = new GetRobotCompanyNearestRouteQuery
         {
             DeviceId = deviceId
         };

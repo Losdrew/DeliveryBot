@@ -15,7 +15,7 @@ public class GeolocationAddress
     public string Number { get; set; }
     public string Street { get; set; }
     public string PostalCode { get; set; }
-    public int Confidence { get; set; }
+    public double Confidence { get; set; }
     public string Region { get; set; }
     public string RegionCode { get; set; }
     public string AdministrativeArea { get; set; }
