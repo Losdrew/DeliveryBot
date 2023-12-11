@@ -3,6 +3,7 @@ using DeliveryBot.Server.Controllers.Base;
 using DeliveryBot.Server.Features.Delivery;
 using DeliveryBot.Shared.Dto.Delivery;
 using DeliveryBot.Shared.Dto.Error;
+using DeliveryBot.Shared.Dto.Geolocation;
 using DeliveryBot.Shared.Helpers;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -91,7 +92,7 @@ public class DeliveryController : BaseController
     /// </remarks>
     /// <returns>An IActionResult representing the result of the operation.</returns>
     [HttpGet("active-delivery-location")]
-    [ProducesResponseType(typeof(DeliveryInfoDto), 200)]
+    [ProducesResponseType(typeof(LocationDto), 200)]
     [ProducesResponseType(typeof(ErrorDto), 400)]
     public async Task<IActionResult> GetActiveDeliveryLocation([FromQuery] string deviceId)
     {
