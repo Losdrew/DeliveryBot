@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeliveryBot.Db", "DeliveryB
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeliveryBot.Shared", "DeliveryBot.Shared\DeliveryBot.Shared.csproj", "{4EB8E819-F586-44E2-B447-4F36A0BD7ECC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeliveryBot.Tests", "DeliveryBot.Tests\DeliveryBot.Tests.csproj", "{102627AC-5D12-4638-9867-4ED9359CF3D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeliveryBot.Tests", "DeliveryBot.Tests\DeliveryBot.Tests.csproj", "{102627AC-5D12-4638-9867-4ED9359CF3D7}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "deliverybot.client", "..\..\..\..\OneDrive\Рабочий стол\Newfolder1\deliverybot.client\deliverybot.client.esproj", "{C6740A2B-EC0C-4C5A-BF78-A23290C75B85}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,12 @@ Global
 		{102627AC-5D12-4638-9867-4ED9359CF3D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{102627AC-5D12-4638-9867-4ED9359CF3D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{102627AC-5D12-4638-9867-4ED9359CF3D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6740A2B-EC0C-4C5A-BF78-A23290C75B85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6740A2B-EC0C-4C5A-BF78-A23290C75B85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6740A2B-EC0C-4C5A-BF78-A23290C75B85}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{C6740A2B-EC0C-4C5A-BF78-A23290C75B85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6740A2B-EC0C-4C5A-BF78-A23290C75B85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6740A2B-EC0C-4C5A-BF78-A23290C75B85}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
