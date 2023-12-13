@@ -44,13 +44,8 @@ export default defineConfig({
             '@': fileURLToPath(new URL('./src', import.meta.url))
         }
     },
+    base: 'https://localhost:5173/',
     server: {
-        proxy: {
-            '^/weatherforecast': {
-                target: 'https://localhost:5001/',
-                secure: false
-            }
-        },
         port: 5173,
         https: {
             key: fs.readFileSync(keyFilePath),
