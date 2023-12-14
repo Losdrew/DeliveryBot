@@ -45,7 +45,8 @@ public abstract class SignUpHandler<TCommand, TResponse> : BaseHandler<TCommand,
             var result = new AuthResultDto
             {
                 UserId = user.Id,
-                Bearer = token
+                Bearer = token,
+                Role = GetRole()
             };
 
             return (TResponse)ServiceResponseBuilder.Success(result);

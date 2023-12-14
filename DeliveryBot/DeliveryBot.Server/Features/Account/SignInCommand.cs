@@ -58,7 +58,8 @@ public class SignInCommand : CredentialsDto, IRequest<ServiceResponse<AuthResult
             var result = new AuthResultDto
             {
                 UserId = Guid.Parse(identityUser.Id),
-                Bearer = token
+                Bearer = token,
+                Role = (await _userManager.GetRolesAsync(identityUser)).First()
             };
 
             return ServiceResponseBuilder.Success(result);
