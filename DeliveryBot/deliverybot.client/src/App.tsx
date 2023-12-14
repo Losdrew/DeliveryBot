@@ -1,25 +1,13 @@
 import { Route, Routes } from 'react-router-dom';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import { Container } from '@mui/material';
-import { Header } from './components/header';
-
-const darkTheme = createTheme({
-  palette: {
-    mode: 'dark',
-  },
-});
+import Layout from './components/Layout';
+import RequireAuth from './components/RequireAuth';
 
 function App() {
   return (
-    <ThemeProvider theme={darkTheme}>
-      <CssBaseline />
-      <Header />
-      <Container>
-        <Routes>
-        </Routes>
-      </Container>
-    </ThemeProvider>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+      </Route>
+    </Routes>
   );
 }
 

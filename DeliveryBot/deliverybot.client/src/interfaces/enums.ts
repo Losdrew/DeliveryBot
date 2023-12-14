@@ -1,3 +1,11 @@
+export enum Roles {
+  None = "",
+  Administrator = "admin",
+  Manager = "manager",
+  CompanyEmployee = "company-employee",
+  Customer = "customer"
+}
+
 export enum OrderStatus {
   Pending,
   Delivering,

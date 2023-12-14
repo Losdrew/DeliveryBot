@@ -1,6 +1,7 @@
 export interface AuthResultDto {
   userId?: string;
   bearer?: string | undefined;
+  role?: string;
 }
 
 export interface CompanyEmployeeAccountDto {
