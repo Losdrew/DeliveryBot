@@ -1,4 +1,4 @@
-import { AppBar, Toolbar, Link, IconButton, Menu, MenuItem } from '@mui/material';
+import { AppBar, Toolbar, Link, IconButton, Menu, MenuItem, Button } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import useAuth from '../hooks/useAuth';
 import React from 'react';
@@ -28,7 +28,19 @@ export function Header() {
         <Link underline="none" variant="h6" href="/" color="inherit" sx={{ flexGrow: 1 }}>
           DeliveryBot
         </Link>
-        {auth && (
+        {!auth.userId && (
+            <Button
+              variant="contained"
+              color="primary"
+              size="medium"
+              onClick={handleMenuOpen}
+              component={LinkRouter}
+              to="/login"
+            >
+              Sign in
+            </Button>
+        )}
+        {auth.userId && (
           <div>
             <IconButton
               size="large"
