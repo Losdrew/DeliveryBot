@@ -1,8 +1,8 @@
-import { AppBar, Toolbar, Link, IconButton, Menu, MenuItem, Button } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import useAuth from '../hooks/useAuth';
+import { AppBar, Box, Button, IconButton, Menu, MenuItem, Toolbar, Typography } from '@mui/material';
 import React from 'react';
-import { Link as LinkRouter } from "react-router-dom" 
+import { Link as LinkRouter } from "react-router-dom";
+import useAuth from '../hooks/useAuth';
 
 export function Header() {
   const { auth, setAuth } = useAuth();
@@ -25,23 +25,43 @@ export function Header() {
   return (
     <AppBar position="static">
       <Toolbar>
-        <Link underline="none" variant="h6" href="/" color="inherit" sx={{ flexGrow: 1 }}>
+        <Typography
+          variant="h6"
+          noWrap
+          component="a"
+          href="/"
+          sx={{
+            mr: 2,
+            fontWeight: 600,
+            color: 'inherit',
+            textDecoration: 'none',
+          }}
+        >
           DeliveryBot
-        </Link>
+        </Typography>
+        <Box sx={{ flexGrow: 1, display: { md: 'flex' }, mr: 1 }}>
+          <Button
+            component={LinkRouter} 
+            to="/companies"
+            sx={{ my: 2, color: 'white'}}
+          >
+            Companies
+          </Button>
+        </Box>
         {!auth.userId && (
-            <Button
-              variant="contained"
-              color="primary"
-              size="medium"
-              onClick={handleMenuOpen}
-              component={LinkRouter}
-              to="/login"
-            >
-              Sign in
-            </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            size="medium"
+            onClick={handleMenuOpen}
+            component={LinkRouter}
+            to="/login"
+          >
+            Sign in
+          </Button>
         )}
         {auth.userId && (
-          <div>
+          <Box>
             <IconButton
               size="large"
               edge="end"
@@ -54,6 +74,7 @@ export function Header() {
               <AccountCircleIcon fontSize="large" />
             </IconButton>
             <Menu
+              sx={{ mt: '45px' }}
               id="menu-appbar"
               anchorEl={anchorEl}
               anchorOrigin={{
@@ -71,9 +92,11 @@ export function Header() {
               <MenuItem component={LinkRouter} to="/profile" onClick={handleMenuClose}>
                 Profile
               </MenuItem>
-              <MenuItem onClick={handleLogout}>Logout</MenuItem>
+              <MenuItem onClick={handleLogout}>
+                Logout
+              </MenuItem>
             </Menu>
-          </div>
+          </Box>
         )}
       </Toolbar>
     </AppBar>
