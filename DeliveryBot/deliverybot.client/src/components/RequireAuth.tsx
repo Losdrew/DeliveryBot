@@ -1,13 +1,12 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
-import { AuthResultDto } from "../interfaces/account";
 
 interface RequireAuthProps {
     allowedRoles?: string[];
 }
 
 const RequireAuth : React.FC<RequireAuthProps> = ({ allowedRoles }) => {
-    const { auth } = useAuth() as { auth: AuthResultDto };
+    const { auth } = useAuth();
     const location = useLocation();
 
     return (

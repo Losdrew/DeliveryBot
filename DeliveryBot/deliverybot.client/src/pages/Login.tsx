@@ -20,11 +20,18 @@ export function Login() {
       const request: SignInCommand = { email, password };
       const result: AuthResultDto = await authService.signIn(request);
       setAuth(result);
+      saveToLocalStorage(result);
       navigate(from, { replace: true });
     } catch (error) {
       console.error('Error');
     }
   };
+
+  const saveToLocalStorage = async (authResult : AuthResultDto) => {
+    localStorage.setItem('accessToken', authResult.bearer!);
+    localStorage.setItem('userId', authResult.userId!);
+    localStorage.setItem('role', authResult.role!);
+  }
 
   return (
     <div className="bg-light pb-5" style={{ minHeight: "100vh" }}>
