@@ -12,6 +12,7 @@ export interface OwnCompanyInfoDto {
 }
 
 export interface CompanyPreviewDto {
+  id?: string | undefined;
   name?: string | undefined;
   description?: string | undefined;
 }
