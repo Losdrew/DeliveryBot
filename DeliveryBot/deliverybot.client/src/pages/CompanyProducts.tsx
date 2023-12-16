@@ -27,6 +27,19 @@ export function CompanyProducts() {
     fetchData();
   }, [companyId]);
 
+  const handleAddToCart = (
+    productId: string,
+    productName: string,
+    productDescription: string,
+    productPrice: number
+  ) => {
+    addToCart({ id: productId, name: productName, description: productDescription, price: productPrice });
+  };
+
+  const handleRemoveFromCart = (productId: string) => {
+    removeFromCart(productId);
+  };
+
   return (
     <Container maxWidth="md" style={{ marginTop: '20px' }}>
       <Paper elevation={3} style={{ padding: '20px' }}>
@@ -52,6 +65,24 @@ export function CompanyProducts() {
                   </React.Fragment>
                 }
               />
+              {auth.role == Roles.Customer && (
+              <React.Fragment>
+                <IconButton
+                    color="primary"
+                    aria-label="Add to Cart"
+                    onClick={() => handleAddToCart(product.id, product.name, product.description, product.price)}
+                >
+                  <AddShoppingCart />
+                </IconButton>
+                <IconButton
+                    color="secondary"
+                    aria-label="Remove from Cart"
+                    onClick={() => handleRemoveFromCart(product.id)}
+                >
+                  <RemoveShoppingCart />
+                </IconButton>
+              </React.Fragment>
+              )}
             </ListItem>
           ))}
         </List>

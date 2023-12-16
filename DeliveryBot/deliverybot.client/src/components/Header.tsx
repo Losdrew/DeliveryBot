@@ -1,11 +1,15 @@
+import { ShoppingCart } from '@mui/icons-material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { AppBar, Box, Button, IconButton, Menu, MenuItem, Toolbar, Typography } from '@mui/material';
+import { AppBar, Badge, Box, Button, IconButton, Menu, MenuItem, Toolbar, Typography } from '@mui/material';
 import React from 'react';
 import { Link as LinkRouter } from "react-router-dom";
 import useAuth from '../hooks/useAuth';
+import useCart from '../hooks/useCart';
+import { Roles } from '../interfaces/enums';
 
 export function Header() {
   const { auth, setAuth } = useAuth();
+  const { cart } = useCart();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -64,8 +68,22 @@ export function Header() {
         )}
         {auth.userId && (
           <Box>
+            {auth.role === Roles.Customer && (
+              <IconButton
+                  size="medium"
+                  edge="start"
+                  color="inherit"
+                  aria-label="shopping cart"
+                  component={LinkRouter}
+                  to="/cart"
+                >
+                <Badge badgeContent={cart.length} color="error">
+                  <ShoppingCart sx={{fontSize: 30}} />
+                </Badge>
+              </IconButton>
+            )}
             <IconButton
-              size="large"
+              size="medium"
               edge="end"
               color="inherit"
               aria-label="user profile"
@@ -73,7 +91,7 @@ export function Header() {
               aria-haspopup="true"
               onClick={handleMenuOpen}
             >
-              <AccountCircleIcon fontSize="large" />
+              <AccountCircleIcon sx={{fontSize: 30}} />
             </IconButton>
             <Menu
               sx={{ mt: '45px' }}

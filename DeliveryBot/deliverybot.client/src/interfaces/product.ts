@@ -24,3 +24,10 @@ export interface EditProductCommand {
   volumeCm3?: number;
   id?: string;
 }
+
+export interface CartProduct {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+}
