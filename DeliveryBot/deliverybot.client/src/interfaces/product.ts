@@ -1,9 +1,12 @@
-export interface CompanyProductInfoDto {
+export interface ProductDto {
   name?: string | undefined;
   price?: number;
   description?: string | undefined;
   weightG?: number;
   volumeCm3?: number;
+}
+
+export interface CompanyProductInfoDto extends ProductDto {
   id?: string;
   companyId?: string;
 }

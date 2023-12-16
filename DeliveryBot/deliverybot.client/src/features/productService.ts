@@ -1,6 +1,6 @@
 import axios from "axios";
 import apiClient from "../config/apiClient";
-import { CompanyProductInfoDto } from "../interfaces/product";
+import { CompanyProductInfoDto, ProductDto } from "../interfaces/product";
 
 const getCompanyProducts = async (
   companyId: string
@@ -19,8 +19,26 @@ const getCompanyProducts = async (
   }
 };
 
+const getProduct = async (
+  productId: string
+): Promise<ProductDto> => {
+  try {
+    const response = await apiClient.get<ProductDto>(
+      'api/Product/product?productId=' + productId
+    );
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      throw new Error(error.response?.data.message);
+    } else {
+      throw new Error("Unknown error occurred.");
+    }
+  }
+};
+
 const productService = {
-  getCompanyProducts
+  getCompanyProducts,
+  getProduct
 };
 
 export default productService;
