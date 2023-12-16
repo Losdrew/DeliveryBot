@@ -9,7 +9,9 @@ export function Header() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
+    if (auth.userId) {
+      setAnchorEl(event.currentTarget);
+    }
   };
 
   const handleMenuClose = () => {
