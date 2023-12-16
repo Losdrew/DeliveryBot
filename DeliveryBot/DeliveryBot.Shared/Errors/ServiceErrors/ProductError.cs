@@ -38,4 +38,11 @@ public class ProductError : ServiceError
         ErrorMessage = "Error when deleting product",
         Code = 5
     };
+
+    public static ProductError GetProductError = new()
+    {
+        Header = "Get product error",
+        ErrorMessage = "Error when getting product",
+        Code = 6
+    };
 }

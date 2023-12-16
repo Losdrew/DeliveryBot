@@ -64,6 +64,28 @@ public class ProductController : BaseController
     }
 
     /// <summary>
+    /// Get info about product.
+    /// </summary>
+    /// <param name="productId"></param>
+    /// <remarks>
+    /// If the operation is successful, it will return a ProductDto.
+    /// If there is a bad request, it will return an ErrorDto.
+    /// </remarks>
+    /// <returns>An IActionResult representing the result of the operation.</returns>
+    [HttpGet("product")]
+    [ProducesResponseType(typeof(ProductDto), 200)]
+    [ProducesResponseType(typeof(ErrorDto), 400)]
+    public async Task<IActionResult> GetProduct(Guid productId)
+    {
+        var query = new GetProductQuery
+        {
+            ProductId = productId
+        };
+        var result = await Mediator.Send(query);
+        return ConvertFromServiceResponse(result);
+    }
+
+    /// <summary>
     /// Edit existing product.
     /// </summary>
     /// <param name="request">The request to edit company's product.</param>
