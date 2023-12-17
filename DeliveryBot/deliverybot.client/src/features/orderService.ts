@@ -1,6 +1,9 @@
 import axios from "axios";
 import apiClient from "../config/apiClient";
-import { CreateOrderCommand, OrderInfoDto, CancelOwnOrderCommand } from "../interfaces/order";
+import { CancelOwnOrderCommand, CreateOrderCommand, OrderFullInfo, OrderInfoDto } from "../interfaces/order";
+import productService from "./productService";
+import { OrderStatus } from "../interfaces/enums";
+import deliveryService from "./deliveryService";
 
 const createOrder = async (
   request: CreateOrderCommand,
@@ -27,16 +30,44 @@ const createOrder = async (
 
 const getOwnOrders = async (
   bearerToken: string,
-): Promise<OrderInfoDto[]> => {
+): Promise<OrderFullInfo[]> => {
   try {
     const headers = {
       'Authorization': 'Bearer ' + bearerToken
     };
-    const response = await apiClient.get<OrderInfoDto[]>(
+    const ordersResponse = await apiClient.get<OrderInfoDto[]>(
       '/api/Order/user-orders',
       { headers }
     );
-    return response.data;
+
+    const ordersFullInfo = [];
+
+    for (const order of ordersResponse.data) {
+      const productDetails = [];
+
+      for (const orderProduct of order.orderProducts || []) {
+        const productDto = await productService.getProduct(orderProduct.productId);
+        productDetails.push(productDto);
+      }
+
+      const orderFullInfo : OrderFullInfo = {
+        ...order,
+        products: productDetails
+      };
+
+      if (order.orderStatus !== OrderStatus.Pending && 
+          order.orderStatus !== OrderStatus.Cancelled
+      ) {
+        const delivery = await deliveryService.getDelivery(order.id, bearerToken);
+        orderFullInfo.delivery = delivery;
+      }
+
+      order.placedDateTime = new Date(Date.parse(order.placedDateTime?.toString()));
+
+      ordersFullInfo.push(orderFullInfo);
+    }
+
+    return ordersFullInfo;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       throw new Error(error.response?.data.message);
@@ -55,7 +86,7 @@ const cancelOrder = async (
       'Authorization': 'Bearer ' + bearerToken
     };
     await apiClient.post(
-      '/api/Order/user-orders',
+      '/api/Order/cancel',
       request,
       { headers }
     );

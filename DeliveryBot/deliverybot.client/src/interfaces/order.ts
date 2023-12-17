@@ -1,4 +1,5 @@
 import { AddressDto } from "./address";
+import { DeliveryFullInfo, DeliveryInfoDto } from "./delivery";
 import { OrderStatus } from "./enums";
 import { ProductDto } from "./product";
 
@@ -18,6 +19,7 @@ export interface OrderFullInfo {
   id?: string;
   customerId?: string;
   orderStatus?: OrderStatus;
+  delivery?: DeliveryFullInfo
 }
 
 export interface OrderProductDto {
