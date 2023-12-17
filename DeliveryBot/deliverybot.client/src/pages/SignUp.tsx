@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import authService from '../features/authService';
 import useAuth from '../hooks/useAuth';
-import { AuthResultDto, CreateCustomerCommand, CreateManagerCommand } from '../interfaces/account';
+import { AuthResultDto } from '../interfaces/account';
 import { Roles } from '../interfaces/enums';
 
 export function SignUp() {
@@ -22,15 +22,10 @@ export function SignUp() {
 
   const handleSignUp = async () => {
     try {
-      const request =
-        role === Roles.Customer
-          ? { email, password, firstName, lastName }
-          : { email, password, firstName, lastName };
-
       const result: AuthResultDto =
         role === Roles.Customer
-          ? await authService.signUpCustomer(request as CreateCustomerCommand)
-          : await authService.signUpManager(request as CreateManagerCommand);
+          ? await authService.signUpCustomer(email, password, firstName, lastName)
+          : await authService.signUpManager(email, password, firstName, lastName);
 
       setAuth(result);
       saveToLocalStorage(result);

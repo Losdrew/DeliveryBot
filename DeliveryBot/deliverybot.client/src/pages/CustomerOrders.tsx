@@ -18,7 +18,7 @@ import addressService from '../features/addressService';
 import orderService from '../features/orderService';
 import useAuth from '../hooks/useAuth';
 import { OrderStatus, OrderStatusColors, OrderStatusLabels, RobotStatusColors, RobotStatusLabels } from '../interfaces/enums';
-import { CancelOwnOrderCommand, OrderFullInfo } from '../interfaces/order';
+import { OrderFullInfo } from '../interfaces/order';
 
 const CustomerOrders = () => {
   const { auth } = useAuth();
@@ -46,8 +46,7 @@ const CustomerOrders = () => {
 
   const handleCancelOrder = async (orderId: string) => {
     try {
-      const request: CancelOwnOrderCommand = { orderId };
-      await orderService.cancelOrder(request, auth.bearer!);
+      await orderService.cancelOrder(orderId, auth.bearer!);
     } catch (error) {
       console.error('Error');
     }

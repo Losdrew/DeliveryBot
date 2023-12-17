@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import authService from '../features/authService';
 import useAuth from '../hooks/useAuth';
-import { AuthResultDto, SignInCommand } from '../interfaces/account';
+import { AuthResultDto } from '../interfaces/account';
 
 export function Login() {
   const { setAuth } = useAuth();
@@ -17,8 +17,8 @@ export function Login() {
 
   const handleLogin = async () => {
     try {
-      const request: SignInCommand = { email, password };
-      const result: AuthResultDto = await authService.signIn(request);
+      
+      const result: AuthResultDto = await authService.signIn(email, password);
       setAuth(result);
       saveToLocalStorage(result);
       navigate(from, { replace: true });
@@ -61,7 +61,12 @@ export function Login() {
             <Link href="/sign-up">
               Create an account
             </Link>
-            <Button variant="contained" color="primary" fullWidth style={{ marginTop: '20px' }} onClick={handleLogin}>
+            <Button 
+              variant="contained" 
+              color="primary" 
+              fullWidth 
+              style={{ marginTop: '20px' }} 
+              onClick={handleLogin}>
               Sign in
             </Button>
           </form>

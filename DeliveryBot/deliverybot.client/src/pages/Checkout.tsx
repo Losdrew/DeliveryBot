@@ -4,7 +4,7 @@ import orderService from "../features/orderService";
 import useAuth from '../hooks/useAuth';
 import useCart from '../hooks/useCart';
 import { AddressDto } from '../interfaces/address';
-import { CreateOrderCommand, OrderInfoDto, OrderProductDto } from "../interfaces/order";
+import { OrderInfoDto } from "../interfaces/order";
 
 export function Checkout() {
   const { auth } = useAuth();
@@ -33,12 +33,17 @@ export function Checkout() {
   const handlePlaceOrder = async () => {
     try {
       const placedDateTime = new Date();
-      const orderProducts: OrderProductDto[] = cart.map((product) => 
+      const orderProducts = cart.map((product) => 
       {
         return {productId : product.id, quantity : 1 } 
       });
-      const request: CreateOrderCommand = { placedDateTime, orderProducts, orderAddress }
-      const response = await orderService.createOrder(request, auth.bearer!);
+      
+      const response = await orderService.createOrder(
+        placedDateTime, 
+        orderAddress, 
+        orderProducts, 
+        auth.bearer!
+      );
       setOrder(response);
       clearCart();
     } catch (error) {

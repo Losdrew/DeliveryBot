@@ -1,11 +1,13 @@
 import axios from "axios";
 import apiClient from "../config/apiClient";
-import { AuthResultDto, SignInCommand } from "../interfaces/account";
+import { AuthResultDto, CreateAdministratorCommand, CreateCompanyEmployeeCommand, CreateCustomerCommand, CreateManagerCommand, SignInCommand } from "../interfaces/account";
 
 const signIn = async (
-  request: SignInCommand
+  email : string,
+  password : string
 ): Promise<AuthResultDto> => {
   try {
+    const request: SignInCommand = { email, password };
     const response = await apiClient.post<AuthResultDto>(
       '/api/Account/sign-in',
       request
@@ -21,9 +23,18 @@ const signIn = async (
 };
 
 const signUpCustomer = async (
-  request: SignInCommand
+  email : string,
+  password : string,
+  firstName : string,
+  lastName : string
 ): Promise<AuthResultDto> => {
   try {
+    const request: CreateCustomerCommand = { 
+      email, 
+      password, 
+      firstName, 
+      lastName 
+    };
     const response = await apiClient.post<AuthResultDto>(
       '/api/Account/customer/create',
       request
@@ -39,9 +50,18 @@ const signUpCustomer = async (
 };
 
 const signUpCompanyEmployee = async (
-  request: SignInCommand
+  email : string,
+  password : string,
+  firstName : string,
+  lastName : string
 ): Promise<AuthResultDto> => {
   try {
+    const request: CreateCompanyEmployeeCommand = { 
+      email, 
+      password, 
+      firstName, 
+      lastName 
+    };
     const response = await apiClient.post<AuthResultDto>(
       '/api/Account/company-employee/create',
       request
@@ -57,9 +77,18 @@ const signUpCompanyEmployee = async (
 };
 
 const signUpManager = async (
-  request: SignInCommand
+  email : string,
+  password : string,
+  firstName : string,
+  lastName : string
 ): Promise<AuthResultDto> => {
   try {
+    const request: CreateManagerCommand = { 
+      email, 
+      password, 
+      firstName, 
+      lastName 
+    };
     const response = await apiClient.post<AuthResultDto>(
       '/api/Account/manager/create',
       request
@@ -75,9 +104,18 @@ const signUpManager = async (
 };
 
 const signUpAdministrator = async (
-  request: SignInCommand
+  email : string,
+  password : string,
+  firstName : string,
+  lastName : string
 ): Promise<AuthResultDto> => {
   try {
+    const request: CreateAdministratorCommand = { 
+      email, 
+      password, 
+      firstName, 
+      lastName 
+    };
     const response = await apiClient.post<AuthResultDto>(
       '/api/Account/administrator/create',
       request

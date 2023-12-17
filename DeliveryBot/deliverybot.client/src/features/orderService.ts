@@ -1,15 +1,23 @@
 import axios from "axios";
 import apiClient from "../config/apiClient";
-import { CancelOwnOrderCommand, CreateOrderCommand, OrderFullInfo, OrderInfoDto } from "../interfaces/order";
-import productService from "./productService";
+import { AddressDto } from "../interfaces/address";
 import { OrderStatus } from "../interfaces/enums";
+import { CancelOwnOrderCommand, CreateOrderCommand, OrderFullInfo, OrderInfoDto, OrderProductDto } from "../interfaces/order";
 import deliveryService from "./deliveryService";
+import productService from "./productService";
 
 const createOrder = async (
-  request: CreateOrderCommand,
+  placedDateTime: Date,
+  orderAddress: AddressDto,
+  orderProducts: OrderProductDto[],
   bearerToken: string,
 ): Promise<OrderInfoDto> => {
   try {
+    const request: CreateOrderCommand = { 
+      placedDateTime,
+      orderAddress,
+      orderProducts
+    }
     const headers = {
       'Authorization': 'Bearer ' + bearerToken
     };
@@ -78,10 +86,11 @@ const getOwnOrders = async (
 };
 
 const cancelOrder = async (
-  request: CancelOwnOrderCommand,
+  orderId: string,
   bearerToken: string,
 ): Promise<boolean> => {
   try {
+    const request: CancelOwnOrderCommand = { orderId };
     const headers = {
       'Authorization': 'Bearer ' + bearerToken
     };
