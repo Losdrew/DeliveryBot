@@ -65,6 +65,7 @@ public class CancelOwnOrderCommand : IRequest<ServiceResponse<OrderInfoDto>>
             }
 
             orderToCancel.Status = OrderStatus.Cancelled;
+            await Context.SaveChangesAsync(cancellationToken);
 
             var result = Mapper.Map<OrderInfoDto>(orderToCancel);
             return ServiceResponseBuilder.Success(result);
