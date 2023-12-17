@@ -6,6 +6,7 @@ import { Cart } from './pages/Cart';
 import { Checkout } from './pages/Checkout';
 import { Companies } from './pages/Companies';
 import { CompanyProducts } from './pages/CompanyProducts';
+import CustomerOrders from './pages/CustomerOrders';
 import { Home } from './pages/Home';
 import { Login } from './pages/Login';
 import { SignUp } from './pages/SignUp';
@@ -23,6 +24,7 @@ function App() {
         <Route element={<RequireAuth allowedRoles={[Roles.Customer]} />}>
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/customer-orders" element={<CustomerOrders />} />
         </Route>
       </Route>
     </Routes>
