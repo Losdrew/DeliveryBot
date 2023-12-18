@@ -1,6 +1,17 @@
 import { LocalMall, RemoveShoppingCart } from '@mui/icons-material';
-import { Box, Button, Container, IconButton, List, ListItem, ListItemIcon, ListItemText, Paper, Typography } from '@mui/material';
-import React from 'react';
+import {
+    Box,
+    Button,
+    Container,
+    IconButton,
+    Paper,
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableRow,
+    Typography
+} from '@mui/material';
 import { Link } from 'react-router-dom';
 import useCart from '../hooks/useCart';
 
@@ -27,35 +38,42 @@ export function Cart() {
         <Typography variant="h4" gutterBottom align="center">
           Shopping Cart
         </Typography>
-        <List>
-          {cart.map((product) => (
-            <ListItem key={product.id}>
-              <ListItemIcon>
-                <LocalMall fontSize="medium" color="primary" />
-              </ListItemIcon>
-              <ListItemText
-                primary={product.name}
-                secondary={
-                  <React.Fragment>
-                    <Typography variant="body2" color="textSecondary">
-                      Price: {product.price}
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary">
-                      Description: {product.description}
-                    </Typography>
-                  </React.Fragment>
-                }
-              />
-              <IconButton
+        <Table sx={{ mb: 2}}>
+          <TableHead>
+            <TableRow>
+              <TableCell> </TableCell>
+              <TableCell>Name</TableCell>
+              <TableCell>Description</TableCell>
+              <TableCell>Volume</TableCell>
+              <TableCell>Weight</TableCell>
+              <TableCell>Total Price</TableCell>
+              <TableCell>Actions</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {cart.map((product) => (
+              <TableRow>
+                <TableCell width="70">
+                  <LocalMall fontSize="medium" color="primary" />
+                </TableCell>
+                <TableCell>{product.name}</TableCell>
+                <TableCell>{product.description}</TableCell>
+                <TableCell>{product.volume}</TableCell>
+                <TableCell>{product.weight}</TableCell>
+                <TableCell>${product.price}</TableCell>
+                <TableCell>
+                  <IconButton
                   color="secondary"
                   aria-label="Remove from Cart"
                   onClick={() => handleRemoveFromCart(product.id)}
-              >
-                <RemoveShoppingCart />
-              </IconButton>
-            </ListItem>
-          ))}
-        </List>
+                  >
+                    <RemoveShoppingCart />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
         <Box display="flex" justifyContent="flex-end" mt={2} mb={2}>
           <Button 
             variant="contained" 

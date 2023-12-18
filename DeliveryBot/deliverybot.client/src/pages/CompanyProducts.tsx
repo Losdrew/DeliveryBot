@@ -1,15 +1,23 @@
 import { AddShoppingCart, LocalMall, RemoveShoppingCart } from '@mui/icons-material';
-import { Container, IconButton, List, ListItem, ListItemIcon, ListItemText, Paper, Typography } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import {
+    Box,
+    Container,
+    IconButton,
+    Paper,
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableRow,
+    Typography
+} from '@mui/material';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import productService from '../features/productService';
-import useAuth from '../hooks/useAuth';
 import useCart from '../hooks/useCart';
-import { Roles } from '../interfaces/enums';
 import { CompanyProductInfoDto } from '../interfaces/product';
 
 export function CompanyProducts() {
-  const { auth } = useAuth();
   const { companyId } = useParams();
   const { addToCart, removeFromCart } = useCart();
   const [companyProducts, setCompanyProducts] = useState<CompanyProductInfoDto[]>([]);
@@ -31,9 +39,18 @@ export function CompanyProducts() {
     productId: string,
     productName: string,
     productDescription: string,
+    productVolume : string,
+    productWeight : string,
     productPrice: number
   ) => {
-    addToCart({ id: productId, name: productName, description: productDescription, price: productPrice });
+    addToCart({ 
+      id: productId, 
+      name: productName, 
+      description: productDescription, 
+      volume: productVolume,
+      weight: productWeight,
+      price: productPrice 
+    });
   };
 
   const handleRemoveFromCart = (productId: string) => {
@@ -46,46 +63,58 @@ export function CompanyProducts() {
         <Typography variant="h4" gutterBottom align="center">
           Products
         </Typography>
-        <List>
-          {companyProducts.map((product) => (
-            <ListItem key={product.id}>
-              <ListItemIcon>
-                <LocalMall fontSize="medium" color="primary" />
-              </ListItemIcon>
-              <ListItemText
-                primary={product.name}
-                secondary={
-                  <React.Fragment>
-                    <Typography variant="body2" color="textSecondary">
-                      Price: {product.price}
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary">
-                      Description: {product.description}
-                    </Typography>
-                  </React.Fragment>
-                }
-              />
-              {auth.role == Roles.Customer && (
-              <React.Fragment>
-                <IconButton
-                    color="primary"
-                    aria-label="Add to Cart"
-                    onClick={() => handleAddToCart(product.id, product.name, product.description, product.price)}
-                >
-                  <AddShoppingCart />
-                </IconButton>
-                <IconButton
-                    color="secondary"
-                    aria-label="Remove from Cart"
-                    onClick={() => handleRemoveFromCart(product.id)}
-                >
-                  <RemoveShoppingCart />
-                </IconButton>
-              </React.Fragment>
-              )}
-            </ListItem>
-          ))}
-        </List>
+        <Table sx={{ mb: 2}}>
+          <TableHead>
+            <TableRow>
+              <TableCell> </TableCell>
+              <TableCell>Name</TableCell>
+              <TableCell>Description</TableCell>
+              <TableCell>Volume</TableCell>
+              <TableCell>Weight</TableCell>
+              <TableCell>Total Price</TableCell>
+              <TableCell>Actions</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {companyProducts?.map((product) => (
+              <TableRow>
+                <TableCell width="70">
+                  <LocalMall fontSize="medium" color="primary" />
+                </TableCell>
+                <TableCell>{product.name}</TableCell>
+                <TableCell>{product.description}</TableCell>
+                <TableCell>{product.volumeCm3}</TableCell>
+                <TableCell>{product.weightG}</TableCell>
+                <TableCell>${product.price}</TableCell>
+                <TableCell>
+                  <Box display="flex" flexDirection="row">
+                    <IconButton
+                        color="primary"
+                        aria-label="Add to Cart"
+                        onClick={() => handleAddToCart(
+                          product.id, 
+                          product.name, 
+                          product.description, 
+                          product.volumeCm3,
+                          product.weightG,
+                          product.price
+                        )}
+                    >
+                      <AddShoppingCart />
+                    </IconButton>
+                    <IconButton
+                        color="secondary"
+                        aria-label="Remove from Cart"
+                        onClick={() => handleRemoveFromCart(product.id)}
+                    >
+                      <RemoveShoppingCart />
+                    </IconButton>
+                  </Box>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
       </Paper>
     </Container>
   );

@@ -106,6 +106,15 @@ const CustomerOrders = () => {
                         Order Details:
                       </Typography>
                       <Table sx={{ mb: 2}}>
+                        <TableHead>
+                          <TableRow>
+                            <TableCell> </TableCell>
+                            <TableCell>Product Name</TableCell>
+                            <TableCell>Volume</TableCell>
+                            <TableCell>Weight</TableCell>
+                            <TableCell>Total Price</TableCell>
+                          </TableRow>
+                        </TableHead>
                         <TableBody>
                           {order.products?.map((product) => (
                             <TableRow>
@@ -113,6 +122,8 @@ const CustomerOrders = () => {
                                 <LocalMall fontSize="medium" color="primary" />
                               </TableCell>
                               <TableCell width="150">{product.name}</TableCell>
+                              <TableCell>{product.volumeCm3}</TableCell>
+                              <TableCell>{product.weightG}</TableCell>
                               <TableCell>${product.price}</TableCell>
                             </TableRow>
                           ))}

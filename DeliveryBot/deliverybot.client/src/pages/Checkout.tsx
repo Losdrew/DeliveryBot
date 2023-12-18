@@ -1,4 +1,18 @@
-import { Box, Button, Container, Grid, List, ListItem, ListItemText, Paper, TextField, Typography } from '@mui/material';
+import { LocalMall } from '@mui/icons-material';
+import {
+    Box,
+    Button,
+    Container,
+    Grid,
+    Paper,
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableRow,
+    TextField,
+    Typography
+} from '@mui/material';
 import React, { useState } from "react";
 import orderService from "../features/orderService";
 import useAuth from '../hooks/useAuth';
@@ -162,16 +176,32 @@ export function Checkout() {
                 <Typography variant="h6" gutterBottom>
                   Order Summary
                 </Typography>
-                <List>
-                  {cart.map((item) => (
-                    <ListItem key={item.id}>
-                      <ListItemText
-                        primary={item.name}
-                        secondary={`Price: $${item.price.toFixed(2)}`}
-                      />
-                    </ListItem>
-                  ))}
-                </List>
+                <Table sx={{ mb: 2}}>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell> </TableCell>
+                      <TableCell>Name</TableCell>
+                      <TableCell>Description</TableCell>
+                      <TableCell>Volume</TableCell>
+                      <TableCell>Weight</TableCell>
+                      <TableCell>Total Price</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {cart.map((product) => (
+                      <TableRow>
+                        <TableCell width="70">
+                          <LocalMall fontSize="medium" color="primary" />
+                        </TableCell>
+                        <TableCell>{product.name}</TableCell>
+                        <TableCell>{product.description}</TableCell>
+                        <TableCell>{product.volume}</TableCell>
+                        <TableCell>{product.weight}</TableCell>
+                        <TableCell>${product.price}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
               </Paper>
             </Grid>
           </Grid>

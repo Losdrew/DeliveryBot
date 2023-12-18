@@ -32,5 +32,7 @@ export interface CartProduct {
   id: string;
   name: string;
   description: string;
+  volume: string;
+  weight: string;
   price: number;
 }
