@@ -57,6 +57,7 @@ export function Login() {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              sx={{mb: 2}}
             />
             <Link href="/sign-up">
               Create an account
