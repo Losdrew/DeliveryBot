@@ -1,4 +1,5 @@
 export interface CompanyEmployeeDto {
+  id?: string;
   email?: string | undefined;
   firstName?: string | undefined;
   lastName?: string | undefined;
@@ -9,7 +10,6 @@ export interface CompanyEmployeeInfoDto extends CompanyEmployeeDto {
 }
 
 export interface EditableCompanyEmployeeDto extends CompanyEmployeeDto {
-  id?: string;
   password?: string | undefined;
 }
 

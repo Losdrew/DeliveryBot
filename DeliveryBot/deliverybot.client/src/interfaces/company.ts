@@ -29,6 +29,6 @@ export interface EditCompanyCommand {
   name?: string | undefined;
   description?: string | undefined;
   websiteUrl?: string | undefined;
-  companyEmployees?: EditableCompanyEmployeeDto[] | undefined;
   companyAddresses?: AddressDto[] | undefined;
+  companyEmployees?: CompanyEmployeeDto[] | undefined;
 }

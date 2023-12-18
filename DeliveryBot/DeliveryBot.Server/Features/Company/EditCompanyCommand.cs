@@ -99,7 +99,6 @@ public class EditCompanyCommand : EditCompanyCommandDto, IRequest<ServiceRespons
                     {
                         Id = companyEmployee.Id,
                         Email = companyEmployee.Email,
-                        Password = companyEmployee.Password,
                         FirstName = companyEmployee.FirstName,
                         LastName = companyEmployee.LastName
                     };
@@ -117,7 +116,6 @@ public class EditCompanyCommand : EditCompanyCommandDto, IRequest<ServiceRespons
                     var createCompanyEmployeeCommand = new CreateCompanyEmployeeCommand
                     {
                         Email = companyEmployee.Email,
-                        Password = companyEmployee.Password,
                         FirstName = companyEmployee.FirstName,
                         LastName = companyEmployee.LastName,
                         CompanyId = company.Id

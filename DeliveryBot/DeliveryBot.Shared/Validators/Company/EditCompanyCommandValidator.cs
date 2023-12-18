@@ -18,7 +18,7 @@ public class EditCompanyCommandValidator : AbstractValidator<EditCompanyCommandD
             .When(c => c.Description != null);
 
         RuleForEach(c => c.CompanyEmployees)
-            .SetValidator(new EditableCompanyEmployeeValidator());
+            .SetValidator(new CompanyEmployeeValidator());
 
         RuleForEach(c => c.CompanyAddresses)
             .SetValidator(new EditableAddressValidator());
