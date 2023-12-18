@@ -73,6 +73,15 @@ export function Header() {
               Company
             </Button>
           )}
+          {auth.role === Roles.Administrator && (
+            <Button
+              component={LinkRouter} 
+              to="/admin-dashboard"
+              sx={{ my: 2, color: 'white'}}
+            >
+              Dashboard
+            </Button>
+          )}
         </Box>
         {!auth.userId && (
           <Button
