@@ -46,13 +46,15 @@ export function Header() {
           DeliveryBot
         </Typography>
         <Box sx={{ flexGrow: 1, display: { md: 'flex' }, mr: 1 }}>
-          <Button
-            component={LinkRouter} 
-            to="/companies"
-            sx={{ my: 2, color: 'white'}}
-          >
-            Companies
-          </Button>
+          {!auth.userId || auth.role === Roles.Customer && (
+            <Button
+              component={LinkRouter} 
+              to="/companies"
+              sx={{ my: 2, color: 'white'}}
+            >
+              Companies
+            </Button>
+          )}
           {auth.role === Roles.Customer && (
             <Button
               component={LinkRouter} 
@@ -60,6 +62,15 @@ export function Header() {
               sx={{ my: 2, color: 'white'}}
             >
               Orders
+            </Button>
+          )}
+          {auth.role === Roles.Manager && (
+            <Button
+              component={LinkRouter} 
+              to="/my-company"
+              sx={{ my: 2, color: 'white'}}
+            >
+              Company
             </Button>
           )}
         </Box>

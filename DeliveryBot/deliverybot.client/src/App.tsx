@@ -10,6 +10,7 @@ import CustomerOrders from './pages/CustomerOrders';
 import { Home } from './pages/Home';
 import { Login } from './pages/Login';
 import { SignUp } from './pages/SignUp';
+import { OwnCompany } from './pages/OwnCompany';
 
 function App() {
   return (
@@ -25,6 +26,10 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/customer-orders" element={<CustomerOrders />} />
+        </Route>
+
+        <Route element={<RequireAuth allowedRoles={[Roles.Manager]} />}>
+          <Route path="/my-company" element={<OwnCompany />} />
         </Route>
       </Route>
     </Routes>
