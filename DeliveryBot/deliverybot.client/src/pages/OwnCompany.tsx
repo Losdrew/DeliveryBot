@@ -24,6 +24,7 @@ import { GridCompanyAddress, GridCompanyEmployee, GridCompanyProduct } from '../
 import { Link } from 'react-router-dom';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
+import EditToolbar from '../components/EditToolbar';
 
 export function OwnCompany() {
   const { auth } = useAuth();
@@ -157,6 +158,11 @@ export function OwnCompany() {
           </Typography>
           <Collapse in={expandAddresses}>
             <EditableDataGrid
+              toolbar={EditToolbar}
+              toolbarProps={{
+                rows: companyAddresses || [],
+                setRows: setCompanyAddresses
+              }}
               rows={companyAddresses || []}
               setRows={setCompanyAddresses}
               initialColumns={companyAddressColumns}
@@ -171,6 +177,11 @@ export function OwnCompany() {
           </Typography>
           <Collapse in={expandEmployees}>
             <EditableDataGrid
+              toolbar={EditToolbar}
+              toolbarProps={{
+                rows: companyEmployees || [],
+                setRows: setCompanyEmployees
+              }}
               rows={companyEmployees || []}
               setRows={setCompanyEmployees}
               initialColumns={companyEmployeeColumns}
@@ -185,6 +196,11 @@ export function OwnCompany() {
           </Typography>
           <Collapse in={expandProducts}>
             <EditableDataGrid
+              toolbar={EditToolbar}
+              toolbarProps={{
+                rows: companyProducts || [],
+                setRows: setCompanyProducts
+              }}
               rows={companyProducts || []}
               setRows={setCompanyProducts}
               initialColumns={companyProductColumns}

@@ -1,58 +1,34 @@
-import React, { useState } from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import AddIcon from '@mui/icons-material/Add';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/DeleteOutlined';
-import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Cancel';
+import DeleteIcon from '@mui/icons-material/DeleteOutlined';
+import EditIcon from '@mui/icons-material/Edit';
+import SaveIcon from '@mui/icons-material/Save';
+import Box from '@mui/material/Box';
 import {
-  GridRowsProp,
-  GridRowModesModel,
-  GridRowModes,
-  DataGrid,
-  GridColDef,
-  GridActionsCellItem,
-  GridEventListener,
-  GridRowId,
-  GridRowModel,
-  GridRowEditStopReasons,
-  GridToolbarContainer,
+    DataGrid,
+    GridActionsCellItem,
+    GridColDef,
+    GridEventListener,
+    GridRowEditStopReasons,
+    GridRowId,
+    GridRowModel,
+    GridRowModes,
+    GridRowModesModel,
+    GridRowsProp
 } from '@mui/x-data-grid';
+import React, { useState } from 'react';
+import { EditToolbarProps } from './EditToolbar';
 
 interface EditableDataGridProps {
+  toolbar : React.ComponentType<EditToolbarProps>,
+  toolbarProps : EditToolbarProps,
   rows: GridRowsProp;
   setRows: React.Dispatch<React.SetStateAction<GridRowsProp>>;
   initialColumns: GridColDef[];
 }
 
-const EditToolbar: React.FC<{
-  setRows: (newRows: (oldRows: GridRowsProp) => GridRowsProp) => void;
-  setRowModesModel: (
-    newModel: (oldModel: GridRowModesModel) => GridRowModesModel,
-  ) => void;
-}> = (props) => {
-  const { setRows, setRowModesModel } = props;
-
-  const handleClick = () => {
-    const id = Date.now().toString();
-    setRows((oldRows) => [...oldRows, { id, name: '', age: '', isNew: true }]);
-    setRowModesModel((oldModel) => ({
-      ...oldModel,
-      [id]: { mode: GridRowModes.Edit, fieldToFocus: 'name' },
-    }));
-  };
-
-  return (
-    <GridToolbarContainer>
-      <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
-        Add
-      </Button>
-    </GridToolbarContainer>
-  );
-};
-
 const EditableDataGrid: React.FC<EditableDataGridProps> = ({
+  toolbar,
+  toolbarProps,
   rows,
   setRows,
   initialColumns
@@ -171,11 +147,12 @@ const EditableDataGrid: React.FC<EditableDataGridProps> = ({
         onRowModesModelChange={handleRowModesModelChange}
         onRowEditStop={handleRowEditStop}
         processRowUpdate={processRowUpdate}
+        rowSelection
         slots={{
-          toolbar: EditToolbar,
+          toolbar
         }}
         slotProps={{
-          toolbar: { setRows, setRowModesModel },
+          toolbar: toolbarProps,
         }}
       />
     </Box>
