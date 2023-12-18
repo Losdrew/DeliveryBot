@@ -5,6 +5,6 @@ namespace DeliveryBot.Shared.Dto.Company;
 
 public class EditCompanyCommandDto : CompanyDto
 {
-    public ICollection<EditableAddressDto>? CompanyAddresses { get; set; }
     public ICollection<EditableCompanyEmployeeDto>? CompanyEmployees { get; set; }
+    public ICollection<AddressDto>? CompanyAddresses { get; set; }
 }

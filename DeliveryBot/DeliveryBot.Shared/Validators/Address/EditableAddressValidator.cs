@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace DeliveryBot.Shared.Validators.Address;
 
-public class EditableAddressValidator : AbstractValidator<EditableAddressDto>
+public class EditableAddressValidator : AbstractValidator<AddressDto>
 {
     public EditableAddressValidator()
     {
