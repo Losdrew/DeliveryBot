@@ -8,6 +8,7 @@ public class RoutesDto
 public class Route
 {
     public List<Leg> Legs { get; set; }
+    public Geometry Geometry { get; set; }
     public double Distance { get; set; }
     public double Duration { get; set; }
 }
