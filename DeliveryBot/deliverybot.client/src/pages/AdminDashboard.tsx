@@ -1,22 +1,25 @@
 import { Alert, Box, Button, Container, Divider, Paper, Snackbar, Typography } from '@mui/material';
 import { GridColDef, GridRenderCellParams, GridValueFormatterParams } from '@mui/x-data-grid';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import EditableDataGrid from '../components/EditableDataGrid';
 import RobotEditToolbar from '../components/RobotEditToolbar';
 import RobotLocationModal from '../components/RobotLocationModal';
 import dataService from '../features/dataService';
 import robotService from '../features/robotService';
 import useAuth from '../hooks/useAuth';
-import { RobotStatus, RobotStatusColors, RobotStatusLabels } from '../interfaces/enums';
+import useStatusConverter from '../hooks/useStatusConverter';
+import { RobotStatus } from '../interfaces/enums';
 import { GridCompanyRobot } from '../interfaces/grid';
 
 const AdminDashboard = () => {
   const { auth } = useAuth();
+  const { t } = useTranslation();
+  const { RobotStatusColors, RobotStatusLabels } = useStatusConverter();
   const [companyRobots, setCompanyRobots] = useState<GridCompanyRobot[]>();
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const [saveStatus, setSaveStatus] = useState<'success' | 'error' | null>(null);
-
+ 
   const handleExportData = async () => {
     try {
       const response = await dataService.getExportedData(auth.bearer!);
@@ -84,13 +87,13 @@ const AdminDashboard = () => {
   };
 
   const companyRobotColumns: GridColDef[] = [
-    { field: 'name', headerName: 'Name', width: 170, editable: true },
-    { field: 'volumeCapacityCm3', headerName: 'Volume Capacity', width: 100, editable: true },
-    { field: 'weightCapacityG', headerName: 'Weight Capacity', width: 100, editable: true, },
-    { field: 'deviceId', headerName: 'Device Id', width: 170, editable: true },
+    { field: 'name', headerName: t('name'), width: 170, editable: true },
+    { field: 'volumeCapacityCm3', headerName: t('volumeCapacity'), width: 100, editable: true },
+    { field: 'weightCapacityG', headerName: t('weightCapacity'), width: 100, editable: true, },
+    { field: 'deviceId', headerName: t('deviceId'), width: 170, editable: true },
     { 
       field: 'batteryCharge', 
-      headerName: 'Battery', 
+      headerName: t('battery'), 
       width: 100, 
       valueFormatter: (params: GridValueFormatterParams<number>) => {
         if (params.value == null) {
@@ -101,7 +104,7 @@ const AdminDashboard = () => {
     },
     { 
       field: 'status',
-      headerName: 'Status',
+      headerName: t('status'),
       renderCell: (params: GridRenderCellParams<any, RobotStatus>) => (
       <span
         style={{
@@ -123,20 +126,20 @@ const AdminDashboard = () => {
   return (
     <Container>
       <Typography variant="h5" gutterBottom align="center" mt={3} mb={2}>
-        Administrator Dashboard
+        {t('administratorDashboard')}
       </Typography>
       <Paper elevation={3} style={{ padding: '20px', paddingBottom: '20px' }}>
         <Box mb={2}>
           <Typography variant="h6" gutterBottom mb={2}>
-            Export current system data:
+            {t('exportCurrentSystemData')}
           </Typography>
           <Button variant="contained" color="primary" onClick={handleExportData}>
-            Export Data
+            {t('exportData')}
           </Button>
         </Box>
         <Divider />
         <Typography variant="h6" gutterBottom mt={2} mb={2}>
-          Company Robots
+          {t('companyRobots')}
         </Typography>
         <EditableDataGrid
           toolbar={RobotEditToolbar}
@@ -151,8 +154,8 @@ const AdminDashboard = () => {
         />
         <Divider />
         <Box sx={{mt: 4}} display="flex" justifyContent="center">
-          <Button  variant="contained" color="primary" onClick={saveChanges}>
-            Save Changes
+          <Button variant="contained" color="primary" onClick={saveChanges}>
+            {t('saveChanges')}
           </Button>
           <Snackbar
             open={saveStatus !== null}
@@ -166,8 +169,8 @@ const AdminDashboard = () => {
               onClose={handleCloseSnackbar}
             >
               {saveStatus === 'success' || saveStatus === null
-                ? 'Changes saved successfully!'
-                : 'Error saving changes. Please try again.'}
+                ? t('changesSavedSuccessfully')
+                : t('errorSavingChanges')}
             </Alert>
           </Snackbar>
         </Box>

@@ -10,17 +10,20 @@ import {
     Typography
 } from '@mui/material';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import RobotSelectModal from '../components/RobotSelectModal';
 import addressService from '../features/addressService';
 import orderService from '../features/orderService';
 import useAuth from '../hooks/useAuth';
-import { OrderStatusColors, OrderStatusLabels } from '../interfaces/enums';
+import useStatusConverter from '../hooks/useStatusConverter';
 import { OrderFullInfo } from '../interfaces/order';
 
 const PendingOrders = () => {
+  const { t } = useTranslation();
   const { auth } = useAuth();
+  const { OrderStatusColors, OrderStatusLabels } = useStatusConverter();
   const [pendingOrders, setPendingOrders] = useState<OrderFullInfo[]>([]);
-  const [selectedOrderId, setSelectedOrderId] = useState(null);
+  const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
@@ -31,12 +34,12 @@ const PendingOrders = () => {
       } catch (error) {
         console.error('Error fetching pending orders:', error);
       }
-    }
-      
+    };
+
     fetchPendingOrders();
   }, [auth.bearer, isModalOpen]);
 
-  const handleOpenModal = (orderId) => {
+  const handleOpenModal = (orderId: string) => {
     setSelectedOrderId(orderId);
     setIsModalOpen(true);
   };
@@ -48,17 +51,17 @@ const PendingOrders = () => {
   return (
     <Container>
       <Typography variant="h5" gutterBottom align="center" mt={3} mb={2}>
-        Pending Orders
+        {t('pendingOrders')}
       </Typography>
       <Paper elevation={3} style={{ padding: '20px', paddingBottom: '20px' }}>
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Placed Date</TableCell>
-              <TableCell>Address</TableCell>
-              <TableCell>Products</TableCell>
-              <TableCell>Order Status</TableCell>
-              <TableCell>Actions</TableCell>
+              <TableCell>{t('placedDate')}</TableCell>
+              <TableCell>{t('address')}</TableCell>
+              <TableCell>{t('products')}</TableCell>
+              <TableCell>{t('orderStatus')}</TableCell>
+              <TableCell>{t('actions')}</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -66,7 +69,7 @@ const PendingOrders = () => {
               <TableRow key={order.id}>
                 <TableCell>{order.placedDateTime?.toLocaleString()}</TableCell>
                 <TableCell>{addressService.getFullAddress(order.orderAddress)}</TableCell>
-                <TableCell>{order.products?.map(p => p.name).join(", ")}</TableCell>
+                <TableCell>{order.products?.map((p) => p.name).join(', ')}</TableCell>
                 <TableCell>
                   <span
                     style={{
@@ -84,7 +87,7 @@ const PendingOrders = () => {
                     color="primary"
                     onClick={() => handleOpenModal(order.id)}
                   >
-                    Create Delivery
+                    {t('createDelivery')}
                   </Button>
                 </TableCell>
               </TableRow>

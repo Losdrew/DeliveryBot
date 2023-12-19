@@ -14,14 +14,23 @@ import {
     Typography
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import addressService from '../features/addressService';
 import orderService from '../features/orderService';
 import useAuth from '../hooks/useAuth';
-import { OrderStatus, OrderStatusColors, OrderStatusLabels, RobotStatusColors, RobotStatusLabels } from '../interfaces/enums';
+import useStatusConverter from '../hooks/useStatusConverter';
+import { OrderStatus } from '../interfaces/enums';
 import { OrderFullInfo } from '../interfaces/order';
 
 const CustomerOrders = () => {
+  const { t } = useTranslation();
   const { auth } = useAuth();
+  const { 
+    RobotStatusColors, 
+    RobotStatusLabels, 
+    OrderStatusColors, 
+    OrderStatusLabels 
+  } = useStatusConverter();
   const [orders, setOrders] = useState<OrderFullInfo[]>([]);
   const [expandedOrderId, setExpandedOrderId] = useState<string | null>(null);
 
@@ -55,16 +64,16 @@ const CustomerOrders = () => {
   return (
     <Container>
       <Typography variant="h5" gutterBottom align="center" mt={3} mb={2}>
-        My Orders
+        {t('myOrders')}
       </Typography>
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Date</TableCell>
-              <TableCell>Order Status</TableCell>
-              <TableCell>Total Price</TableCell>
-              <TableCell>Actions</TableCell>
+              <TableCell>{t('date')}</TableCell>
+              <TableCell>{t('orderStatus')}</TableCell>
+              <TableCell>{t('totalPrice')}</TableCell>
+              <TableCell>{t('actions')}</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -80,7 +89,7 @@ const CustomerOrders = () => {
                         backgroundColor: OrderStatusColors[order.orderStatus!],
                       }}
                     >
-                      {OrderStatusLabels[order.orderStatus!]}
+                      {t(OrderStatusLabels[order.orderStatus!])}
                     </span>
                   </TableCell>
                   <TableCell>
@@ -95,7 +104,7 @@ const CustomerOrders = () => {
                       color="primary"
                       onClick={() => handleExpand(order.id)}
                     >
-                      {expandedOrderId === order.id ? 'Hide Details' : 'View Details'}
+                      {expandedOrderId === order.id ? t('hideDetails') : t('viewDetails')}
                     </Button>
                   </TableCell>
                 </TableRow>
@@ -103,21 +112,21 @@ const CustomerOrders = () => {
                   <TableCell colSpan={5}>
                     <Collapse in={expandedOrderId === order.id} timeout="auto" unmountOnExit>
                       <Typography variant="h6" gutterBottom>
-                        Order Details:
+                        {t('orderDetails')}
                       </Typography>
                       <Table sx={{ mb: 2}}>
                         <TableHead>
                           <TableRow>
                             <TableCell> </TableCell>
-                            <TableCell>Product Name</TableCell>
-                            <TableCell>Volume</TableCell>
-                            <TableCell>Weight</TableCell>
-                            <TableCell>Total Price</TableCell>
+                            <TableCell>{t('productName')}</TableCell>
+                            <TableCell>{t('volume')}</TableCell>
+                            <TableCell>{t('weight')}</TableCell>
+                            <TableCell>{t('totalPrice')}</TableCell>
                           </TableRow>
                         </TableHead>
                         <TableBody>
                           {order.products?.map((product) => (
-                            <TableRow>
+                            <TableRow key={product.id}>
                               <TableCell width="70">
                                 <LocalMallIcon fontSize="medium" color="primary" />
                               </TableCell>
@@ -130,28 +139,28 @@ const CustomerOrders = () => {
                         </TableBody>
                       </Table>
                       <Box>
-                        <Typography variant="h6" gutterBottom> Order info: </Typography>
+                        <Typography variant="h6" gutterBottom> {t('orderInfo')} </Typography>
                         <Typography gutterBottom>
-                          Full Address: {addressService.getFullAddress(order.orderAddress!)}
+                          {t('fullAddress')}: {addressService.getFullAddress(order.orderAddress!)}
                         </Typography>
                         {order.orderStatus !== OrderStatus.Pending && 
                           order.orderStatus !== OrderStatus.Cancelled && (
                           <Typography gutterBottom>
-                            Shipped Date: {order.delivery?.shippedDateTime?.toLocaleString()}
+                            {t('shippedDate')}: {order.delivery?.shippedDateTime?.toLocaleString()}
                           </Typography>
                         )}
                         {order.orderStatus === OrderStatus.Delivered && (
                           <Typography gutterBottom>
-                            Delivered Date: {order.delivery?.deliveredDateTime?.toLocaleString()}
+                            {t('deliveredDate')}: {order.delivery?.deliveredDateTime?.toLocaleString()}
                           </Typography>
                         )}
                         {order.delivery?.robot && (
                           <React.Fragment>
                             <Typography gutterBottom>
-                              Delivery Robot Name: {order.delivery.robot.name}
+                              {t('deliveryRobotName')}: {order.delivery.robot.name}
                             </Typography>
                             <Typography gutterBottom>
-                              Delivery Robot Status: 
+                              {t('deliveryRobotStatus')}: 
                               <span
                                 style={{
                                   marginLeft: '8px',
@@ -160,7 +169,7 @@ const CustomerOrders = () => {
                                   backgroundColor: RobotStatusColors[order.delivery.robot.status!],
                                 }}
                               >
-                                {RobotStatusLabels[order.delivery.robot.status!]}
+                                {t(RobotStatusLabels[order.delivery.robot.status!])}
                               </span>
                             </Typography>
                           </React.Fragment>
@@ -168,7 +177,7 @@ const CustomerOrders = () => {
                       </Box>
                       <Box display="flex" flexDirection="column" alignItems="flex-end">
                         <Typography variant="subtitle1" gutterBottom>
-                          Total Price: $
+                          {t('totalPrice')}: $
                           {order.products
                             ?.reduce((accumulated, product) => accumulated + product.price, 0)
                             .toFixed(2)}
@@ -179,7 +188,7 @@ const CustomerOrders = () => {
                           color="error"
                           onClick={() => handleCancelOrder(order.id!)}
                           >
-                            Cancel Order
+                            {t('cancelOrder')}
                           </Button>
                         )}
                       </Box>

@@ -12,11 +12,13 @@ import deliveryService from '../features/deliveryService';
 import robotService from '../features/robotService';
 import useAuth from '../hooks/useAuth';
 import { RobotInfoDto } from '../interfaces/robot';
+import { useTranslation } from 'react-i18next';
 
 const RobotSelectModal = ({ open, onClose, orderId }) => {
   const { auth } = useAuth();
   const [availableRobots, setAvailableRobots] = useState<RobotInfoDto[]>([]);
   const [selectedRobotId, setSelectedRobotId] = useState<string>('');
+  const { t } = useTranslation();
 
   useEffect(() => {
     const fetchAvailableRobots = async () => {
@@ -48,7 +50,7 @@ const RobotSelectModal = ({ open, onClose, orderId }) => {
 
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Select Robot for Delivery</DialogTitle>
+      <DialogTitle>{t('selectRobotForDelivery')}</DialogTitle>
       <DialogContent>
         <Select
           fullWidth
@@ -66,10 +68,10 @@ const RobotSelectModal = ({ open, onClose, orderId }) => {
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose} color="primary">
-          Cancel
+          {t('cancel')}
         </Button>
         <Button onClick={handleCreateDelivery} color="primary">
-          Create Delivery
+          {t('createDelivery')}
         </Button>
       </DialogActions>
     </Dialog>

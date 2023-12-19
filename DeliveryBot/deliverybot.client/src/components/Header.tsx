@@ -3,12 +3,15 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { AppBar, Badge, Box, Button, IconButton, Menu, MenuItem, Toolbar, Typography } from '@mui/material';
 import React from 'react';
-import { Link as LinkRouter } from "react-router-dom";
+import { Link as LinkRouter } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 import useCart from '../hooks/useCart';
 import { Roles } from '../interfaces/enums';
+import LanguageChangerButton from './LanguageChanger';
+import { useTranslation } from 'react-i18next';
 
 export function Header() {
+  const { t } = useTranslation();
   const { auth, setAuth } = useAuth();
   const { cart } = useCart();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -25,7 +28,7 @@ export function Header() {
 
   const handleLogout = () => {
     localStorage.clear();
-    setAuth({userId: undefined, bearer: undefined, role: undefined});
+    setAuth({ userId: undefined, bearer: undefined, role: undefined });
     handleMenuClose();
   };
 
@@ -35,8 +38,8 @@ export function Header() {
         <Typography
           variant="h6"
           noWrap
-          component="a"
-          href="/"
+          component={LinkRouter}
+          to="/"
           sx={{
             mr: 2,
             fontWeight: 600,
@@ -49,68 +52,61 @@ export function Header() {
         <Box sx={{ flexGrow: 1, display: { md: 'flex' }, mr: 1 }}>
           {(!auth.userId || auth.role === Roles.Customer) && (
             <Button
-              component={LinkRouter} 
+              component={LinkRouter}
               to="/companies"
-              sx={{ my: 2, color: 'white'}}
+              sx={{ my: 2, color: 'white' }}
             >
-              Companies
+              {t('companies')}
             </Button>
           )}
           {auth.role === Roles.Customer && (
             <Button
-              component={LinkRouter} 
+              component={LinkRouter}
               to="/customer-orders"
-              sx={{ my: 2, color: 'white'}}
+              sx={{ my: 2, color: 'white' }}
             >
-              Orders
+              {t('orders')}
             </Button>
           )}
           {auth.role === Roles.Manager && (
             <Button
-              component={LinkRouter} 
+              component={LinkRouter}
               to="/my-company"
-              sx={{ my: 2, color: 'white'}}
+              sx={{ my: 2, color: 'white' }}
             >
-              Company
+              {t('company')}
             </Button>
           )}
           {auth.role === Roles.Administrator && (
             <Button
-              component={LinkRouter} 
+              component={LinkRouter}
               to="/admin-dashboard"
-              sx={{ my: 2, color: 'white'}}
+              sx={{ my: 2, color: 'white' }}
             >
-              Dashboard
+              {t('dashboard')}
             </Button>
           )}
           {auth.role === Roles.CompanyEmployee && (
             <Button
-              component={LinkRouter} 
+              component={LinkRouter}
               to="/pending-orders"
-              sx={{ my: 2, color: 'white'}}
+              sx={{ my: 2, color: 'white' }}
             >
-              Pending Orders
+              {t('pendingOrders')}
             </Button>
           )}
           {auth.role === Roles.CompanyEmployee && (
             <Button
-              component={LinkRouter} 
+              component={LinkRouter}
               to="/active-deliveries"
-              sx={{ my: 2, color: 'white'}}
+              sx={{ my: 2, color: 'white' }}
             >
-              Active Deliveries
+              {t('activeDeliveries')}
             </Button>
           )}
         </Box>
         <Box>
-          <IconButton
-            size="medium"
-            edge="start"
-            color="inherit"
-            aria-label="language"
-          >
-            <LanguageIcon sx={{fontSize: 24, mr: 1}} />
-          </IconButton>
+          <LanguageChangerButton />
         </Box>
         {!auth.userId && (
           <Button
@@ -121,35 +117,33 @@ export function Header() {
             component={LinkRouter}
             to="/login"
           >
-            Sign in
+            {t('signIn')}
           </Button>
         )}
         {auth.userId && (
-          <Box>
+          <Box display="flex" justifyContent="space-between">
             {auth.role === Roles.Customer && (
               <IconButton
-                  size="medium"
-                  edge="start"
-                  color="inherit"
-                  aria-label="shopping cart"
-                  component={LinkRouter}
-                  to="/cart"
-                >
+                size="medium"
+                color="inherit"
+                aria-label="shopping cart"
+                component={LinkRouter}
+                to="/cart"
+              >
                 <Badge badgeContent={cart.length} color="error">
-                  <ShoppingCartIcon sx={{fontSize: 30}} />
+                  <ShoppingCartIcon sx={{ fontSize: 30 }} />
                 </Badge>
               </IconButton>
             )}
             <IconButton
               size="medium"
-              edge="end"
               color="inherit"
               aria-label="user profile"
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleMenuOpen}
             >
-              <AccountCircleIcon sx={{fontSize: 30}} />
+              <AccountCircleIcon sx={{ fontSize: 30 }} />
             </IconButton>
             <Menu
               sx={{ mt: '45px' }}
@@ -168,10 +162,10 @@ export function Header() {
               onClose={handleMenuClose}
             >
               <MenuItem component={LinkRouter} to="/profile" onClick={handleMenuClose}>
-                Profile
+                {t('profile')}
               </MenuItem>
               <MenuItem onClick={handleLogout}>
-                Logout
+                {t('logout')}
               </MenuItem>
             </Menu>
           </Box>

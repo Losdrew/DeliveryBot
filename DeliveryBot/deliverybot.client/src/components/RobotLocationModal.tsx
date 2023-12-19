@@ -3,11 +3,12 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import MapboxMap from './MapboxMap';
 import { useEffect, useState } from 'react';
 import geolocationService from '../features/geolocationService';
-
+import { useTranslation } from 'react-i18next';
 
 const RobotLocationModal = ({ open, handleClose }) => {
   const [route, setRoute] = useState();
-  
+  const { t } = useTranslation();
+
   useEffect(() => {
     const fetchRoute = async () => {
       try {
@@ -26,13 +27,13 @@ const RobotLocationModal = ({ open, handleClose }) => {
 
   return (
     <Dialog open={open} onClose={handleClose}>
-      <DialogTitle>Robot Location</DialogTitle>
+      <DialogTitle>{t('robotLocation')}</DialogTitle>
       <DialogContent>
         <MapboxMap routeCoordinates={route} />
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose} color="primary">
-          Close
+          {t('close')}
         </Button>
       </DialogActions>
     </Dialog>

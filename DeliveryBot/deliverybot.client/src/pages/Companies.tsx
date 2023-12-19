@@ -4,8 +4,10 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import companyService from '../features/companyService';
 import { CompanyPreviewDto } from '../interfaces/company';
+import { useTranslation } from 'react-i18next';
 
 const Companies = () => {
+  const { t } = useTranslation();
   const [companies, setCompanies] = useState<CompanyPreviewDto[]>([]);
 
   useEffect(() => {
@@ -25,7 +27,7 @@ const Companies = () => {
     <Container sx={{ p: 4, textAlign: 'center' }}>
       <Paper elevation={3} style={{ padding: '20px' }}>
         <Typography variant="h4" gutterBottom>
-          Available Companies
+          {t('availableCompanies')}
         </Typography>
         <List>
           {companies.map((company) => (

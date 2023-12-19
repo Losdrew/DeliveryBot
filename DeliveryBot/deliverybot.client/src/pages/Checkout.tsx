@@ -1,17 +1,17 @@
 import LocalMallIcon from '@mui/icons-material/LocalMall';
 import {
-    Box,
-    Button,
-    Container,
-    Grid,
-    Paper,
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableRow,
-    TextField,
-    Typography
+  Box,
+  Button,
+  Container,
+  Grid,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  TextField,
+  Typography
 } from '@mui/material';
 import React, { useState } from "react";
 import orderService from "../features/orderService";
@@ -19,8 +19,10 @@ import useAuth from '../hooks/useAuth';
 import useCart from '../hooks/useCart';
 import { AddressDto } from '../interfaces/address';
 import { OrderInfoDto } from "../interfaces/order";
+import { useTranslation } from 'react-i18next';
 
 const Checkout = () => {
+  const { t } = useTranslation();
   const { auth } = useAuth();
   const { cart, clearCart } = useCart();
 
@@ -67,24 +69,24 @@ const Checkout = () => {
     <Container>
       {order ? (
         <Typography variant="h5" gutterBottom align="center" mt={4} color="primary">
-          Order placed successfully!
+          {t('orderPlacedSuccessfully')}
         </Typography>
       ) : 
       (
         <React.Fragment>
           <Typography variant="h5" gutterBottom align="center" mt={2} mb={2}>
-            Checkout
+            {t('checkout')}
           </Typography>
           <Grid container spacing={3}>
             <Grid item xs={12} md={6}>
               <Paper elevation={3} style={{ padding: '20px' }}>
                 <Typography variant="h6" gutterBottom>
-                  Shipping Address
+                  {t('shippingAddress')}
                 </Typography>
                 <Grid container spacing={1}>
                   <Grid item xs={12} sm={6}>
                     <TextField
-                      label="Address First Line"
+                      label={t('addressLine1')}
                       fullWidth
                       margin="normal"
                       required
@@ -94,7 +96,7 @@ const Checkout = () => {
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <TextField
-                      label="Address Second Line"
+                      label={t('addressLine2')}
                       fullWidth
                       margin="normal"
                       required
@@ -104,7 +106,7 @@ const Checkout = () => {
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <TextField
-                      label="Address Third Line (Optional)"
+                      label={t('addressLine3')}
                       fullWidth
                       margin="normal"
                       value={orderAddress.addressLine3}
@@ -113,7 +115,7 @@ const Checkout = () => {
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <TextField
-                      label="Address Fourth Line (Optional)"
+                      label={t('addressLine4')}
                       fullWidth
                       margin="normal"
                       value={orderAddress.addressLine4}
@@ -122,7 +124,7 @@ const Checkout = () => {
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <TextField
-                      label="Town/City"
+                      label={t('townCity')}
                       fullWidth
                       margin="normal"
                       required
@@ -132,7 +134,7 @@ const Checkout = () => {
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <TextField
-                      label="Region"
+                      label={t('region')}
                       fullWidth
                       margin="normal"
                       required
@@ -142,7 +144,7 @@ const Checkout = () => {
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <TextField
-                      label="Country"
+                      label={t('country')}
                       fullWidth
                       margin="normal"
                       required
@@ -152,7 +154,7 @@ const Checkout = () => {
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <TextField
-                      label="Postcode"
+                      label={t('postcode')}
                       fullWidth
                       type="number"
                       margin="normal"
@@ -164,7 +166,7 @@ const Checkout = () => {
                 </Grid>
                 <Box display="flex" justifyContent="center" mt={2}>
                   <Button variant="contained" color="primary" onClick={handlePlaceOrder}>
-                    Place Order
+                    {t('placeOrder')}
                   </Button>
                 </Box>
               </Paper>
@@ -172,22 +174,22 @@ const Checkout = () => {
             <Grid item xs={12} md={6}>
               <Paper elevation={3} style={{ padding: '20px' }}>
                 <Typography variant="h6" gutterBottom>
-                  Order Summary
+                  {t('orderSummary')}
                 </Typography>
-                <Table sx={{ mb: 2}}>
+                <Table sx={{ mb: 2 }}>
                   <TableHead>
                     <TableRow>
                       <TableCell> </TableCell>
-                      <TableCell>Name</TableCell>
-                      <TableCell>Description</TableCell>
-                      <TableCell>Volume</TableCell>
-                      <TableCell>Weight</TableCell>
-                      <TableCell>Total Price</TableCell>
+                      <TableCell>{t('name')}</TableCell>
+                      <TableCell>{t('description')}</TableCell>
+                      <TableCell>{t('volume')}</TableCell>
+                      <TableCell>{t('weight')}</TableCell>
+                      <TableCell>{t('totalPrice')}</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
                     {cart.map((product) => (
-                      <TableRow>
+                      <TableRow key={product.id}>
                         <TableCell width="70">
                           <LocalMallIcon fontSize="medium" color="primary" />
                         </TableCell>

@@ -9,13 +9,16 @@ import {
     Typography
 } from '@mui/material';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import deliveryService from '../features/deliveryService';
 import useAuth from '../hooks/useAuth';
+import useStatusConverter from '../hooks/useStatusConverter';
 import { DeliveryFullInfo } from '../interfaces/delivery';
-import { RobotStatusColors, RobotStatusLabels } from '../interfaces/enums';
 
 const ActiveDeliveries = () => {
   const { auth } = useAuth();
+  const { t } = useTranslation();
+  const { RobotStatusColors, RobotStatusLabels } = useStatusConverter();
   const [activeDeliveries, setActiveDeliveries] = useState<DeliveryFullInfo[]>([]);
 
   useEffect(() => {
@@ -34,15 +37,15 @@ const ActiveDeliveries = () => {
   return (
     <Container>
       <Typography variant="h5" gutterBottom align="center" mt={3} mb={2}>
-        Active Deliveries
+        {t('activeDeliveries')}
       </Typography>
       <Paper elevation={3} style={{ padding: '20px', paddingBottom: '20px' }}>
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Shipped Date</TableCell>
-              <TableCell>Robot Name</TableCell>
-              <TableCell>Robot Status</TableCell>
+              <TableCell>{t('shippedDate')}</TableCell>
+              <TableCell>{t('robotName')}</TableCell>
+              <TableCell>{t('robotStatus')}</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -58,7 +61,7 @@ const ActiveDeliveries = () => {
                       backgroundColor: RobotStatusColors[delivery.robot.status!],
                     }}
                   >
-                    {RobotStatusLabels[delivery.robot.status!]}
+                    {t(RobotStatusLabels[delivery.robot.status!])}
                   </span>
                 </TableCell>
               </TableRow>

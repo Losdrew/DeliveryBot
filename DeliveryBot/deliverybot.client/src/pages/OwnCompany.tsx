@@ -1,14 +1,14 @@
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
-    Box,
-    Button,
-    Collapse,
-    Container,
-    Divider,
-    IconButton,
-    Paper,
-    TextField,
-    Typography
+  Box,
+  Button,
+  Collapse,
+  Container,
+  Divider,
+  IconButton,
+  Paper,
+  TextField,
+  Typography
 } from '@mui/material';
 import Alert from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
@@ -22,8 +22,10 @@ import productService from '../features/productService';
 import useAuth from '../hooks/useAuth';
 import { OwnCompanyInfoDto } from '../interfaces/company';
 import { GridCompanyAddress, GridCompanyEmployee, GridCompanyProduct } from '../interfaces/grid';
+import { useTranslation } from 'react-i18next';
 
 const OwnCompany = () => {
+  const { t } = useTranslation();
   const { auth } = useAuth();
   const [company, setCompany] = useState<OwnCompanyInfoDto>();
   
@@ -60,7 +62,7 @@ const OwnCompany = () => {
     };
 
     fetchCompanyInfo();
-  }, [auth.bearer, company?.id]) 
+  }, [auth.bearer, company?.id]);
 
   const handleCloseSnackbar = (event?: React.SyntheticEvent | Event, reason?: string) => {
     if (reason === 'clickaway') {
@@ -88,43 +90,43 @@ const OwnCompany = () => {
   };
 
   const companyAddressColumns: GridColDef[] = [
-    { field: 'addressLine1', headerName: 'Address Line 1', width: 170, editable: true },
-    { field: 'addressLine2', headerName: 'Address Line 2', width: 150, editable: true },
-    { field: 'addressLine3', headerName: 'Address Line 3', width: 120, editable: true },
-    { field: 'addressLine4', headerName: 'Address Line 4', width: 120, editable: true },
-    { field: 'townCity', headerName: 'Town/City', width: 125, editable: true },
-    { field: 'region', headerName: 'Region', width: 125, editable: true },
-    { field: 'country', headerName: 'Country', width: 125, editable: true },
-    { field: 'postcode', headerName: 'Postcode', width: 70, editable: true },
+    { field: 'addressLine1', headerName: t('addressLine1'), width: 170, editable: true },
+    { field: 'addressLine2', headerName: t('addressLine2'), width: 150, editable: true },
+    { field: 'addressLine3', headerName: t('addressLine3'), width: 120, editable: true },
+    { field: 'addressLine4', headerName: t('addressLine4'), width: 120, editable: true },
+    { field: 'townCity', headerName: t('townCity'), width: 125, editable: true },
+    { field: 'region', headerName: t('region'), width: 125, editable: true },
+    { field: 'country', headerName: t('country'), width: 125, editable: true },
+    { field: 'postcode', headerName: t('postcode'), width: 70, editable: true },
   ];
 
   const companyEmployeeColumns: GridColDef[] = [
-    { field: 'email', headerName: 'Email', width: 170, editable: true },
-    { field: 'firstName', headerName: 'First Name', width: 150, editable: true },
-    { field: 'lastName', headerName: 'Last Name', width: 150, editable: true, },
+    { field: 'email', headerName: t('email'), width: 170, editable: true },
+    { field: 'firstName', headerName: t('firstName'), width: 150, editable: true },
+    { field: 'lastName', headerName: t('lastName'), width: 150, editable: true, },
   ];
 
   const companyProductColumns: GridColDef[] = [
-    { field: 'name', headerName: 'Name', width: 170, editable: true },
-    { field: 'description', headerName: 'Description', width: 150, editable: true },
-    { field: 'volumeCm3', headerName: 'Volume', width: 100, editable: true, },
-    { field: 'weightG', headerName: 'Weight', width: 100, editable: true },
-    { field: 'price', headerName: 'Price', width: 100, editable: true },
+    { field: 'name', headerName: t('name'), width: 170, editable: true },
+    { field: 'description', headerName: t('description'), width: 150, editable: true },
+    { field: 'volumeCm3', headerName: t('volume'), width: 100, editable: true, },
+    { field: 'weightG', headerName: t('weight'), width: 100, editable: true },
+    { field: 'price', headerName: t('price'), width: 100, editable: true },
   ];
 
   return (
     <Container>
       <Typography variant="h5" gutterBottom align="center" mt={3} mb={2}>
-        My Company
+        {t('myCompany')}
       </Typography>
       {company ? (
         <Paper elevation={3} style={{ padding: '20px', paddingBottom: '20px' }}>
           <Typography variant="h5" gutterBottom sx={{ mb: 2 }}>
-            Company Details:
+            {t('companyDetails')}
           </Typography>
           <TextField
             fullWidth
-            label="Name"
+            label={t('name')}
             variant="outlined"
             margin="normal"
             value={companyName || ''}
@@ -132,7 +134,7 @@ const OwnCompany = () => {
           />
           <TextField
             fullWidth
-            label="Description"
+            label={t('description')}
             variant="outlined"
             margin="normal"
             value={companyDescription || ''}
@@ -140,7 +142,7 @@ const OwnCompany = () => {
           />
           <TextField
             fullWidth
-            label="Website URL"
+            label={t('websiteUrl')}
             variant="outlined"
             margin="normal"
             value={companyWebsiteUrl || ''}
@@ -148,7 +150,7 @@ const OwnCompany = () => {
           />
           <Divider />
           <Typography variant="h6" gutterBottom mt={3}>
-            Company Addresses
+            {t('companyAddresses')}
             <IconButton onClick={() => setExpandAddresses(!expandAddresses)}>
               <ExpandMoreIcon />
             </IconButton>
@@ -167,7 +169,7 @@ const OwnCompany = () => {
           </Collapse>
           <Divider />
           <Typography variant="h6" gutterBottom mt={3}>
-            Company Employees
+            {t('companyEmployees')}
             <IconButton onClick={() => setExpandEmployees(!expandEmployees)}>
               <ExpandMoreIcon />
             </IconButton>
@@ -186,7 +188,7 @@ const OwnCompany = () => {
           </Collapse>
           <Divider />
           <Typography variant="h6" gutterBottom mt={3}>
-            Company Products
+            {t('companyProducts')}
             <IconButton onClick={() => setExpandProducts(!expandProducts)}>
               <ExpandMoreIcon />
             </IconButton>
@@ -204,9 +206,9 @@ const OwnCompany = () => {
             />
           </Collapse>
           <Divider />
-          <Box sx={{mt: 4}} display="flex" justifyContent="center">
-            <Button  variant="contained" color="primary" onClick={saveChanges}>
-              Save Changes
+          <Box sx={{ mt: 4 }} display="flex" justifyContent="center">
+            <Button variant="contained" color="primary" onClick={saveChanges}>
+              {t('saveChanges')}
             </Button>
             <Snackbar
               open={saveStatus !== null}
@@ -220,8 +222,8 @@ const OwnCompany = () => {
                 onClose={handleCloseSnackbar}
               >
                 {saveStatus === 'success' || saveStatus === null
-                  ? 'Changes saved successfully!'
-                  : 'Error saving changes. Please try again.'}
+                  ? t('changesSavedSuccessfully')
+                  : t('errorSavingChanges')}
               </Alert>
             </Snackbar>
           </Box>
@@ -229,11 +231,11 @@ const OwnCompany = () => {
       ) : (
         <Paper elevation={3} style={{ padding: '20px', paddingBottom: '30px' }}>
           <Typography variant="subtitle1" gutterBottom align="center">
-            You haven't created your company yet.
+            {t('noCompanyMessage')}
           </Typography>
-          <Box sx={{mt: 2}} display="flex" justifyContent="center">
+          <Box sx={{ mt: 2 }} display="flex" justifyContent="center">
             <Button variant="contained" color="primary" component={Link} to="/my-company/create">
-              Create Company
+              {t('createCompany')}
             </Button>
           </Box>
         </Paper>

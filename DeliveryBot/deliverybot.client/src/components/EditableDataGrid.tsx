@@ -17,6 +17,7 @@ import {
 } from '@mui/x-data-grid';
 import React, { useState } from 'react';
 import { EditToolbarProps } from './EditToolbar';
+import { useTranslation } from 'react-i18next';
 
 interface EditableDataGridProps {
   toolbar : React.ComponentType<EditToolbarProps>,
@@ -33,6 +34,7 @@ const EditableDataGrid: React.FC<EditableDataGridProps> = ({
   setRows,
   initialColumns
 }) => {
+  const { t } = useTranslation();
   const [rowModesModel, setRowModesModel] = useState<GridRowModesModel>({});
 
   const handleRowEditStop: GridEventListener<'rowEditStop'> = (params, event) => {
@@ -70,7 +72,7 @@ const EditableDataGrid: React.FC<EditableDataGridProps> = ({
     {
       field: 'actions',
       type: 'actions',
-      headerName: 'Actions',
+      headerName: t('actions'),
       width: 100,
       cellClassName: 'actions',
       getActions: ({ id }) => {
