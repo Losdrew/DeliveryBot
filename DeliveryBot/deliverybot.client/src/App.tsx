@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import Layout from './components/Layout';
 import RequireAuth from './components/RequireAuth';
 import { Roles } from './interfaces/enums';
+import ActiveDeliveries from './pages/ActiveDeliveries';
 import AdminDashboard from './pages/AdminDashboard';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
@@ -40,6 +41,7 @@ function App() {
 
         <Route element={<RequireAuth allowedRoles={[Roles.CompanyEmployee]} />}>
           <Route path="/pending-orders" element={<PendingOrders />} />
+          <Route path="/active-deliveries" element={<ActiveDeliveries />} />
         </Route>
       </Route>
     </Routes>

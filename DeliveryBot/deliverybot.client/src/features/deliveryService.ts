@@ -36,6 +36,49 @@ const getDelivery = async (
   }
 };
 
+const getActiveDeliveries = async (
+  bearerToken: string,
+): Promise<DeliveryFullInfo[]> => {
+  try {
+    const headers = {
+      'Authorization': 'Bearer ' + bearerToken
+    };
+    const deliveryResponse = await apiClient.get<DeliveryInfoDto[]>(
+      '/api/Delivery/active-deliveries',
+      { headers }
+    );
+
+    const deliveriesFullInfo = [];
+
+    for (const delivery of deliveryResponse.data) {
+      const deliveredDateTime = new Date(Date.parse(delivery.deliveredDateTime?.toString()));
+      const shippedDateTime = new Date(Date.parse(delivery.shippedDateTime?.toString()));
+      
+      const robotResponse = await apiClient.get<GetDeliveryRobotQueryDto>(
+        '/api/Robot/delivery-robot?deliveryId=' + delivery.id,
+        { headers }
+      );
+
+      const deliveryFullInfo : DeliveryFullInfo = {
+        ...delivery,
+        deliveredDateTime, 
+        shippedDateTime,
+        robot: robotResponse.data
+      };
+
+      deliveriesFullInfo.push(deliveryFullInfo);
+    }
+
+    return deliveriesFullInfo;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      throw new Error(error.response?.data.message);
+    } else {
+      throw new Error("Unknown error occurred.");
+    }
+  }
+};
+
 const createDelivery = async (
   orderId: string,
   robotId: string,
@@ -66,6 +109,7 @@ const createDelivery = async (
 
 const deliveryService = {
   getDelivery,
+  getActiveDeliveries,
   createDelivery
 };
 
