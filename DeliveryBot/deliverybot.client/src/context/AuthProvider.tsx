@@ -17,7 +17,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   useEffect(() => {
     const userId = localStorage.getItem("userId");
-    const bearer = localStorage.getItem("bearer");
+    const bearer = localStorage.getItem("accessToken");
     const role = localStorage.getItem("role");
 
     if (!auth.userId && userId && bearer && role) {
