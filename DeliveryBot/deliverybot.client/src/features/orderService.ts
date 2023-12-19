@@ -83,6 +83,48 @@ const getOwnOrders = async (
   }
 };
 
+const getPendingOrders = async (
+  bearerToken: string,
+): Promise<OrderInfoDto[]> => {
+  try {
+    const headers = {
+      'Authorization': 'Bearer ' + bearerToken
+    };
+    const ordersResponse = await apiClient.get<OrderInfoDto[]>(
+      '/api/Order/pending-orders',
+      { headers }
+    );
+
+    const ordersFullInfo = [];
+
+    for (const order of ordersResponse.data) {
+      const productDetails = [];
+
+      for (const orderProduct of order.orderProducts || []) {
+        const productDto = await productService.getProduct(orderProduct.productId);
+        productDetails.push(productDto);
+      }
+
+      const orderFullInfo : OrderFullInfo = {
+        ...order,
+        products: productDetails
+      };
+
+      order.placedDateTime = new Date(Date.parse(order.placedDateTime?.toString()));
+
+      ordersFullInfo.push(orderFullInfo);
+    }
+
+    return ordersFullInfo;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      throw new Error(error.response?.data.message);
+    } else {
+      throw new Error("Unknown error occurred.");
+    }
+  }
+};
+
 const cancelOrder = async (
   orderId: string,
   bearerToken: string,
@@ -110,6 +152,7 @@ const cancelOrder = async (
 const orderService = {
   createOrder,
   getOwnOrders,
+  getPendingOrders,
   cancelOrder
 };
 

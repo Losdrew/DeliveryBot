@@ -82,6 +82,15 @@ export function Header() {
               Dashboard
             </Button>
           )}
+          {auth.role === Roles.CompanyEmployee && (
+            <Button
+              component={LinkRouter} 
+              to="/pending-orders"
+              sx={{ my: 2, color: 'white'}}
+            >
+              Pending Orders
+            </Button>
+          )}
         </Box>
         {!auth.userId && (
           <Button

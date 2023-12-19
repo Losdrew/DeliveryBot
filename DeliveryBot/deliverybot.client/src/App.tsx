@@ -11,6 +11,7 @@ import { CustomerOrders } from './pages/CustomerOrders';
 import { Home } from './pages/Home';
 import { Login } from './pages/Login';
 import { OwnCompany } from './pages/OwnCompany';
+import { PendingOrders } from './pages/PendingOrders';
 import { SignUp } from './pages/SignUp';
 
 function App() {
@@ -35,6 +36,10 @@ function App() {
 
         <Route element={<RequireAuth allowedRoles={[Roles.Administrator]} />}>
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
+        </Route>
+
+        <Route element={<RequireAuth allowedRoles={[Roles.CompanyEmployee]} />}>
+          <Route path="/pending-orders" element={<PendingOrders />} />
         </Route>
       </Route>
     </Routes>

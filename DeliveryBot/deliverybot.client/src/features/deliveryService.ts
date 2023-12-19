@@ -1,6 +1,6 @@
 import axios from "axios";
 import apiClient from "../config/apiClient";
-import { DeliveryFullInfo, DeliveryInfoDto } from "../interfaces/delivery";
+import { CreateDeliveryCommand, DeliveryFullInfo, DeliveryInfoDto } from "../interfaces/delivery";
 import { GetDeliveryRobotQueryDto } from "../interfaces/robot";
 
 const getDelivery = async (
@@ -36,8 +36,37 @@ const getDelivery = async (
   }
 };
 
+const createDelivery = async (
+  orderId: string,
+  robotId: string,
+  bearerToken: string,
+): Promise<DeliveryInfoDto> => {
+  try {
+    const request: CreateDeliveryCommand = { 
+      orderId,
+      robotId
+    }
+    const headers = {
+      'Authorization': 'Bearer ' + bearerToken
+    };
+    const response = await apiClient.post<DeliveryInfoDto>(
+      '/api/Delivery/create',
+      request,
+      { headers }
+    );
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      throw new Error(error.response?.data.message);
+    } else {
+      throw new Error("Unknown error occurred.");
+    }
+  }
+};
+
 const deliveryService = {
-  getDelivery
+  getDelivery,
+  createDelivery
 };
 
 export default deliveryService;

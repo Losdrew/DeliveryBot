@@ -1,5 +1,5 @@
 import { AddressDto } from "./address";
-import { DeliveryFullInfo, DeliveryInfoDto } from "./delivery";
+import { DeliveryFullInfo } from "./delivery";
 import { OrderStatus } from "./enums";
 import { ProductDto } from "./product";
 
