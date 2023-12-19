@@ -1,8 +1,11 @@
-import { ArrowForward, Business, LocalShipping, Adb } from '@mui/icons-material';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import BusinessIcon from '@mui/icons-material/Business';
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import AdbIcon from '@mui/icons-material/Adb';
 import { Box, Button, Container, IconButton, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 
-export function Home() {
+const Home = () => {
   return (
     <Container>
       <Box textAlign="center" mt={10}>
@@ -15,13 +18,13 @@ export function Home() {
 
         <Box mt={4}>
           <IconButton color="primary">
-            <Business fontSize="large" />
+            <BusinessIcon fontSize="large" />
           </IconButton>
           <IconButton color="primary">
-            <Adb fontSize="large" />
+            <AdbIcon fontSize="large" />
           </IconButton>
           <IconButton color="primary">
-            <LocalShipping fontSize="large" />
+            <LocalShippingIcon fontSize="large" />
           </IconButton>
         </Box>
 
@@ -39,7 +42,7 @@ export function Home() {
             variant="contained"
             color="primary"
             size="large"
-            endIcon={<ArrowForward />}
+            endIcon={<ArrowForwardIcon />}
             component={Link}
             to="/sign-up"
           >
@@ -49,4 +52,6 @@ export function Home() {
       </Box>
     </Container>
   );
-}
+};
+
+export default Home;

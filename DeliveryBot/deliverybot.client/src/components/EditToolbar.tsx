@@ -1,4 +1,4 @@
-import { Add } from "@mui/icons-material";
+import AddIcon from "@mui/icons-material/Add";
 import { Button } from "@mui/material";
 import { GridRowModes, GridRowModesModel, GridRowsProp, GridToolbarContainer } from "@mui/x-data-grid";
 import { ReactNode } from "react";
@@ -25,7 +25,7 @@ const EditToolbar: React.FC<EditToolbarProps> = (props) => {
 
   return (
     <GridToolbarContainer>
-      <Button color="primary" startIcon={<Add />} onClick={handleClick}>
+      <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
         Add
       </Button>
       { props.children }

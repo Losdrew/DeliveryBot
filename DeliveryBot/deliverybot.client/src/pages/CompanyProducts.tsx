@@ -1,4 +1,6 @@
-import { AddShoppingCart, LocalMall, RemoveShoppingCart } from '@mui/icons-material';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import LocalMallIcon from '@mui/icons-material/LocalMall';
+import RemoveShoppingCartIcon from '@mui/icons-material/RemoveShoppingCart';
 import {
     Box,
     Container,
@@ -17,7 +19,7 @@ import productService from '../features/productService';
 import useCart from '../hooks/useCart';
 import { CompanyProductInfoDto } from '../interfaces/product';
 
-export function CompanyProducts() {
+const CompanyProducts = () => {
   const { companyId } = useParams();
   const { addToCart, removeFromCart } = useCart();
   const [companyProducts, setCompanyProducts] = useState<CompanyProductInfoDto[]>([]);
@@ -79,7 +81,7 @@ export function CompanyProducts() {
             {companyProducts?.map((product) => (
               <TableRow>
                 <TableCell width="70">
-                  <LocalMall fontSize="medium" color="primary" />
+                  <LocalMallIcon fontSize="medium" color="primary" />
                 </TableCell>
                 <TableCell>{product.name}</TableCell>
                 <TableCell>{product.description}</TableCell>
@@ -100,14 +102,14 @@ export function CompanyProducts() {
                           product.price
                         )}
                     >
-                      <AddShoppingCart />
+                      <AddShoppingCartIcon />
                     </IconButton>
                     <IconButton
                         color="secondary"
                         aria-label="Remove from Cart"
                         onClick={() => handleRemoveFromCart(product.id)}
                     >
-                      <RemoveShoppingCart />
+                      <RemoveShoppingCartIcon />
                     </IconButton>
                   </Box>
                 </TableCell>
@@ -118,4 +120,6 @@ export function CompanyProducts() {
       </Paper>
     </Container>
   );
-}
+};
+
+export default CompanyProducts;

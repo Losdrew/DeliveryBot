@@ -6,7 +6,7 @@ import useAuth from '../hooks/useAuth';
 import { AuthResultDto } from '../interfaces/account';
 import { Roles } from '../interfaces/enums';
 
-export function SignUp() {
+const SignUp = () => {
   const { setAuth } = useAuth();
 
   const navigate = useNavigate();
@@ -157,4 +157,6 @@ export function SignUp() {
       </Paper>
     </Container>
   );
-}
+};
+
+export default SignUp;

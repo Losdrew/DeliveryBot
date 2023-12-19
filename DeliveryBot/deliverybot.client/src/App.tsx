@@ -2,17 +2,17 @@ import { Route, Routes } from 'react-router-dom';
 import Layout from './components/Layout';
 import RequireAuth from './components/RequireAuth';
 import { Roles } from './interfaces/enums';
-import { AdminDashboard } from './pages/AdminDashboard';
-import { Cart } from './pages/Cart';
-import { Checkout } from './pages/Checkout';
-import { Companies } from './pages/Companies';
-import { CompanyProducts } from './pages/CompanyProducts';
-import { CustomerOrders } from './pages/CustomerOrders';
-import { Home } from './pages/Home';
-import { Login } from './pages/Login';
-import { OwnCompany } from './pages/OwnCompany';
-import { PendingOrders } from './pages/PendingOrders';
-import { SignUp } from './pages/SignUp';
+import AdminDashboard from './pages/AdminDashboard';
+import Cart from './pages/Cart';
+import Checkout from './pages/Checkout';
+import Companies from './pages/Companies';
+import CompanyProducts from './pages/CompanyProducts';
+import CustomerOrders from './pages/CustomerOrders';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import OwnCompany from './pages/OwnCompany';
+import PendingOrders from './pages/PendingOrders';
+import SignUp from './pages/SignUp';
 
 function App() {
   return (

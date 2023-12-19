@@ -1,6 +1,4 @@
-import {
-    ExpandMore as ExpandMoreIcon
-} from '@mui/icons-material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
     Box,
     Button,
@@ -8,25 +6,24 @@ import {
     Container,
     Divider,
     IconButton,
-    List,
     Paper,
     TextField,
     Typography
 } from '@mui/material';
+import Alert from '@mui/material/Alert';
+import Snackbar from '@mui/material/Snackbar';
 import { GridColDef } from '@mui/x-data-grid';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import EditToolbar from '../components/EditToolbar';
 import EditableDataGrid from '../components/EditableDataGrid';
 import companyService from '../features/companyService';
 import productService from '../features/productService';
 import useAuth from '../hooks/useAuth';
 import { OwnCompanyInfoDto } from '../interfaces/company';
 import { GridCompanyAddress, GridCompanyEmployee, GridCompanyProduct } from '../interfaces/grid';
-import { Link } from 'react-router-dom';
-import Snackbar from '@mui/material/Snackbar';
-import Alert from '@mui/material/Alert';
-import EditToolbar from '../components/EditToolbar';
 
-export function OwnCompany() {
+const OwnCompany = () => {
   const { auth } = useAuth();
   const [company, setCompany] = useState<OwnCompanyInfoDto>();
   
@@ -244,3 +241,5 @@ export function OwnCompany() {
     </Container>
   );
 };
+
+export default OwnCompany;

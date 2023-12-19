@@ -1,4 +1,4 @@
-import { LocationOn } from "@mui/icons-material";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { Button } from "@mui/material";
 import EditToolbar, { EditToolbarProps } from "./EditToolbar";
 
@@ -15,7 +15,7 @@ const RobotEditToolbar: React.FC<RobotEditToolbarProps> = (props) => {
 
   return (
     <EditToolbar setRows={setRows} setRowModesModel={setRowModesModel}>
-      <Button color="primary" startIcon={<LocationOn />} onClick={handleViewLocation}>
+      <Button color="primary" startIcon={<LocationOnIcon />} onClick={handleViewLocation}>
         View Location
       </Button>
     </EditToolbar>

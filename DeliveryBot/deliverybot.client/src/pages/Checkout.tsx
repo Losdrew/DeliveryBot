@@ -1,4 +1,4 @@
-import { LocalMall } from '@mui/icons-material';
+import LocalMallIcon from '@mui/icons-material/LocalMall';
 import {
     Box,
     Button,
@@ -20,7 +20,7 @@ import useCart from '../hooks/useCart';
 import { AddressDto } from '../interfaces/address';
 import { OrderInfoDto } from "../interfaces/order";
 
-export function Checkout() {
+const Checkout = () => {
   const { auth } = useAuth();
   const { cart, clearCart } = useCart();
 
@@ -189,7 +189,7 @@ export function Checkout() {
                     {cart.map((product) => (
                       <TableRow>
                         <TableCell width="70">
-                          <LocalMall fontSize="medium" color="primary" />
+                          <LocalMallIcon fontSize="medium" color="primary" />
                         </TableCell>
                         <TableCell>{product.name}</TableCell>
                         <TableCell>{product.description}</TableCell>
@@ -206,4 +206,7 @@ export function Checkout() {
         </React.Fragment>
       )}
     </Container>
-  )}
+  )
+};
+
+export default Checkout;

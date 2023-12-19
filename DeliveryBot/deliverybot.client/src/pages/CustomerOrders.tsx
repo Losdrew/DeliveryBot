@@ -1,4 +1,4 @@
-import { LocalMall } from '@mui/icons-material';
+import LocalMallIcon from '@mui/icons-material/LocalMall';
 import {
     Box,
     Button,
@@ -20,7 +20,7 @@ import useAuth from '../hooks/useAuth';
 import { OrderStatus, OrderStatusColors, OrderStatusLabels, RobotStatusColors, RobotStatusLabels } from '../interfaces/enums';
 import { OrderFullInfo } from '../interfaces/order';
 
-export function CustomerOrders() {
+const CustomerOrders = () => {
   const { auth } = useAuth();
   const [orders, setOrders] = useState<OrderFullInfo[]>([]);
   const [expandedOrderId, setExpandedOrderId] = useState<string | null>(null);
@@ -119,7 +119,7 @@ export function CustomerOrders() {
                           {order.products?.map((product) => (
                             <TableRow>
                               <TableCell width="70">
-                                <LocalMall fontSize="medium" color="primary" />
+                                <LocalMallIcon fontSize="medium" color="primary" />
                               </TableCell>
                               <TableCell width="150">{product.name}</TableCell>
                               <TableCell>{product.volumeCm3}</TableCell>
@@ -193,4 +193,6 @@ export function CustomerOrders() {
       </TableContainer>
     </Container>
   );
-}
+};
+
+export default CustomerOrders;

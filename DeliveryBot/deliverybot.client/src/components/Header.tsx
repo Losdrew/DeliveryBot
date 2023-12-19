@@ -1,4 +1,5 @@
-import { ShoppingCart } from '@mui/icons-material';
+import LanguageIcon from '@mui/icons-material/Language';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { AppBar, Badge, Box, Button, IconButton, Menu, MenuItem, Toolbar, Typography } from '@mui/material';
 import React from 'react';
@@ -46,7 +47,7 @@ export function Header() {
           DeliveryBot
         </Typography>
         <Box sx={{ flexGrow: 1, display: { md: 'flex' }, mr: 1 }}>
-          {!auth.userId || auth.role === Roles.Customer && (
+          {(!auth.userId || auth.role === Roles.Customer) && (
             <Button
               component={LinkRouter} 
               to="/companies"
@@ -91,6 +92,25 @@ export function Header() {
               Pending Orders
             </Button>
           )}
+          {auth.role === Roles.CompanyEmployee && (
+            <Button
+              component={LinkRouter} 
+              to="/active-deliveries"
+              sx={{ my: 2, color: 'white'}}
+            >
+              Active Deliveries
+            </Button>
+          )}
+        </Box>
+        <Box>
+          <IconButton
+            size="medium"
+            edge="start"
+            color="inherit"
+            aria-label="language"
+          >
+            <LanguageIcon sx={{fontSize: 24, mr: 1}} />
+          </IconButton>
         </Box>
         {!auth.userId && (
           <Button
@@ -116,7 +136,7 @@ export function Header() {
                   to="/cart"
                 >
                 <Badge badgeContent={cart.length} color="error">
-                  <ShoppingCart sx={{fontSize: 30}} />
+                  <ShoppingCartIcon sx={{fontSize: 30}} />
                 </Badge>
               </IconButton>
             )}

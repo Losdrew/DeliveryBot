@@ -10,7 +10,7 @@ import useAuth from '../hooks/useAuth';
 import { RobotStatus, RobotStatusColors, RobotStatusLabels } from '../interfaces/enums';
 import { GridCompanyRobot } from '../interfaces/grid';
 
-export function AdminDashboard() {
+const AdminDashboard = () => {
   const { auth } = useAuth();
   const [companyRobots, setCompanyRobots] = useState<GridCompanyRobot[]>();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -175,4 +175,6 @@ export function AdminDashboard() {
       <RobotLocationModal open={isModalOpen} handleClose={handleCloseModal} />
     </Container>
   );
-}
+};
+
+export default AdminDashboard;

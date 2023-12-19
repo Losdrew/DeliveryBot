@@ -5,7 +5,7 @@ import authService from '../features/authService';
 import useAuth from '../hooks/useAuth';
 import { AuthResultDto } from '../interfaces/account';
 
-export function Login() {
+const Login = () => {
   const { setAuth } = useAuth();
   
   const navigate = useNavigate();
@@ -74,4 +74,6 @@ export function Login() {
       </Container>
     </div>
   );
-}
+};
+
+export default Login;

@@ -1,4 +1,5 @@
-import { LocalMall, RemoveShoppingCart } from '@mui/icons-material';
+import LocalMallIcon from '@mui/icons-material/LocalMall';
+import RemoveShoppingCartIcon from '@mui/icons-material/RemoveShoppingCart';
 import {
     Box,
     Button,
@@ -15,7 +16,7 @@ import {
 import { Link } from 'react-router-dom';
 import useCart from '../hooks/useCart';
 
-export function Cart() {
+const Cart = () => {
   const { cart, removeFromCart } = useCart();
 
   if (cart.length === 0) {
@@ -54,7 +55,7 @@ export function Cart() {
             {cart.map((product) => (
               <TableRow>
                 <TableCell width="70">
-                  <LocalMall fontSize="medium" color="primary" />
+                  <LocalMallIcon fontSize="medium" color="primary" />
                 </TableCell>
                 <TableCell>{product.name}</TableCell>
                 <TableCell>{product.description}</TableCell>
@@ -67,7 +68,7 @@ export function Cart() {
                   aria-label="Remove from Cart"
                   onClick={() => handleRemoveFromCart(product.id)}
                   >
-                    <RemoveShoppingCart />
+                    <RemoveShoppingCartIcon />
                   </IconButton>
                 </TableCell>
               </TableRow>
@@ -87,4 +88,6 @@ export function Cart() {
       </Paper>
     </Container>
   );
-}
+};
+
+export default Cart;

@@ -1,11 +1,11 @@
-import { Business } from '@mui/icons-material';
+import BusinessIcon from '@mui/icons-material/Business';
 import { Container, List, ListItemButton, ListItemIcon, ListItemText, Paper, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import companyService from '../features/companyService';
 import { CompanyPreviewDto } from '../interfaces/company';
 
-export function Companies() {
+const Companies = () => {
   const [companies, setCompanies] = useState<CompanyPreviewDto[]>([]);
 
   useEffect(() => {
@@ -31,7 +31,7 @@ export function Companies() {
           {companies.map((company) => (
             <ListItemButton key={company.id} component={Link} to={`/company/${company.id}/products`}>
               <ListItemIcon>
-                <Business fontSize="medium" color="primary" />
+                <BusinessIcon fontSize="medium" color="primary" />
               </ListItemIcon>
               <ListItemText primary={company.name} secondary={company.description} />
             </ListItemButton>
@@ -40,4 +40,6 @@ export function Companies() {
       </Paper>
     </Container>
   );
-}
+};
+
+export default Companies;

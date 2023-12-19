@@ -17,7 +17,7 @@ import useAuth from '../hooks/useAuth';
 import { OrderStatusColors, OrderStatusLabels } from '../interfaces/enums';
 import { OrderFullInfo } from '../interfaces/order';
 
-export function PendingOrders() {
+const PendingOrders = () => {
   const { auth } = useAuth();
   const [pendingOrders, setPendingOrders] = useState<OrderFullInfo[]>([]);
   const [selectedOrderId, setSelectedOrderId] = useState(null);
@@ -95,4 +95,6 @@ export function PendingOrders() {
       <RobotSelectModal open={isModalOpen} onClose={handleCloseModal} orderId={selectedOrderId} />
     </Container>
   );
-}
+};
+
+export default PendingOrders;
