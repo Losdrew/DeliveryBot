@@ -8,11 +8,6 @@ public class CreateOrderCommandValidator : AbstractValidator<CreateOrderCommandD
 {
     public CreateOrderCommandValidator()
     {
-        RuleFor(o => o.PlacedDateTime)
-            .NotEmpty()
-            .Must(date => date != default(DateTime))
-            .WithMessage("Order placed date is required");
-
         RuleFor(o => o.OrderAddress)
             .NotEmpty()
             .SetValidator(new AddressValidator());

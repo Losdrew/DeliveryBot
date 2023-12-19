@@ -46,14 +46,12 @@ export function Checkout() {
 
   const handlePlaceOrder = async () => {
     try {
-      const placedDateTime = new Date();
       const orderProducts = cart.map((product) => 
       {
         return {productId : product.id, quantity : 1 } 
       });
       
       const response = await orderService.createOrder(
-        placedDateTime, 
         orderAddress, 
         orderProducts, 
         auth.bearer!

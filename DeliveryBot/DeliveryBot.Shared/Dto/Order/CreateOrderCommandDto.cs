@@ -1,5 +1,9 @@
-﻿namespace DeliveryBot.Shared.Dto.Order;
+﻿using DeliveryBot.Shared.Dto.Address;
 
-public class CreateOrderCommandDto : OrderDto
+namespace DeliveryBot.Shared.Dto.Order;
+
+public class CreateOrderCommandDto
 {
+    public AddressDto OrderAddress { get; set; }
+    public ICollection<OrderProductDto> OrderProducts { get; set; }
 }

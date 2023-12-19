@@ -51,6 +51,7 @@ public class CreateOrderCommand : CreateOrderCommandDto, IRequest<ServiceRespons
             var newOrder = Mapper.Map<Db.Models.Order>(request);
             newOrder.Customer = customer;
             newOrder.OrderProducts = orderProducts;
+            newOrder.PlacedDateTime = DateTime.UtcNow;
             Context.Add(newOrder);
 
             var orderProductIds = orderProducts.Select(op => op.ProductId).ToHashSet();

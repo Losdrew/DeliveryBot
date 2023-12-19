@@ -13,7 +13,6 @@ export interface DeliveryFullInfo extends DeliveryInfoDto {
 }
 
 export interface CreateDeliveryCommand {
-  shippedDateTime?: Date;
   robotId?: string | undefined;
   orderId?: string | undefined;
 }

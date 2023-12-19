@@ -28,7 +28,6 @@ export interface OrderProductDto {
 }
 
 export interface CreateOrderCommand {
-  placedDateTime?: Date;
   orderAddress?: AddressDto;
   orderProducts?: OrderProductDto[] | undefined;
 }

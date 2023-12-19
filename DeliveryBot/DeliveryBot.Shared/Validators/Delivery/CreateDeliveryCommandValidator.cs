@@ -12,10 +12,5 @@ public class CreateDeliveryCommandValidator : AbstractValidator<CreateDeliveryCo
 
         RuleFor(d => d.RobotId)
             .NotEmpty();
-
-        RuleFor(d => d.ShippedDateTime)
-            .NotEmpty()
-            .Must(date => date != default(DateTime))
-            .WithMessage("Delivery shipped date is required");
     }
 }

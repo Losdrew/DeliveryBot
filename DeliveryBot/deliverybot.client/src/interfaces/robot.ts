@@ -27,7 +27,8 @@ export interface CreateRobotCommand {
   deviceId?: string | undefined;
 }
 
-export interface EditRobotCommand {id?: string;
+export interface EditRobotCommand {
+  id?: string;
   name?: string | undefined;
   weightCapacityG?: number;
   volumeCapacityCm3?: number;

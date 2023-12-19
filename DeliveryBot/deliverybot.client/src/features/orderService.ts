@@ -7,14 +7,12 @@ import deliveryService from "./deliveryService";
 import productService from "./productService";
 
 const createOrder = async (
-  placedDateTime: Date,
   orderAddress: AddressDto,
   orderProducts: OrderProductDto[],
   bearerToken: string,
 ): Promise<OrderInfoDto> => {
   try {
     const request: CreateOrderCommand = { 
-      placedDateTime,
       orderAddress,
       orderProducts
     }

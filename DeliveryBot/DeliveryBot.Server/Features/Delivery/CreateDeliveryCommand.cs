@@ -64,6 +64,7 @@ public class CreateDeliveryCommand : CreateDeliveryCommandDto, IRequest<ServiceR
 
             order.Status = OrderStatus.Delivering;
             newDelivery.CompanyEmployee = companyEmployee;
+            newDelivery.ShippedDateTime = DateTime.UtcNow;
             Context.Add(newDelivery);
 
             await Context.SaveChangesAsync(cancellationToken);
