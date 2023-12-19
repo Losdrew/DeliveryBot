@@ -70,7 +70,7 @@ public class RobotController : BaseController
     /// </remarks>
     /// <returns>An IActionResult representing the result of the operation.</returns>
     [HttpGet("delivery-robot")]
-    [Authorize(Roles = Roles.Customer)]
+    [Authorize(Roles = Roles.CompanyEmployee + "," + Roles.Customer)]
     [ProducesResponseType(typeof(GetDeliveryRobotQueryDto), 200)]
     [ProducesResponseType(typeof(ErrorDto), 400)]
     public async Task<IActionResult> GetDeliveryRobot(Guid deliveryId)

@@ -40,14 +40,6 @@ public class GetDeliveryRobotQuery : IRequest<ServiceResponse<GetDeliveryRobotQu
         protected override async Task<ServiceResponse<GetDeliveryRobotQueryDto>> UnsafeHandleAsync(
             GetDeliveryRobotQuery request, CancellationToken cancellationToken)
         {
-            var isUserIdValid = ContextAccessor.TryGetUserId(out var userId);
-            var customer = await Context.Customers.FindAsync(userId);
-
-            if (!isUserIdValid || customer == null)
-            {
-                return ServiceResponseBuilder.Failure<GetDeliveryRobotQueryDto>(UserError.InvalidAuthorization);
-            }
-
             var delivery = await Context.Deliveries
                 .Include(d => d.Robot)
                 .FirstOrDefaultAsync(d => d.Id == request.DeliveryId, cancellationToken);
