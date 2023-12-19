@@ -20,7 +20,7 @@ import useAuth from '../hooks/useAuth';
 import { OrderStatus, OrderStatusColors, OrderStatusLabels, RobotStatusColors, RobotStatusLabels } from '../interfaces/enums';
 import { OrderFullInfo } from '../interfaces/order';
 
-const CustomerOrders = () => {
+export function CustomerOrders() {
   const { auth } = useAuth();
   const [orders, setOrders] = useState<OrderFullInfo[]>([]);
   const [expandedOrderId, setExpandedOrderId] = useState<string | null>(null);
@@ -193,6 +193,4 @@ const CustomerOrders = () => {
       </TableContainer>
     </Container>
   );
-};
-
-export default CustomerOrders;
+}

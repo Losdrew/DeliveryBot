@@ -17,7 +17,6 @@ export function Login() {
 
   const handleLogin = async () => {
     try {
-      
       const result: AuthResultDto = await authService.signIn(email, password);
       setAuth(result);
       saveToLocalStorage(result);

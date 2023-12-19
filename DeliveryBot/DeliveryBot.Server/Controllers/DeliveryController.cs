@@ -36,7 +36,7 @@ public class DeliveryController : BaseController
     [ProducesResponseType(typeof(ErrorDto), 400)]
     [ProducesResponseType(typeof(string), 401)]
     [ProducesResponseType(typeof(string), 403)]
-    public async Task<IActionResult> CreateOrder(CreateDeliveryCommand request, CancellationToken cancellationToken)
+    public async Task<IActionResult> CreateDelivery(CreateDeliveryCommand request, CancellationToken cancellationToken)
     {
         var result = await Mediator.Send(request, cancellationToken);
         return ConvertFromServiceResponse(result);

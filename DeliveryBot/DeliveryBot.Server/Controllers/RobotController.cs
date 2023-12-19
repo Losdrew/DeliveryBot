@@ -26,7 +26,7 @@ public class RobotController : BaseController
     /// <param name="request">The request to create new robot.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <remarks>
-    /// If the operation is successful, it will return a RobotDto.
+    /// If the operation is successful, it will return a RobotInfoDto.
     /// If there is a bad request, it will return an ErrorDto.
     /// </remarks>
     /// <returns>An IActionResult representing the result of the operation.</returns>

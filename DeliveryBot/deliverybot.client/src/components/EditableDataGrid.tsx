@@ -116,7 +116,7 @@ const EditableDataGrid: React.FC<EditableDataGridProps> = ({
   ];
 
   const processRowUpdate = (newRow: GridRowModel) => {
-    const updatedRow = { ...newRow, isNew: false };
+    const updatedRow = { ...newRow };
     setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
     return updatedRow;
   };

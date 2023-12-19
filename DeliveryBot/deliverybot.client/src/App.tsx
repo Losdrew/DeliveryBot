@@ -7,7 +7,7 @@ import { Cart } from './pages/Cart';
 import { Checkout } from './pages/Checkout';
 import { Companies } from './pages/Companies';
 import { CompanyProducts } from './pages/CompanyProducts';
-import CustomerOrders from './pages/CustomerOrders';
+import { CustomerOrders } from './pages/CustomerOrders';
 import { Home } from './pages/Home';
 import { Login } from './pages/Login';
 import { OwnCompany } from './pages/OwnCompany';

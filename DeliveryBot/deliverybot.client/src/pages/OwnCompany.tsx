@@ -226,7 +226,7 @@ export function OwnCompany() {
                   ? 'Changes saved successfully!'
                   : 'Error saving changes. Please try again.'}
               </Alert>
-          </Snackbar>
+            </Snackbar>
           </Box>
         </Paper>
       ) : (

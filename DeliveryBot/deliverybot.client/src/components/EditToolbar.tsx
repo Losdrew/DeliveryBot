@@ -16,7 +16,7 @@ const EditToolbar: React.FC<EditToolbarProps> = (props) => {
 
   const handleClick = () => {
     const id = Date.now().toString();
-    setRows((oldRows) => [...oldRows, { id, name: '', age: '', isNew: true }]);
+    setRows((oldRows) => [...oldRows, { id, isNew: true }]);
     setRowModesModel((oldModel) => ({
       ...oldModel,
       [id]: { mode: GridRowModes.Edit, fieldToFocus: 'name' },
