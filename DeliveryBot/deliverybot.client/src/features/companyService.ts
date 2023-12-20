@@ -84,11 +84,15 @@ const editCompany = async (
   companyEmployees?: CompanyEmployeeAccountDto[],
 ): Promise<OwnCompanyInfoDto> => {
   try {
+    const addresses: AddressDto[] | undefined = companyAddresses?.map((address) => ({
+      ...address,
+      id: address.isNew ? undefined : address.id,
+    }));
     const request: EditCompanyCommand = { 
       name,
       description, 
       websiteUrl, 
-      companyAddresses, 
+      companyAddresses : addresses, 
       companyEmployees 
     };
     const headers = {
