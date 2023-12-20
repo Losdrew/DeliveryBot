@@ -80,7 +80,7 @@ const CustomerOrders = () => {
             {orders.map((order) => (
               <React.Fragment key={order.id}>
                 <TableRow>
-                  <TableCell>{order.placedDateTime!.toLocaleString()}</TableCell>
+                  <TableCell>{order.placedDateTime?.toLocaleString()}</TableCell>
                   <TableCell>
                     <span
                       style={{
@@ -146,12 +146,12 @@ const CustomerOrders = () => {
                         {order.orderStatus !== OrderStatus.Pending && 
                           order.orderStatus !== OrderStatus.Cancelled && (
                           <Typography gutterBottom>
-                            {t('shippedDate')}: {order.delivery?.shippedDateTime?.toLocaleString()}
+                            {t('shippedDate')}: { order.delivery.shippedDateTime?.toLocaleString() }
                           </Typography>
                         )}
                         {order.orderStatus === OrderStatus.Delivered && (
                           <Typography gutterBottom>
-                            {t('deliveredDate')}: {order.delivery?.deliveredDateTime?.toLocaleString()}
+                            {t('deliveredDate')}: { order.delivery.deliveredDateTime?.toLocaleString() }
                           </Typography>
                         )}
                         {order.delivery?.robot && (

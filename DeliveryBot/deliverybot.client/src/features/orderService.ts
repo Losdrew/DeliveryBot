@@ -68,7 +68,7 @@ const getOwnOrders = async (
         orderFullInfo.delivery = delivery;
       }
 
-      order.placedDateTime = new Date(Date.parse(order.placedDateTime?.toString()));
+      orderFullInfo.placedDateTime = new Date(Date.parse(order.placedDateTime?.toString()));
 
       ordersFullInfo.push(orderFullInfo);
     }
@@ -110,7 +110,7 @@ const getPendingOrders = async (
         products: productDetails
       };
 
-      order.placedDateTime = new Date(Date.parse(order.placedDateTime?.toString()));
+      orderFullInfo.placedDateTime = new Date(Date.parse(order.placedDateTime?.toString()));
 
       ordersFullInfo.push(orderFullInfo);
     }

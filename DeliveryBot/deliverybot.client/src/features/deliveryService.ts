@@ -16,8 +16,8 @@ const getDelivery = async (
       { headers }
     );
 
-    const deliveredDateTime = new Date(Date.parse(deliveryResponse.data.deliveredDateTime.toString()));
-    const shippedDateTime = new Date(Date.parse(deliveryResponse.data.shippedDateTime.toString()));
+    const deliveredDateTime = new Date(Date.parse(deliveryResponse.data.deliveredDateTime?.toString()));
+    const shippedDateTime = new Date(Date.parse(deliveryResponse.data.shippedDateTime?.toString()));
     const delivery = { ...deliveryResponse.data, deliveredDateTime, shippedDateTime  }
 
     const robotResponse = await apiClient.get<GetDeliveryRobotQueryDto>(
